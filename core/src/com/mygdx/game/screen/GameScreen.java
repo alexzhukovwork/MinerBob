@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.gameworld.GameRenderer;
 import com.mygdx.game.gameworld.GameWorld;
+import com.mygdx.game.helpers.InputHandler;
 
 /**
  * Created by Алексей on 10.09.2017.
@@ -13,15 +14,19 @@ public class GameScreen implements Screen {
     private float runTime = 0;
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
-    private static final int screenWidth = Gdx.graphics.getWidth();
-    private static final int screenHeight = Gdx.graphics.getHeight();
-    public static final int HEIGHT = 136;
-    public static final int WIDTH = screenWidth / (screenHeight / HEIGHT);
+    public static float screenWidth = Gdx.graphics.getWidth();
+    public static float screenHeight = Gdx.graphics.getHeight();
+    public static float HEIGHT = 136;
+    public static float WIDTH = screenWidth / (screenHeight / HEIGHT);
+
+    private InputHandler inputHandler;
 
     @Override
     public void show() {
         gameWorld = new GameWorld();
         gameRenderer = new GameRenderer(gameWorld);
+        inputHandler = new InputHandler(gameWorld);
+        Gdx.input.setInputProcessor(inputHandler);
     }
 
     @Override
@@ -33,7 +38,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
+        WIDTH = screenWidth / (screenHeight / HEIGHT);
+        inputHandler.setScale();
     }
 
     @Override
