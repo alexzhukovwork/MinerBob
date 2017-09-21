@@ -46,21 +46,24 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
+        gameWorld.pause();
+        Gdx.app.log("Screen", "pause");
     }
 
     @Override
     public void resume() {
-
+        gameWorld.resume();
+        Gdx.app.log("Screen", "resume");
     }
 
     @Override
     public void hide() {
-
+        Gdx.app.log("Screen", "hide");
     }
 
     @Override
     public void dispose() {
-
+        Gdx.app.log("Screen", "dispose");
+        GameWorld.score = 0;
     }
 }

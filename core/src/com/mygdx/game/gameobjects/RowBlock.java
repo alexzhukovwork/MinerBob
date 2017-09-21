@@ -23,6 +23,7 @@ import java.util.Random;
 
 public class RowBlock {
     private List<List<Block>> rows;
+    private List<List<Block>> rowsPause;
 
     private GameWorld gameWorld;
 
@@ -32,6 +33,7 @@ public class RowBlock {
 
     private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock;
     private ArrayList<ITypeBlock> typeBlocks;
+
 
     private ArrayList<Boolean> bools = new ArrayList<Boolean>();
 
@@ -47,6 +49,7 @@ public class RowBlock {
     private float clayLevel = 60;
     private float stoneLevel = 100;
     private float diamondLevel = 120;
+
 
 
     public RowBlock(GameWorld gameWorld) {
@@ -74,13 +77,15 @@ public class RowBlock {
 
 
         rows = new ArrayList<List<Block>>();
+        rowsPause = new ArrayList<List<Block>>();
 
-        float height = GameScreen.HEIGHT / 5 + heightBlock;
 
         for(int i = 0; i < 4; i++) {
+            rowsPause.add(new ArrayList<Block>());
             rows.add(new ArrayList<Block>());
             for (int j = 0; j < 5; j++) {
                 rows.get(i).add(new Block());
+                rowsPause.get(i).add(new Block());
             }
         }
 
@@ -104,11 +109,11 @@ public class RowBlock {
         float height = GameScreen.HEIGHT / 5 + heightBlock;
 
         for (int i = 0; i < 5; i++) {
-            rows.get(0).get(i).restart( GameScreen.WIDTH / 5 * i, height, widthBlock, heightBlock, speedRow, earthBlock);
+            rows.get(0).get(i).restart(GameScreen.WIDTH / 5 * i, height, widthBlock, heightBlock, speedRow, earthBlock);
         }
 
         for (int i = 1; i < 4; i++) {
-            generateRow(i, GameScreen.WIDTH / 5, (i + 1) * height, speedRow);
+            generateRow(i, GameScreen.WIDTH / 5, (i+1) * height, speedRow);
         }
     }
 
@@ -124,7 +129,7 @@ public class RowBlock {
         for (int i = 0; i < 5; i++)
             bools.set(i, false);
 
-        j = rnd(0,1);
+        j = rnd(0, 1);
 
         if (j == 0) {
             j = rnd(0, 4);
@@ -179,7 +184,7 @@ public class RowBlock {
 
                 }
             }
-            if (l.get(0).getY() + l.get(0).getHeight() < 0) {
+            if (l.get(0).getStaticY() + heightBlock < 0) {
                 generateRow(i, l.get(1).getX(), GameScreen.HEIGHT, l.get(0).getVelocity().y);
             }
             i++;
@@ -250,5 +255,37 @@ public class RowBlock {
         restartType();
         restartRow();
     }
+
+    public void pause() {
+        int i = 0, j = 0;
+        for (List<Block> l : rows) {
+            for (Block b : l) {
+                rowsPause.get(i).get(j).setHeight(b.getHeight());
+                rowsPause.get(i).get(j).setWidth(b.getWidth());
+                rowsPause.get(i).get(j).setPosition(b.getX(), b.getY());
+                rowsPause.get(i).get(j).setVelocity(b.getVelocity().x, b.getVelocity().y);
+                b.setVelocity(0, 0);
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+    }
+
+    public void resume() {
+        int i = 0, j = 0;
+        for (List<Block> l : rowsPause) {
+            for (Block b : l) {
+                rows.get(i).get(j).setHeight(b.getHeight());
+                rows.get(i).get(j).setWidth(b.getWidth());
+                rows.get(i).get(j).setPosition(b.getX(), b.getY());
+                rows.get(i).get(j).setVelocity(b.getVelocity().x, b.getVelocity().y);
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+    }
+
 
 }

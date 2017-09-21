@@ -80,7 +80,7 @@ public class AssetLoader {
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(0.5f * GameScreen.WIDTH /  GameScreen.screenWidth, -0.5f * GameScreen.HEIGHT / GameScreen.screenHeight);
+        font.getData().setScale(0.8f * GameScreen.WIDTH /  GameScreen.screenWidth, -0.8f * GameScreen.HEIGHT / GameScreen.screenHeight);
 
         //font.set(.25f, -.25f);
         shadow = new BitmapFont(Gdx.files.internal("fonts/shadow.fnt"));
@@ -90,6 +90,8 @@ public class AssetLoader {
     }
 
     public static void dispose() {
+        textureBlock.dispose();
+        textureBg.dispose();
         texture.dispose();
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.helpers.AssetLoader;
 import com.mygdx.game.screen.GameScreen;
+import com.mygdx.game.ui.MenuForm;
 
 /**
  * Created by Алексей on 10.09.2017.
@@ -20,7 +21,10 @@ public class GameRenderer {
     private SpriteBatch batcher;
     private ShapeRenderer shapeRenderer;
 
+    private MenuForm menu;
+
     public GameRenderer(GameWorld gameWorld) {
+        menu = gameWorld.getMenu();
         this.gameWorld = gameWorld;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, GameScreen.WIDTH, GameScreen.HEIGHT);
@@ -35,6 +39,7 @@ public class GameRenderer {
     public void render(float runTime) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         gameWorld.getField().draw(batcher);
         gameWorld.getRowBlock().draw(shapeRenderer, batcher);
 
@@ -54,24 +59,30 @@ public class GameRenderer {
 
 
         if (!gameWorld.getActor().getAlive()) {
-            GameWorld.isEnd = true;
+            gameWorld.setState(GameWorld.GameState.RESTART);
 
-            AssetLoader.font.draw(batcher, "Game Over!", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 3);
-
-            if (GameWorld.score > AssetLoader.prefs.getInteger("highScore")) {
-                GameWorld.isRecord = true;
-                AssetLoader.prefs.putInteger("highScore", GameWorld.score);
-            }
-
-            if (GameWorld.isRecord) {
-                AssetLoader.font.draw(batcher, "New record!", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2);
-                AssetLoader.font.draw(batcher, GameWorld.score + "", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 5);
-            }
-
-            AssetLoader.font.draw(batcher, "Touch to continue!", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 5);
-        } else
+        } else if (gameWorld.isRunning())
             AssetLoader.font.draw(batcher, GameWorld.score + "", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 3);
 
         batcher.end();
+
+        if (gameWorld.isMenu())
+            menu.draw(shapeRenderer, batcher);
+
+        if (gameWorld.isShop()) {
+            gameWorld.getShop().draw(shapeRenderer, batcher);
+        }
+
+        if (gameWorld.isRestart()) {
+            gameWorld.getPauseForm().draw(shapeRenderer, batcher);
+        }
+
+        if (gameWorld.isPause()) {
+            gameWorld.getPauseForm().draw(shapeRenderer, batcher);
+        }
+
+        if (gameWorld.isRunning()) {
+            gameWorld.getRunningForm().draw(shapeRenderer, batcher);
+        }
     }
 }

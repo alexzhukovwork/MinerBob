@@ -70,7 +70,7 @@ public class Actor {
         rectangleBounds.set(position.x, position.y, width, height);
     }
 
-    public void onTouch(int screenX, int screenY) {
+    public void onTouch(float screenX, float screenY) {
         if (isOnBlock && isAlive) {
             position.y -= 1;
             rectangleBounds.y -= 1;
@@ -175,5 +175,13 @@ public class Actor {
 
     public void setAcceleration(float x, float y) {
         acceleration.set(x, y);
+    }
+
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector2 acceleration) {
+        this.acceleration = acceleration;
     }
 }

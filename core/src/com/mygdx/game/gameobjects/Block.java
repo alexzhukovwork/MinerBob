@@ -18,7 +18,7 @@ import com.mygdx.game.screen.GameScreen;
 public class Block {
     private Vector2 position;
     private Vector2 velocity;
-
+    private Vector2 staticPosition;
     private ITypeBlock type;
 
 
@@ -36,6 +36,7 @@ public class Block {
         rectangleBounds = new Rectangle();
         position = new Vector2();
         velocity = new Vector2(0, 0);
+        staticPosition = new Vector2(0, 0);
     }
 
     public Block(float x, float y, float width, float height, float speed, ITypeBlock type) {
@@ -48,16 +49,19 @@ public class Block {
         this.type = type;
         subHeight = height / type.getLevel();
         rectangleBounds = new Rectangle(x, y, width, height);
+        staticPosition.y = y;
     }
 
     public void update(float delta) {
         position.add(velocity.cpy().scl(delta));
         rectangleBounds.set(position.x, position.y, width, height);
+        staticPosition.add(velocity.cpy().scl(delta));
     }
 
     public void setPosition(float x, float y) {
         position.x = x;
         position.y = y;
+        staticPosition.y = y;
     }
 
     public boolean isCollised(Actor actor, int rowIndex) {
@@ -131,6 +135,10 @@ public class Block {
         return type.getTexture(countKick);
     }
 
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
     public Color getColor() {
         return type.getColor();
     }
@@ -143,6 +151,7 @@ public class Block {
         this.height = height;
         subHeight = height / type.getLevel();
         isDestroyed = false;
+        staticPosition.y = y;
     }
 
     private void kick(Actor actor) {
@@ -159,5 +168,9 @@ public class Block {
             isDestroyed = true;
             actor.setOnBlock(false);
         }
+    }
+
+    public float getStaticY() {
+        return staticPosition.y;
     }
 }
