@@ -49,8 +49,104 @@ public class InputHandler implements InputProcessor {
         return false;
     }
 
+
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        float x = scaleX(screenX);
+        float y = scaleY(screenY);
+
+        if (gameWorld.isDailyBonus()) {
+            if (gameWorld.getDailyBonus().isClicked(x, y)) {
+
+            }
+            return true;
+        }
+
+        if (gameWorld.isRunning()) {
+            if (gameWorld.getRunningForm().isClickedPause(x, y)) {
+
+            }
+            else
+                gameWorld.getActor().onTouch(x, y);
+            return true;
+
+        }
+
+        if (gameWorld.isShop()) {
+            if (gameWorld.getShop().getFormAccept()) {
+
+            } else {
+                if (gameWorld.getShop().isClickedClose(x, y)) {
+
+                }
+                if (gameWorld.getShop().isClickedBack(x, y)) {
+
+                }
+                if (gameWorld.getShop().isClickedNext(x, y)) {
+
+                }
+
+                if (gameWorld.getShop().isClickedVideo(x, y)) {
+
+                }
+
+                if (gameWorld.getShop().isClickedElement(x, y)) {
+                    item = gameWorld.getShop().getItem();
+                }
+            }
+            return true;
+        }
+
+        if (gameWorld.isMenu()) {
+            if (gameWorld.getMenu().isClickedPlay(x, y)) {
+
+            }
+            if (gameWorld.getMenu().isClickedShop(x, y)) {
+
+            }
+            if (gameWorld.getMenu().isClickedSound(x, y));
+
+
+
+            return true;
+        }
+
+        if (gameWorld.isRestart()) {
+
+
+            if (gameWorld.getPauseForm().isClickedMenu(x, y)) {
+
+            }
+
+            if (gameWorld.getPauseForm().isClickedRestart(x, y)) {
+
+            }
+            return true;
+        }
+
+        if (gameWorld.isPause()) {
+            if (gameWorld.getPauseForm().isClickedResume(x, y)) {
+
+            }
+
+            if (gameWorld.getPauseForm().isClickedMenu(x, y)) {
+
+            }
+            return true;
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (item != null) {
+            item.isAnimation = false;
+            item = null;
+        }
+
         float x = scaleX(screenX);
         float y = scaleY(screenY);
 
@@ -71,8 +167,7 @@ public class InputHandler implements InputProcessor {
                 gameWorld.setState(GameWorld.GameState.PAUSE);
                 gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);
             }
-            else
-                gameWorld.getActor().onTouch(x, y);
+
             return true;
 
         }
@@ -99,13 +194,6 @@ public class InputHandler implements InputProcessor {
                 if (gameWorld.getShop().isClickedVideo(x, y)) {
                     gameWorld.rewardVideo.showVideoAd();
                 }
-
-                if (gameWorld.getShop().isClickedElement(x, y)) {
-                    if (item == null) {
-                        touch = TimeUtils.millis();
-                        item = gameWorld.getShop().getItem();
-                    }
-                }
             }
             return true;
         }
@@ -119,7 +207,7 @@ public class InputHandler implements InputProcessor {
                 gameWorld.setState(GameWorld.GameState.SHOP);
             }
             if (gameWorld.getMenu().isClickedSound(x, y));
-                gameWorld.getSound().setState();
+            gameWorld.getSound().setState();
 
 
             return true;
@@ -159,15 +247,6 @@ public class InputHandler implements InputProcessor {
         }
 
 
-        return true;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (item != null) {
-            item.isAnimation = false;
-            item = null;
-        }
         return true;
     }
 

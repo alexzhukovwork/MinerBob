@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
+import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -24,6 +25,8 @@ public class Block {
 
     private ITypeBlock type;
 
+    private int countAnim = 0;
+    private float tempKick = 0;
     private float width, height;
 
     private float subHeight;
@@ -63,6 +66,8 @@ public class Block {
         position.add(tempVector.scl(delta));
 
         rectangleBounds.set(position.x, position.y, width, height);
+        if(isDestroyed)
+            countAnim = 9;
 
         tempVector.set(velocity.x, velocity.y);
         staticPosition.add(tempVector.scl(delta));
@@ -148,7 +153,7 @@ public class Block {
     }
 
     public TextureRegion getTexture() {
-        return type.getTexture(countKick);
+        return type.getTexture(countAnim);
     }
 
     public void setWidth(float width) {
@@ -160,6 +165,8 @@ public class Block {
     }
 
     public void restart(float x, float y, float width, float height, float velocityY, ITypeBlock type) {
+        tempKick = 0;
+        countAnim = 0;
         this.type = type;
         position.set(x, y);
         velocity.y = velocityY;
@@ -173,6 +180,21 @@ public class Block {
     private void kick(GameWorld gameWorld) {
         Actor actor = gameWorld.getActor();
         countKick++;
+     /*   tempKick += 10 / type.getLevel();
+        if (tempKick >= countAnim) {
+            countAnim++;
+            if(countAnim >= 10)
+                countAnim = 9;
+        }*/
+
+        tempKick += subHeight;
+        if (tempKick >= (GameScreen.HEIGHT/15) / 12f) {
+            tempKick = 0;
+            countAnim++;
+            if(countAnim >= 10)
+                countAnim = 9;
+        }
+
         position.y += subHeight;
         height -= subHeight;
         rectangleBounds.set(position.x, position.y, width, height);
@@ -184,6 +206,9 @@ public class Block {
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
             }
+
+            tempKick = 0;
+            countAnim = 0;
 
             if (gameWorld.lastDestroyed != null && !gameWorld.lastDestroyed.getName().equals("Earth") &&
                     !type.getName().equals("Gold") &&
@@ -228,6 +253,10 @@ public class Block {
             isDestroyed = true;
             actor.setOnBlock(false);
         }
+    }
+
+    public ITypeBlock getType() {
+        return type;
     }
 
     public float getStaticY() {

@@ -23,7 +23,8 @@ public class DiamondBlock implements ITypeBlock{
 
     @Override
     public TextureRegion getTexture(int countKick) {
-        return com.mygdx.minerbob.helpers.AssetLoader.diamondBlock;
+        return null;
+        //return com.mygdx.minerbob.helpers.AssetLoader.diamondBlock;
     }
 
     @Override

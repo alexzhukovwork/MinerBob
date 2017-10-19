@@ -1,6 +1,7 @@
 package com.mygdx.minerbob.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.helpers.AssetLoader;
@@ -25,16 +26,21 @@ public class ShopForm {
     private String textMessage;
     private boolean hasBought;
 
+    TextureRegion rightTexture, leftTexture, closeTexture;
+
 
     public ShopForm() {
         initPage();
         isFormAccept = false;
         hasBought = false;
         currentPage = 0;
-        boundVideo = new Rectangle(0, 0, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
-        boundClose = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
-        boundBack = new Rectangle(0, GameScreen.HEIGHT - GameScreen.HEIGHT / 12, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
-        boundNext = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, GameScreen.HEIGHT - GameScreen.HEIGHT / 12, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
+        boundVideo = new Rectangle(0, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundClose = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundBack = new Rectangle(0, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundNext = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        leftTexture = AssetLoader.buttonLeft;
+        rightTexture = AssetLoader.buttonRight;
+        closeTexture = AssetLoader.buttonClose;
 
         float x = GameScreen.WIDTH / 5;
         float y = GameScreen.HEIGHT / 5;
@@ -74,13 +80,15 @@ public class ShopForm {
         if (AssetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
             shaper.rect(boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
 
-        shaper.rect(boundClose.x, boundClose.y, boundClose.width, boundClose.height);
-
-        if (currentPage != pages.size() - 1)
-            shaper.rect(boundNext.x, boundNext.y, boundNext.width, boundNext.height);
-        if (currentPage != 0)
-            shaper.rect(boundBack.x, boundBack.y, boundBack.width, boundBack.height);
         shaper.end();
+
+        batcher.begin();
+        if (currentPage != pages.size() - 1)
+            batcher.draw(rightTexture, boundNext.x, boundNext.y, boundNext.width, boundNext.height);
+        if (currentPage != 0)
+            batcher.draw(leftTexture, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
+        batcher.draw(closeTexture, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
+        batcher.end();
         for(Page p : pages)
             p.draw(shaper, batcher, runTime);
 

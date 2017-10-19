@@ -1,6 +1,7 @@
 package com.mygdx.minerbob.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.helpers.AssetLoader;
@@ -16,10 +17,13 @@ public class MenuForm {
     Rectangle boundsShop;
     Rectangle boundsSound;
 
+    TextureRegion playTexture, shopTexture, soundTexture;
     public MenuForm() {
-        boundsPlay = new Rectangle(GameScreen.WIDTH / 2 - GameScreen.WIDTH / 6, GameScreen.HEIGHT / 2 - GameScreen.HEIGHT / 8, GameScreen.WIDTH / 3, GameScreen.HEIGHT / 6);
-        boundsSound = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6 * 2 - 5, 0, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
-        boundsShop = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
+        playTexture = AssetLoader.buttonPlay;
+        shopTexture = AssetLoader.buttonShop;
+        boundsPlay = new Rectangle(GameScreen.WIDTH / 2 - GameScreen.WIDTH / 6, GameScreen.HEIGHT / 2 - GameScreen.HEIGHT / 8, GameScreen.WIDTH / 3, GameScreen.WIDTH / 3);
+        boundsSound = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6 * 2 - 5, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundsShop = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
@@ -30,9 +34,11 @@ public class MenuForm {
         shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(1, 1, 1, 1);
         shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
-        shaper.rect(boundsShop.x, boundsShop.y, boundsShop.width, boundsShop.height);
-        shaper.rect(boundsPlay.x, boundsPlay.y, boundsPlay.width, boundsPlay.height);
         shaper.end();
+        batcher.begin();
+        batcher.draw(playTexture, boundsPlay.x, boundsPlay.y, boundsPlay.width, boundsPlay.height);
+        batcher.draw(shopTexture, boundsShop.x, boundsShop.y, boundsShop.width, boundsShop.height);
+        batcher.end();
     }
 
     public boolean isClickedPlay(float x, float y) {

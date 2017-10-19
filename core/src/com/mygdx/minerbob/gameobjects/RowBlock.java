@@ -30,6 +30,9 @@ public class RowBlock {
 
     private long lastTimeSpeed;
 
+    //Animation
+    private int countEarthAnim = 0;
+
     private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock;
     private Array<ITypeBlock> typeBlocks;
 
@@ -48,7 +51,7 @@ public class RowBlock {
     private float diamondLevel = 130;
 
     private int scoreCount = 0;
-    private int maxspeed = 55;
+    private int maxspeed = 65;
 
 
     public RowBlock(GameWorld gameWorld) {
@@ -199,7 +202,6 @@ public class RowBlock {
                 if (TimeUtils.nanoTime() - lastTimeSpeed > 3000000000L) {
                     if (b.getVelocity().y > - maxspeed) {
                         b.setVelocity(0, b.getVelocity().y + (b.getVelocity().y / 24.0f));
-                        //speed = b.getVelocity().y + (b.getVelocity().y / 24.0f);
                     }
                 }
                 b.update(delta);
@@ -251,7 +253,8 @@ public class RowBlock {
             for (Block b : l) {
                 if (!b.getDestroyed()) {
                     shaper.setColor(b.getColor());
-                    shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                    if (!b.getType().getName().equals("Earth"))
+                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
                 }
             }
         }
@@ -264,21 +267,24 @@ public class RowBlock {
         for (Array<Block> l : rows) {
             for (Block b : l) {
                 if (!b.getDestroyed()) {
-                    shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                    if (!b.getType().getName().equals("Earth"))
+                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
                 }
             }
         }
 
         shaper.end();
-      /*  batcher.begin();
-        for (List<Block> l : rows) {
+        batcher.begin();
+        for (Array<Block> l : rows) {
             for (Block b : l) {
-                if (!b.getDestroyed()) {
-                    batcher.draw(b.getTexture(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
-                }
+                //if (!b.getDestroyed()) {
+                    if (b.getType().getName().equals("Earth")) {
+                        batcher.draw(b.getTexture(), b.getX(), b.getStaticY(), b.getWidth(), heightBlock);
+                    }
+                //}
             }
         }
-        batcher.end();*/
+        batcher.end();
     }
 
     public void stop() {

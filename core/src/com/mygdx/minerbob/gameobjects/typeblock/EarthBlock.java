@@ -2,6 +2,7 @@ package com.mygdx.minerbob.gameobjects.typeblock;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.minerbob.helpers.AssetLoader;
 
 /**
  * Created by Алексей on 13.09.2017.
@@ -23,7 +24,7 @@ public class EarthBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int kick) {
-        return com.mygdx.minerbob.helpers.AssetLoader.earthBlock;
+        return AssetLoader.earthTextures.get(kick);
     }
 
     @Override

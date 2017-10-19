@@ -23,7 +23,8 @@ public class TitanBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int countKick) {
-        return com.mygdx.minerbob.helpers.AssetLoader.titanBlock;
+        return null;
+        // return com.mygdx.minerbob.helpers.AssetLoader.titanBlock;
     }
 
     @Override

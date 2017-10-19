@@ -24,7 +24,8 @@ public class ClayBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int countKick) {
-        return AssetLoader.clayBlock;
+      //  return AssetLoader.clayBlock;
+        return null;
     }
 
     @Override

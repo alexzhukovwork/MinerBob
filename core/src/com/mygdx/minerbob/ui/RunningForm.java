@@ -1,8 +1,10 @@
 package com.mygdx.minerbob.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.screen.GameScreen;
 
 /**
@@ -12,15 +14,17 @@ import com.mygdx.minerbob.screen.GameScreen;
 public class RunningForm {
     Rectangle boundsPause;
 
+    TextureRegion pauseTexture;
+
     public RunningForm() {
-        boundsPause = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.HEIGHT / 12);
+        pauseTexture = AssetLoader.buttonPause;
+        boundsPause = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
-        shaper.begin(ShapeRenderer.ShapeType.Filled);
-        shaper.setColor(1, 1, 1, 1f);
-        shaper.rect(boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
-        shaper.end();
+        batcher.begin();
+        batcher.draw(pauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
+        batcher.end();
     }
 
     public boolean isClickedPause(float x, float y) {

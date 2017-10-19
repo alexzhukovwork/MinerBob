@@ -23,7 +23,8 @@ public class StoneBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int countKick) {
-        return com.mygdx.minerbob.helpers.AssetLoader.stoneBlock;
+        return null;
+        //return com.mygdx.minerbob.helpers.AssetLoader.stoneBlock;
     }
 
     @Override
