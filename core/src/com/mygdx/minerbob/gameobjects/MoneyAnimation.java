@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.TextSize;
+import com.mygdx.minerbob.screen.GameScreen;
 
 /**
  * Created by Алексей on 19.10.2017.
@@ -17,20 +18,20 @@ public class MoneyAnimation {
 
     public MoneyAnimation() {
         position = new Vector2(0, -100);
-        velocity = new Vector2(0, -150);
+        velocity = new Vector2(0, -300);
         tempVector = new Vector2(0, -10);
-        this.radius = 2f;;
+        this.radius = 2f;
     }
 
     public void setPosition(float x, float y) {
         position.x = x;
         position.y = y;
+        velocity.x = (GameScreen.WIDTH - x) * 4;
+        velocity.y = (0 - y) * 4;
     }
 
     public void draw(SpriteBatch batcher, ShapeRenderer shaper) {
-       // System.out.println("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee " +  position.y);
         if (position.y + radius > 0) {
-       //     System.out.println("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             shaper.begin(ShapeRenderer.ShapeType.Filled);
             shaper.setColor(255, 255, 0, 1);
             shaper.circle(position.x, position.y, radius);
@@ -39,9 +40,9 @@ public class MoneyAnimation {
     }
 
     public void update(float delta) {
-       // System.out.println("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + " update " + position.y);
         if (position.y + radius > 0) {
             tempVector.y = velocity.y;
+            tempVector.x = velocity.x;
             position.add(tempVector.scl(delta));
         }
     }
