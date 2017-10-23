@@ -3,7 +3,7 @@ android {
         MinerBobKey {
             keyAlias 'MinerBobKey'
             keyPassword 'k12erst0rm'
-            storeFile file('C:/Users/Алексей/MinerBobKey.jks')
+            storeFile file('/MinerBobKey.jks')
             storePassword 'k12erst0rm'
         }
     }

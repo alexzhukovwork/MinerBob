@@ -74,10 +74,7 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-       // Gdx.app.log("GameWorld", "update");
-      //  Gdx.app.log("FPS", 1 / delta + "");
-
-        if (isRunning()) {
+         if (isRunning()) {
             moneyAnimation.update(delta);
             field.update(delta);
             actor.update(delta);
