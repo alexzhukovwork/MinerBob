@@ -87,10 +87,13 @@ public class GameRenderer {
                 AssetLoader.font.draw(batcher, "X" + gameWorld.scl, 0, 0);
                 batcher.end();
             }
+
         }
 
         if (gameWorld.isDailyBonus()) {
             gameWorld.getDailyBonus().draw(shapeRenderer, batcher);
         }
+
+        gameWorld.moneyAnimation.draw(batcher, shapeRenderer);
     }
 }

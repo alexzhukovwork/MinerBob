@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.gameobjects.Actor;
 import com.mygdx.minerbob.gameobjects.Field;
+import com.mygdx.minerbob.gameobjects.MoneyAnimation;
 import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.helpers.Sound;
@@ -41,6 +42,8 @@ public class GameWorld {
 
     public IRewardVideo rewardVideo;
 
+    public MoneyAnimation moneyAnimation;
+
     public enum GameState {
        MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS
     }
@@ -52,6 +55,7 @@ public class GameWorld {
 
     public GameWorld(IRewardVideo handler) {
         rewardVideo = handler;
+        moneyAnimation = new MoneyAnimation();
         runningForm = new RunningForm();
         pauseForm = new PauseForm();
         sound = new Sound();
@@ -74,6 +78,7 @@ public class GameWorld {
       //  Gdx.app.log("FPS", 1 / delta + "");
 
         if (isRunning()) {
+            moneyAnimation.update(delta);
             field.update(delta);
             actor.update(delta);
             rowBlock.update(delta);

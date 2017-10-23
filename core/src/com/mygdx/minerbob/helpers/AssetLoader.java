@@ -21,20 +21,18 @@ public class AssetLoader {
     public static Texture textureBlock;
     public static Texture textureBg;
     public static Texture textureStart;
-    public static Texture textureStartScreen;
     public static Texture textureButtons;
+    public static Texture textureSplashScreen;
 
     public static BitmapFont font;
 
 
     public static TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
-//    public static TextureRegion earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock;
     public static TextureRegion startField;
     public static TextureRegion bgFirst;
     public static TextureRegion currentTexture;
     public static TextureRegion startScreen;
-
-    public static Texture blockTexture;
+    public static TextureRegion splashScreen;
 
     //buttons
     public static TextureRegion buttonPlay;
@@ -66,17 +64,13 @@ public class AssetLoader {
     public static Preferences prefs;
     public static boolean isInternet;
 
+    public static void loadSplashScreen() {
+        textureSplashScreen = new Texture(Gdx.files.internal("img/splashScreen.jpg"));
+        splashScreen = new TextureRegion(textureSplashScreen, 0, 0, 640, 640);
+        splashScreen.flip(false, true);
+    }
+
     private static void initButtons() {
-
-
-        earthTextures = new Array<TextureRegion>();
-        for (int i = 0; i < 10; i++) {
-            textureBlock = new Texture(Gdx.files.internal("img/earth" + i + ".png"));
-            earthBlock = new TextureRegion(textureBlock, 0, 0, 200, 100);
-            earthBlock.flip(false, true);
-            earthTextures.add(earthBlock);
-        }
-
         textureButtons = new Texture(Gdx.files.internal("img/buttons.png"));
         buttonPlay = new TextureRegion(textureButtons, 512 * 3 + 3, 512 + 1, 512, 512);
         buttonPlayClicked = new TextureRegion(textureButtons, 512 * 4 + 4, 0, 512, 512);
@@ -114,6 +108,14 @@ public class AssetLoader {
     }
 
     public static void load() {
+        earthTextures = new Array<TextureRegion>();
+        for (int i = 0; i < 10; i++) {
+            textureBlock = new Texture(Gdx.files.internal("img/earth" + i + ".png"));
+            earthBlock = new TextureRegion(textureBlock, 0, 0, 200, 100);
+            earthBlock.flip(false, true);
+            earthTextures.add(earthBlock);
+        }
+
         textures = new Array<ActorTexture>();
         initButtons();
         textureBg = new Texture(Gdx.files.internal("img/BG.png"));
@@ -122,22 +124,6 @@ public class AssetLoader {
         bgFirst = new TextureRegion(textureBg, 500, 800);
         textureBlock = new Texture(Gdx.files.internal("img/Blocks.png"));
         textureBlock.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-      /*  earthBlock = new TextureRegion(textureBlock, 0, 0, 100, 66);
-        earthBlock.flip(false, true);
-
-        clayBlock = new TextureRegion(textureBlock, 100, 0, 100, 66);
-        clayBlock.flip(false, true);
-
-        stoneBlock = new TextureRegion(textureBlock, 200, 0, 100, 66);
-        stoneBlock.flip(false, true);
-
-        diamondBlock = new TextureRegion(textureBlock, 300, 0, 100, 66);
-        diamondBlock.flip(false, true);
-
-        titanBlock = new TextureRegion(textureBlock, 400, 0, 100, 66);
-        titanBlock.flip(false, true);*/
-
 
         texture = new Texture(Gdx.files.internal("img/Actor.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -175,14 +161,13 @@ public class AssetLoader {
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(0.035f, -0.035f);
+        font.getData().setScale(0.05f, -0.05f);
 
         currentAnimation = textures.get(0).animation;
         currentTexture = textures.get(0).textureFall;
 
         initPrefs();
         checkInternet();
-
     }
 
     private static void initPrefs() {

@@ -51,7 +51,7 @@ public class RowBlock {
     private float diamondLevel = 130;
 
     private int scoreCount = 0;
-    private int maxspeed = 65;
+    private int maxspeed = 55;
 
 
     public RowBlock(GameWorld gameWorld) {

@@ -92,7 +92,8 @@ public class InputHandler implements InputProcessor {
                 }
 
                 if (gameWorld.getShop().isClickedElement(x, y)) {
-                    item = gameWorld.getShop().getItem();
+                    if (item == null)
+                        item = gameWorld.getShop().getItem();
                 }
             }
             return true;
@@ -142,11 +143,6 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (item != null) {
-            item.isAnimation = false;
-            item = null;
-        }
-
         float x = scaleX(screenX);
         float y = scaleY(screenY);
 
@@ -173,6 +169,10 @@ public class InputHandler implements InputProcessor {
         }
 
         if (gameWorld.isShop()) {
+            if (item != null) {
+                item.isAnimation = false;
+                item = null;
+            }
             if (gameWorld.getShop().getFormAccept()) {
                 gameWorld.getShop().onAcceptClicked(x, y);
                 gameWorld.getShop().onCancelClicked(x, y);

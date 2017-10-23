@@ -105,9 +105,9 @@ public class ShopForm {
             }
             shaper.end();
             batcher.begin();
-            AssetLoader.font.getData().setScale(0.02f, -0.02f);
+            AssetLoader.font.getData().setScale(0.03f, -0.03f);
             AssetLoader.font.draw(batcher, textMessage, boundFrom.x, boundFrom.y);
-            AssetLoader.font.getData().setScale(0.035f, -0.035f);
+            AssetLoader.font.getData().setScale(0.05f, -0.05f);
             batcher.end();
         }
 

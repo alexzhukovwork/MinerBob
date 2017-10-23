@@ -180,19 +180,19 @@ public class Block {
     private void kick(GameWorld gameWorld) {
         Actor actor = gameWorld.getActor();
         countKick++;
-     /*   tempKick += 10 / type.getLevel();
+      /*  tempKick += 10 / type.getLevel();
         if (tempKick >= countAnim) {
             countAnim++;
             if(countAnim >= 10)
                 countAnim = 9;
-        }*/
-
+        }
+*/
         tempKick += subHeight;
         if (tempKick >= (GameScreen.HEIGHT/15) / 12f) {
             tempKick = 0;
-            countAnim++;
-            if(countAnim >= 10)
-                countAnim = 9;
+
+            if(countAnim != 9)
+                countAnim++;
         }
 
         position.y += subHeight;
@@ -206,9 +206,8 @@ public class Block {
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
             }
-
-            tempKick = 0;
-            countAnim = 0;
+            if (type.getName().equals("Gold"))
+                gameWorld.moneyAnimation.setPosition(position.x + width / 2, position.y);
 
             if (gameWorld.lastDestroyed != null && !gameWorld.lastDestroyed.getName().equals("Earth") &&
                     !type.getName().equals("Gold") &&
