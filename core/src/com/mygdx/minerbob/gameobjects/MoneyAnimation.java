@@ -15,6 +15,9 @@ import com.mygdx.minerbob.screen.GameScreen;
 public class MoneyAnimation {
     private Vector2 position, velocity, tempVector;
     private float radius;
+    private int count;
+    private float beginY;
+
 
     public MoneyAnimation() {
         position = new Vector2(0, -100);
@@ -23,24 +26,30 @@ public class MoneyAnimation {
         this.radius = 2f;
     }
 
-    public void setPosition(float x, float y) {
+    public void setAttributes(float x, float y, int count) {
+        this.count = count;
         position.x = x;
         position.y = y;
-        velocity.x = (GameScreen.WIDTH - x) * 4;
-        velocity.y = (0 - y) * 4;
+
+        beginY = y;
+        velocity.x = (GameScreen.WIDTH - x) * 3;
+        velocity.y = (0 - y) * 3;
     }
 
     public void draw(SpriteBatch batcher, ShapeRenderer shaper) {
-        if (position.y + radius > 0) {
+        if (position.y + count * radius * 2> 0) {
             shaper.begin(ShapeRenderer.ShapeType.Filled);
             shaper.setColor(255, 255, 0, 1);
-            shaper.circle(position.x, position.y, radius);
+            for (int i = 0; i < count; i++) {
+                if (beginY - position.y > radius * i * 2)
+                    shaper.circle(position.x - i * radius * 2, position.y + i * radius * 2, radius);
+            }
             shaper.end();
         }
     }
 
     public void update(float delta) {
-        if (position.y + radius > 0) {
+        if (position.y + count * radius * 2 > 0) {
             tempVector.y = velocity.y;
             tempVector.x = velocity.x;
             position.add(tempVector.scl(delta));

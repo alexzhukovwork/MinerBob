@@ -71,8 +71,10 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
        // gameWorld.pause();
-        gameWorld.setState(GameWorld.GameState.PAUSE);
-        gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);
+        if (gameWorld.isRunning()) {
+            gameWorld.setState(GameWorld.GameState.PAUSE);
+            gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);
+        }
         Gdx.app.log("Screen", "pause");
     }
 
