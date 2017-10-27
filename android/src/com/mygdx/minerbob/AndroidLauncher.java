@@ -3,6 +3,8 @@ package com.mygdx.minerbob;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +20,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.MyDate;
@@ -35,6 +38,9 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
 	protected AdView adView;
 	protected View gameView;
+    private GameWorld gameWorld;
+
+
 
 	protected Handler handler = new Handler() {
 		@Override
@@ -80,6 +86,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		AdRequest adRequest = new AdRequest.Builder()
 				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // Указываем тестовый режим на эмуляторе
 				.addTestDevice("04DBBFBA3AE8F069512B7E9B2200B932") // ID устройства. Его видно в логе после первого запуска
+				.addTestDevice("D339B6E991AEC0AA2CAC570AFBF35887")
 				.build();
 
 		// Закружаем объявления
@@ -123,14 +130,21 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 			@Override
 			public void onRewarded(RewardItem rewardItem) {
 
-
-				System.out.println(AssetLoader.prefs.getInteger("countVideo"));
-				AssetLoader.prefs.putInteger("countVideo", AssetLoader.prefs.getInteger("countVideo") + 1);
-				AssetLoader.prefs.flush();
-				if (AssetLoader.prefs.getInteger("countVideo") == 1)
-					Money.add(20);
+				if(gameWorld.isAdShop()) {
+					//Log.i("InfoTag", "EEE boy. Shop AD");
+					AssetLoader.prefs.putInteger("countVideo", AssetLoader.prefs.getInteger("countVideo") + 1);
+					AssetLoader.prefs.flush();
+					if (AssetLoader.prefs.getInteger("countVideo") == 1)
+						Money.add(20);
+					else
+						Money.add(10);
+				}
 				else
-					Money.add(10);
+					if(gameWorld.isAdRestore()) {
+                        gameWorld.restore();
+                        AssetLoader.prefs.putInteger("countRestore", AssetLoader.prefs.getInteger("countRestore") + 1);
+                        AssetLoader.prefs.flush();
+					}
 
 				loadRewardedVideoAd();  // Load for next Reward Point
 
@@ -153,6 +167,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		mAd.loadAd("ca-app-pub-2837758853531177/7389204663", new AdRequest.Builder()
 				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 				.addTestDevice("04DBBFBA3AE8F069512B7E9B2200B932")
+				.addTestDevice("D339B6E991AEC0AA2CAC570AFBF35887")
 				.build());
 	}
 
@@ -169,7 +184,12 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		});
 	}
 
-	public boolean hasVideoReward(){
+    @Override
+    public void setGameWorld(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
+    }
+
+    public boolean hasVideoReward(){
 		return mAd.isLoaded();
 	}
 

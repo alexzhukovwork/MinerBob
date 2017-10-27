@@ -18,6 +18,7 @@ public class PauseForm {
     private Rectangle boundsBoard;
     private Rectangle boundsMenu;
     private Rectangle boundsRestart;
+    private Rectangle boundsRestore;
     private String message;
     private State currentState;
 
@@ -31,6 +32,8 @@ public class PauseForm {
         float width = GameScreen.WIDTH / 5 * 3;
         float height = width;
         message = "";
+        if(AssetLoader.isInternet)
+            boundsRestore = new Rectangle(-100, -100, width / 2 - width / 10 * 2, height / 10 * 2);
         boundsBoard = new Rectangle(x, y, width, height);
         boundsMenu = new Rectangle(x + width / 2 + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
         boundsRestart = new Rectangle(x + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
@@ -52,6 +55,11 @@ public class PauseForm {
         shaper.setColor(0, 0, 0, 1);
         shaper.rect(boundsMenu.x, boundsMenu.y, boundsMenu.width, boundsMenu.height);
         shaper.rect(boundsRestart.x, boundsRestart.y, boundsRestart.width, boundsRestart.height);
+        if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
+                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+            shaper.setColor(1, 1, 1, 1);
+            shaper.rect(boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
+        }
         shaper.end();
         batcher.begin();
         float width = 0;
@@ -89,6 +97,10 @@ public class PauseForm {
         return boundsRestart.contains(x, y);
     }
 
+    public boolean isClickedRestore(float x, float y) {
+        return (AssetLoader.isInternet) ? boundsRestore.contains(x, y) : false;
+    }
+
     public boolean isPause() {
         return currentState == State.PAUSE;
     }
@@ -103,5 +115,20 @@ public class PauseForm {
 
     public void setState(State currentState) {
         this.currentState = currentState;
+        float x = GameScreen.WIDTH / 5;
+        float y = GameScreen.HEIGHT / 5;
+        float width = GameScreen.WIDTH / 5 * 3;
+        float height = width;
+        if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
+                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+            boundsMenu.set(x + width - (width / 2 - width / 10 * 2) - 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
+            boundsRestart.set(x + 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
+            boundsRestore.set(x + width / 2 - (width / 2 - width / 10 * 2) / 2, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
+        }
+        else {
+            boundsRestore.set(-100, -100, width / 2 - width / 10 * 2, height / 10 * 2);
+            boundsMenu.set(x + width / 2 + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
+            boundsRestart.set(x + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
+        }
     }
 }

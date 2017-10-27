@@ -1,12 +1,13 @@
 package com.mygdx.minerbob.gameworld;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.minerbob.IRewardVideo;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.minerbob.gameobjects.Actor;
 import com.mygdx.minerbob.gameobjects.Field;
 import com.mygdx.minerbob.gameobjects.MoneyAnimation;
 import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
+import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Sound;
 import com.mygdx.minerbob.screen.GameScreen;
 import com.mygdx.minerbob.ui.DailyBonus;
@@ -31,6 +32,10 @@ public class GameWorld {
     private RunningForm runningForm;
     private DailyBonus dailyBonus;
 
+    private AdId adState;
+
+    public enum AdId { SHOPAD, RESTOREAD }
+
     public ITypeBlock lastDestroyed = null;
     public int countCombo = 1;
     public int scl = 1;
@@ -39,6 +44,7 @@ public class GameWorld {
     public boolean isKickedFirst;
     public boolean isStart;
     public boolean isCollisedSecond;
+    public boolean isRestoring;
 
     public IRewardVideo rewardVideo;
 
@@ -90,7 +96,6 @@ public class GameWorld {
             pauseForm.setState(PauseForm.State.SCORE);
             pauseForm.checkRecord();
         }
-
     }
 
     public void stop()
@@ -108,9 +113,40 @@ public class GameWorld {
         lastDestroyed = null;
         isRecord = false;
         score = 0;
-        actor.restart(GameScreen.WIDTH / 5 * 2 + 1, GameScreen.HEIGHT - GameScreen.HEIGHT / 15 - GameScreen.HEIGHT / 7, GameScreen.WIDTH / 5 - 2, GameScreen.HEIGHT / 7);
+        actor.restart(GameScreen.WIDTH / 5 * 2 + 1, GameScreen.HEIGHT - GameScreen.HEIGHT / 15 - GameScreen.HEIGHT / 7);
         rowBlock.restart();
         field.restart();
+    }
+
+    public void restore() {
+        isRestoring = true;
+        setState(GameWorld.GameState.RUNNING);
+        startCombo = 0;
+        countCombo = 0;
+        lastDestroyed = null;
+        isRecord = false;
+        int i = rowBlock.identifyRow(0, GameScreen.HEIGHT / 2);
+        float x = rowBlock.getBlock(i, 2).getX();
+        float y = rowBlock.getBlock(i, 2).getY();
+        actor.restore(x + 2, y - GameScreen.HEIGHT / 7);
+        rowBlock.setRowEarth(i);
+    }
+
+    public void setRestoring() {
+        rowBlock.restore();
+        actor.setAcceleration(0, 10);
+    }
+
+    public boolean isAdShop() {
+        return adState == AdId.SHOPAD;
+    }
+
+    public boolean isAdRestore() {
+        return adState == AdId.RESTOREAD;
+    }
+
+    public void setAdState(AdId state) {
+        adState = state;
     }
 
     public Actor getActor() {

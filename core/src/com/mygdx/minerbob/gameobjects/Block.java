@@ -79,6 +79,11 @@ public class Block {
         staticPosition.y = y;
     }
 
+    public void setType(ITypeBlock type) {
+        this.type = type;
+        subHeight = height / type.getLevel();
+    }
+
     public boolean isCollised(GameWorld gameWorld, int rowIndex) {
         Actor actor = gameWorld.getActor();
 

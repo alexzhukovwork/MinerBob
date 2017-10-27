@@ -39,12 +39,18 @@ public class Actor {
         isAlive = true;
     }
 
-    public void restart(float x, float y, float width, float height) {
+    public void restart(float x, float y) {
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 100);
-        this.width = width;
-        this.height = height;
+        isAlive = true;
+        isOnBlock = false;
+    }
+
+    public void restore(float x, float y) {
+        position = new Vector2(x, y);
+        velocity = new Vector2(0, 0);
+        acceleration = new Vector2(0, 0);
         isAlive = true;
         isOnBlock = false;
     }
