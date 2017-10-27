@@ -24,7 +24,8 @@ public class EarthBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int kick) {
-        return AssetLoader.earthTextures.get(kick);
+        //return AssetLoader.earthTextures.get(kick);
+        return AssetLoader.earthBlock;
     }
 
     @Override

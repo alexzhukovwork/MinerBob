@@ -31,11 +31,12 @@ public class MenuForm {
         AssetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", GameScreen.WIDTH / 10, 0);
         batcher.end();
         Money.draw(shaper, batcher, GameScreen.WIDTH / 10, GameScreen.HEIGHT - GameScreen.HEIGHT / 10, Money.money);
-        shaper.begin(ShapeRenderer.ShapeType.Filled);
+   /*     shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(1, 1, 1, 1);
-        shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
+      //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         shaper.end();
-        batcher.begin();
+     */   batcher.begin();
+        batcher.draw(AssetLoader.buttonSound, boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         batcher.draw(playTexture, boundsPlay.x, boundsPlay.y, boundsPlay.width, boundsPlay.height);
         batcher.draw(shopTexture, boundsShop.x, boundsShop.y, boundsShop.width, boundsShop.height);
         batcher.end();

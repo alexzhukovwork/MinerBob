@@ -51,7 +51,11 @@ public class AssetLoader {
     public static TextureRegion buttonShopClicked;
     public static TextureRegion buttonOk;
     public static TextureRegion buttonOkClicked;
+    public static TextureRegion buttonSound;
 
+    private static Texture testPlay;
+    private static Texture testShop;
+    private static Texture testSound;
 
     public static TextureRegion earthBlock;
 
@@ -89,6 +93,17 @@ public class AssetLoader {
         buttonOk = new TextureRegion(textureButtons, 512 + 1, 512 * 2 + 2, 512, 512);
         buttonOkClicked = new TextureRegion(textureButtons, 512 * 2 + 2, 512 + 1, 512, 512);
 
+        testPlay = new Texture(Gdx.files.internal("img/play.png"));
+        buttonPlay = new TextureRegion(testPlay, 0, 0, 257, 269);
+
+        testShop = new Texture(Gdx.files.internal("img/shop.png"));
+        buttonShop = new TextureRegion(testShop, 0, 0, 129, 129);
+
+        testSound = new Texture(Gdx.files.internal("img/audio.png"));
+        buttonSound = new TextureRegion(testSound, 0, 0, 129, 129);
+
+
+        buttonSound.flip(false, true);
         buttonOk.flip(false, true);
         buttonOkClicked.flip(false, true);
         buttonShop.flip(false, true);
@@ -109,13 +124,14 @@ public class AssetLoader {
 
     public static void load() {
         earthTextures = new Array<TextureRegion>();
-        for (int i = 0; i < 10; i++) {
-            textureBlock = new Texture(Gdx.files.internal("img/earth" + i + ".png"));
-            earthBlock = new TextureRegion(textureBlock, 0, 0, 200, 100);
+      /*  for (int i = 1; i < 2; i++) {
+            textureBlock = new Texture(Gdx.files.internal("img/" + i + ".png"));
+            earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
             earthBlock.flip(false, true);
             earthTextures.add(earthBlock);
-        }
-
+        }*/
+        textureBlock = new Texture(Gdx.files.internal("img/" + 1 + ".png"));
+        earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
         textures = new Array<ActorTexture>();
         initButtons();
         textureBg = new Texture(Gdx.files.internal("img/BG.png"));
@@ -131,7 +147,7 @@ public class AssetLoader {
         textureStart = new Texture(Gdx.files.internal("img/StartField.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        startField = new TextureRegion(textureStart, 0, 0, 1280, 800);
+        startField = new TextureRegion(textureStart, 0, 0, 256, 512);
         startField.flip(false, true);
 
         actorFall = new TextureRegion(texture, 0, 11, 259, 370);

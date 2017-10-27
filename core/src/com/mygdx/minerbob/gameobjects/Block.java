@@ -242,8 +242,8 @@ public class Block {
             GameWorld.score += type.getScore() * gameWorld.scl;
 
             if ( type.getName().equals("Gold") ) {
-                Money.add(1 * gameWorld.scl);
-                GameWorld.currentMoney++;
+                Money.add(gameWorld.scl);
+                GameWorld.currentMoney += gameWorld.scl;
             }
 
             isDestroyed = true;
