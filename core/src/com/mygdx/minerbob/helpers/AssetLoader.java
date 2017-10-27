@@ -136,14 +136,14 @@ public class AssetLoader {
         restoreAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         earthTextures = new Array<TextureRegion>();
-      /*  for (int i = 1; i < 2; i++) {
-            textureBlock = new Texture(Gdx.files.internal("img/" + i + ".png"));
-            earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
+        for (int i = 0; i < 10; i++) {
+            textureBlock = new Texture(Gdx.files.internal("img/earth" + i + ".png"));
+            earthBlock = new TextureRegion(textureBlock, 0, 0, 201, 101);
             earthBlock.flip(false, true);
             earthTextures.add(earthBlock);
-        }*/
-        textureBlock = new Texture(Gdx.files.internal("img/" + 1 + ".png"));
-        earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
+        }
+        //textureBlock = new Texture(Gdx.files.internal("img/" + 1 + ".png"));
+        //earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
         textures = new Array<ActorTexture>();
         initButtons();
         textureBg = new Texture(Gdx.files.internal("img/BG.png"));

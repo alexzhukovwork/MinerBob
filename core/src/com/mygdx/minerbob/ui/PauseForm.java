@@ -32,7 +32,7 @@ public class PauseForm {
         float width = GameScreen.WIDTH / 5 * 3;
         float height = width;
         message = "";
-        if(AssetLoader.isInternet)
+       // if(AssetLoader.isInternet)
             boundsRestore = new Rectangle(-100, -100, width / 2 - width / 10 * 2, height / 10 * 2);
         boundsBoard = new Rectangle(x, y, width, height);
         boundsMenu = new Rectangle(x + width / 2 + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
