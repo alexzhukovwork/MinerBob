@@ -17,6 +17,8 @@ import com.mygdx.minerbob.screen.GameScreen;
 
 import java.util.Random;
 
+import sun.rmi.runtime.Log;
+
 /**
  * Created by Алексей on 11.09.2017.
  */
@@ -44,6 +46,7 @@ public class RowBlock {
     private int countTitan = 0;
 
     private float speedRow = -20;
+    private float currentSpeed = 0;
 
     private float earthLevel = 52;
     private float clayLevel = 62;
@@ -62,6 +65,9 @@ public class RowBlock {
         initObjects();
     }
 
+    public Block getBlock(int i, int j) {
+        return rows.get(i).get(j);
+    }
 
     private void initObjects() {
         goldBlock = new GoldBlock(earthLevel);
@@ -124,7 +130,6 @@ public class RowBlock {
             }
         }
     }
-
 
     private int rnd(int min, int max) {
         max -= min;
@@ -230,6 +235,7 @@ public class RowBlock {
              if(maxTitan >= 2)
                 maxTitan = 2;
         }
+        //Gdx.app.log("level", typeBlocks.get(0).getLevel() + "");
         setStandartSpeed();
     }
 
@@ -288,6 +294,9 @@ public class RowBlock {
     }
 
     public void stop() {
+        if (rows.get(0).get(0).getVelocity().y != 0) {
+            currentSpeed = rows.get(0).get(0).getVelocity().y;
+        }
         for (Array<Block> l : rows) {
             for (Block b : l) {
                 b.stop();
@@ -304,4 +313,46 @@ public class RowBlock {
         scoreCount = 0;
     }
 
+    public int identifyRow(float x, float y) {
+        float tx, ty;
+        float acs = 10;
+        int buf = -1;
+        for(int i = 0; i < 4; i++) {
+            tx = rows.get(i).get(0).getX();
+            ty = rows.get(i).get(0).getY();
+            if((x < tx + acs && x > tx - acs) && (y < ty + acs && y > ty - acs)) {
+                buf = i;
+                break;
+            }
+        }
+        return buf;
+    }
+
+    private void restoreType() {
+        earthBlock.setLevel(typeBlocks.get(0).getLevel() + typeBlocks.get(0).getLevel() / 8.0f);
+        clayBlock.setLevel(typeBlocks.get(1).getLevel() + typeBlocks.get(1).getLevel() / 8.0f);
+        stoneBlock.setLevel(typeBlocks.get(2).getLevel() + typeBlocks.get(2).getLevel() / 8.0f);
+        diamondBlock.setLevel(typeBlocks.get(3).getLevel() + typeBlocks.get(3).getLevel() / 8.0f);
+        titanBlock.setLevel(5000);
+    }
+
+    public void setRowEarth(int i) {
+        for(int j = 0; j < 5; j++) {
+            rows.get(i).get(j).setType(typeBlocks.get(0));
+        }
+    }
+
+    public void restore() {
+        if(currentSpeed - currentSpeed / 8.0f < speedRow) {
+            currentSpeed -= currentSpeed / 8.0f;
+            restoreType();
+        }
+        //Gdx.app.log("infospeed", currentSpeed + "");
+        maxTitan = 0;
+        lastTimeSpeed = TimeUtils.nanoTime();
+        setVelocity(currentSpeed);
+        //restartType();
+        //restartRow();
+        scoreCount = 0;
+    }
 }

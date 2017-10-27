@@ -22,6 +22,7 @@ public class GameRenderer {
     private ShapeRenderer shapeRenderer;
 
     private MenuForm menu;
+    private float stateTime = 0f;
 
     public GameRenderer(GameWorld gameWorld) {
         menu = gameWorld.getMenu();
@@ -46,14 +47,24 @@ public class GameRenderer {
         batcher.begin();
         batcher.enableBlending();
 
-        if (gameWorld.getActor().getOnBlock()) {
-            batcher.draw((TextureRegion) AssetLoader.currentAnimation.getKeyFrame(runTime), gameWorld.getActor().getX(),
+        if(gameWorld.isRestoring) {
+            batcher.draw((TextureRegion) AssetLoader.restoreAnimation.getKeyFrame(stateTime), gameWorld.getActor().getX(),
                     gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
+            stateTime += Gdx.graphics.getDeltaTime();
+            if(AssetLoader.restoreAnimation.isAnimationFinished(stateTime)) {
+                gameWorld.isRestoring = false;
+                gameWorld.setRestoring();
+                stateTime = 0f;
+            }
         }
-
         else {
-            batcher.draw((TextureRegion) AssetLoader.currentTexture, gameWorld.getActor().getX(),
-                    gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
+            if (gameWorld.getActor().getOnBlock()) {
+                batcher.draw((TextureRegion) AssetLoader.currentAnimation.getKeyFrame(runTime), gameWorld.getActor().getX(),
+                        gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
+            } else {
+                batcher.draw((TextureRegion) AssetLoader.currentTexture, gameWorld.getActor().getX(),
+                        gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
+            }
         }
 
         if (!gameWorld.getActor().getAlive()) {

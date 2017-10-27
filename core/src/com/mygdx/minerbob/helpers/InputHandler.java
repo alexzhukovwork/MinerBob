@@ -2,6 +2,7 @@ package com.mygdx.minerbob.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.screen.GameScreen;
@@ -192,6 +193,7 @@ public class InputHandler implements InputProcessor {
                 }
 
                 if (gameWorld.getShop().isClickedVideo(x, y)) {
+                    gameWorld.setAdState(GameWorld.AdId.SHOPAD);
                     gameWorld.rewardVideo.showVideoAd();
                 }
             }
@@ -201,7 +203,9 @@ public class InputHandler implements InputProcessor {
         if (gameWorld.isMenu()) {
             if (gameWorld.getMenu().isClickedPlay(x, y)) {
                 GameWorld.currentMoney = 0;
+                AssetLoader.prefs.putInteger("countRestore", 0);
                 gameWorld.setState(GameWorld.GameState.RUNNING);
+                AssetLoader.prefs.flush();
             }
             if (gameWorld.getMenu().isClickedShop(x, y)) {
                 gameWorld.setState(GameWorld.GameState.SHOP);
@@ -225,7 +229,14 @@ public class InputHandler implements InputProcessor {
             if (gameWorld.getPauseForm().isClickedRestart(x, y)) {
                 gameWorld.setState(GameWorld.GameState.RUNNING);
                 gameWorld.restart();
+                AssetLoader.prefs.putInteger("countRestore", 0);
                 AssetLoader.prefs.flush();
+            }
+
+            if (gameWorld.getPauseForm().isClickedRestore(x, y)) {
+                gameWorld.setAdState(GameWorld.AdId.RESTOREAD);
+                gameWorld.rewardVideo.showVideoAd();
+                //gameWorld.restore();
             }
             return true;
         }

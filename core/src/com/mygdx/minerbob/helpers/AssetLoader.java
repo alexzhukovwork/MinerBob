@@ -65,6 +65,9 @@ public class AssetLoader {
     public static Array<ActorTexture> textures;
     public static Array<TextureRegion> earthTextures;
 
+    public static Array<TextureRegion> restoreTextures;
+    public static Animation restoreAnimation;
+
     public static Preferences prefs;
     public static boolean isInternet;
 
@@ -123,6 +126,15 @@ public class AssetLoader {
     }
 
     public static void load() {
+        restoreTextures = new Array<TextureRegion>();
+        for(int i = 0; i < 4; i++) {
+            TextureRegion temp = new TextureRegion(new Texture(Gdx.files.internal("img/Restore" + i + ".png")));
+            temp.flip(false, true);
+            restoreTextures.add(temp);
+        }
+        restoreAnimation = new Animation(0.3f, restoreTextures);
+        restoreAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
         earthTextures = new Array<TextureRegion>();
       /*  for (int i = 1; i < 2; i++) {
             textureBlock = new Texture(Gdx.files.internal("img/" + i + ".png"));
@@ -218,6 +230,10 @@ public class AssetLoader {
 
         if (!prefs.contains("countBonus")) {
             prefs.putInteger("countBonus", 1);
+        }
+
+        if(!prefs.contains("countRestore")) {
+            prefs.putInteger("countRestore", 0);
         }
 
         prefs.flush();

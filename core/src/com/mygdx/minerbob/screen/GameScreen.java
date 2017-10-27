@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         gameWorld = new com.mygdx.minerbob.gameworld.GameWorld((IRewardVideo)handler);
+        ((IRewardVideo)handler).setGameWorld(gameWorld);
         gameRenderer = new GameRenderer(gameWorld);
         inputHandler = new InputHandler(gameWorld);
         Gdx.input.setInputProcessor(inputHandler);
