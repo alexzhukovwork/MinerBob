@@ -56,7 +56,7 @@ public class PauseForm {
         shaper.rect(boundsMenu.x, boundsMenu.y, boundsMenu.width, boundsMenu.height);
         shaper.rect(boundsRestart.x, boundsRestart.y, boundsRestart.width, boundsRestart.height);
         if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
-                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
             shaper.setColor(1, 1, 1, 1);
             shaper.rect(boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
         }
@@ -120,7 +120,7 @@ public class PauseForm {
         float width = GameScreen.WIDTH / 5 * 3;
         float height = width;
         if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
-                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
             boundsMenu.set(x + width - (width / 2 - width / 10 * 2) - 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
             boundsRestart.set(x + 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
             boundsRestore.set(x + width / 2 - (width / 2 - width / 10 * 2) / 2, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
