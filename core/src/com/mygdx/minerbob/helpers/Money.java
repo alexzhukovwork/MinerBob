@@ -12,6 +12,11 @@ import com.mygdx.minerbob.ui.ShopHelpers.Item;
 
 public class Money {
     public static int money;
+    private static AssetLoader assetLoader;
+
+    public Money(AssetLoader assetLoader) {
+        this.assetLoader = assetLoader;
+    }
 
     public static boolean buy(Item item) {
         boolean result = false;
@@ -42,12 +47,12 @@ public class Money {
     public static void draw(ShapeRenderer renderer, SpriteBatch batcher, float x, float y, int money) {
         float radius = 0;
         batcher.begin();
-        AssetLoader.font.draw(batcher, "" + money, x, y);
+        assetLoader.font.draw(batcher, "" + money, x, y);
         batcher.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(1, 1, 0, 1);
-        radius = TextSize.getHeight(AssetLoader.font, money + "") / 2;
-        renderer.circle(x + TextSize.getWidth(AssetLoader.font, money + "") + radius + radius,
+        radius = TextSize.getHeight(assetLoader.font, money + "") / 2;
+        renderer.circle(x + TextSize.getWidth(assetLoader.font, money + "") + radius + radius,
                 y + radius,
                 radius);
         renderer.end();

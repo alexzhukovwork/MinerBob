@@ -15,23 +15,32 @@ import java.util.Date;
  */
 
 public class AssetLoader {
-    public static Animation actorAnimation;
+    public Animation actorAnimation;
 
-    public static Texture texture;
-    public static Texture textureBlock;
-    public static Texture textureBg;
-    public static Texture textureStart;
-    public static Texture textureButtons;
-    public static Texture textureSplashScreen;
+    public Texture texture;
+    public Texture textureBlock;
+    public Texture textureBg;
+    public Texture textureStart;
+    public Texture textureButtons;
+    public Texture textureSplashScreen;
 
-    public static BitmapFont font;
+    public BitmapFont font;
 
+<<<<<<< HEAD
+    public static TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
+    public static TextureRegion startField;
+    public static TextureRegion bgFirst;
+    public static TextureRegion currentTexture;
+    public static TextureRegion startScreen;
+    public static TextureRegion splashScreen;
+=======
     public TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
     public TextureRegion startField;
     public TextureRegion bgFirst;
     public TextureRegion currentTexture;
     public TextureRegion startScreen;
     public TextureRegion splashScreen;
+>>>>>>> 5b08020ae41ad7b0830d380c58838e8ec27e3a7c
 
     //buttons
     public TextureRegion buttonPlay;

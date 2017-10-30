@@ -19,20 +19,20 @@ public class PauseForm {
     private Rectangle boundsMenu;
     private Rectangle boundsRestart;
     private Rectangle boundsRestore;
-    private String message;
     private State currentState;
+    private GameWorld gameWorld;
 
     public enum State {
         PAUSE, RECORD, SCORE
     }
 
-    public PauseForm() {
+    public PauseForm(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
         float x = GameScreen.WIDTH / 5;
         float y = GameScreen.HEIGHT / 5;
         float width = GameScreen.WIDTH / 5 * 3;
         float height = width;
-        message = "";
-       // if(AssetLoader.isInternet)
+       // if(gameWorld.assetLoader.isInternet)
             boundsRestore = new Rectangle(-100, -100, width / 2 - width / 10 * 2, height / 10 * 2);
         boundsBoard = new Rectangle(x, y, width, height);
         boundsMenu = new Rectangle(x + width / 2 + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
@@ -55,8 +55,8 @@ public class PauseForm {
         shaper.setColor(0, 0, 0, 1);
         shaper.rect(boundsMenu.x, boundsMenu.y, boundsMenu.width, boundsMenu.height);
         shaper.rect(boundsRestart.x, boundsRestart.y, boundsRestart.width, boundsRestart.height);
-        if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
-                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+        if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
+                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
             shaper.setColor(1, 1, 1, 1);
             shaper.rect(boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
         }
@@ -73,13 +73,13 @@ public class PauseForm {
             text = "SCORE";
         }
 
-        width = TextSize.getWidth(AssetLoader.font, text);
-        height = TextSize.getHeight(AssetLoader.font, text);
+        width = TextSize.getWidth(gameWorld.assetLoader.font, text);
+        height = TextSize.getHeight(gameWorld.assetLoader.font, text);
 
-        AssetLoader.font.draw(batcher, text, boundsBoard.x + (boundsBoard.width / 2 - width / 2), boundsBoard.y + height / 2);
-        width = TextSize.getWidth(AssetLoader.font, GameWorld.score + "");
-        height = TextSize.getHeight(AssetLoader.font, GameWorld.score + "");
-        AssetLoader.font.draw(batcher, GameWorld.score + "", boundsBoard.x + (boundsBoard.width / 3 - width / 2),
+        gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + (boundsBoard.width / 2 - width / 2), boundsBoard.y + height / 2);
+        width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
+        height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
+        gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", boundsBoard.x + (boundsBoard.width / 3 - width / 2),
                 boundsBoard.y + boundsBoard.height / 10 * 4);
         batcher.end();
         Money.draw(shaper, batcher, boundsBoard.x + (boundsBoard.width - boundsBoard.width / 3 - width / 2), boundsBoard.y + boundsBoard.height / 10 * 4, GameWorld.currentMoney);
@@ -98,7 +98,7 @@ public class PauseForm {
     }
 
     public boolean isClickedRestore(float x, float y) {
-        return (AssetLoader.isInternet) ? boundsRestore.contains(x, y) : false;
+        return (gameWorld.assetLoader.isInternet) ? boundsRestore.contains(x, y) : false;
     }
 
     public boolean isPause() {
@@ -119,8 +119,8 @@ public class PauseForm {
         float y = GameScreen.HEIGHT / 5;
         float width = GameScreen.WIDTH / 5 * 3;
         float height = width;
-        if((currentState == State.SCORE || currentState == State.RECORD) && AssetLoader.isInternet
-                && AssetLoader.prefs.getInteger("countRestore") < 2) {
+        if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
+                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
             boundsMenu.set(x + width - (width / 2 - width / 10 * 2) - 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
             boundsRestart.set(x + 1, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
             boundsRestore.set(x + width / 2 - (width / 2 - width / 10 * 2) / 2, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);

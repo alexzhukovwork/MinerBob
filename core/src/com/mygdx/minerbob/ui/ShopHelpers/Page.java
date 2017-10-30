@@ -3,6 +3,7 @@ package com.mygdx.minerbob.ui.ShopHelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -16,7 +17,7 @@ public class Page {
     private ArrayList<Item> items;
     private final int amountRow = 3, amountCol = 2;
 
-    public Page(int amount, int number) {
+    public Page(GameWorld gameWorld, int amount, int number) {
         items = new ArrayList<Item>();
         int index = 0;
         Item item;
@@ -24,8 +25,8 @@ public class Page {
         for(int i = 0; i < amountRow; i++) {
             for (int j = 0; j < amountCol && items.size() < amount; j++) {
                 index = number * 6 + j + 2 * (i);
-                item = new Item(index, tx + GameScreen.WIDTH * number, ty, GameScreen.WIDTH / 3, GameScreen.HEIGHT / 5, AssetLoader.textures.get(index).cost,
-                        AssetLoader.textures.get(index).textureFall, AssetLoader.textures.get(index).animation);
+                item = new Item(gameWorld, index, tx + GameScreen.WIDTH * number, ty, GameScreen.WIDTH / 3, GameScreen.HEIGHT / 5, gameWorld.assetLoader.textures.get(index).cost,
+                        gameWorld.assetLoader.textures.get(index).textureFall, gameWorld.assetLoader.textures.get(index).animation);
                 item.setSelected(AssetLoader.prefs.getBoolean("selected" + index));
                 item.setBought(AssetLoader.prefs.getBoolean("bought" + index));
                 items.add(item);

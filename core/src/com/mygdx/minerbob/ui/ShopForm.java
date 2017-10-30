@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.screen.GameScreen;
@@ -25,22 +26,24 @@ public class ShopForm {
     private Item item;
     private String textMessage;
     private boolean hasBought;
+    private GameWorld gameWorld;
 
     TextureRegion rightTexture, leftTexture, closeTexture;
 
 
-    public ShopForm() {
+    public ShopForm(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
         initPage();
         isFormAccept = false;
         hasBought = false;
         currentPage = 0;
-        boundVideo = new Rectangle(0, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
-        boundClose = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundVideo = new Rectangle(0, 0, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundClose = new Rectangle(GameScreen.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
         boundBack = new Rectangle(0, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
         boundNext = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
-        leftTexture = AssetLoader.buttonLeft;
-        rightTexture = AssetLoader.buttonRight;
-        closeTexture = AssetLoader.buttonClose;
+        leftTexture = this.gameWorld.assetLoader.buttonLeft;
+        rightTexture = this.gameWorld.assetLoader.buttonRight;
+        closeTexture = this.gameWorld.assetLoader.buttonClose;
 
         float x = GameScreen.WIDTH / 5;
         float y = GameScreen.HEIGHT / 5;
@@ -60,14 +63,14 @@ public class ShopForm {
     public void initPage() {
         pages = new ArrayList<Page>();
         int number = 0;
-        int count = (int)Math.ceil(AssetLoader.textures.size / 6f);
+        int count = (int)Math.ceil(gameWorld.assetLoader.textures.size / 6f);
         for (int i = 0; i < count; i++) {
-            if ((i + 1)*6 <= AssetLoader.textures.size)
+            if ((i + 1)*6 <= gameWorld.assetLoader.textures.size)
                 number = 6;
             else
-                number = AssetLoader.textures.size - i * 6;
+                number = gameWorld.assetLoader.textures.size - i * 6;
 
-            pages.add(new Page(number, i));
+            pages.add(new Page(gameWorld, number, i));
         }
     }
 
@@ -77,7 +80,7 @@ public class ShopForm {
         shaper.rect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
         shaper.setColor(1, 1, 1, 1);
 
-        if (AssetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
+        if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
             shaper.rect(boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
 
         shaper.end();
@@ -105,9 +108,9 @@ public class ShopForm {
             }
             shaper.end();
             batcher.begin();
-            AssetLoader.font.getData().setScale(0.03f, -0.03f);
-            AssetLoader.font.draw(batcher, textMessage, boundFrom.x, boundFrom.y);
-            AssetLoader.font.getData().setScale(0.05f, -0.05f);
+            gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
+            gameWorld.assetLoader.font.draw(batcher, textMessage, boundFrom.x, boundFrom.y);
+            gameWorld.assetLoader.font.getData().setScale(0.05f, -0.05f);
             batcher.end();
         }
 
@@ -174,8 +177,8 @@ public class ShopForm {
     }
 
     private void selectItem(Item item) {
-        AssetLoader.currentAnimation = item.getAnimation();
-        AssetLoader.currentTexture = item.getTextureRegion();
+        gameWorld.assetLoader.currentAnimation = item.getAnimation();
+        gameWorld.assetLoader.currentTexture = item.getTextureRegion();
 
         for (int i = 0; i < pages.size(); i++) {
             pages.get(i).setSelected(false);
@@ -208,7 +211,7 @@ public class ShopForm {
     }
 
     public boolean isClickedVideo(float x, float y) {
-        return AssetLoader.isInternet && boundVideo.contains(x, y) && AssetLoader.prefs.getInteger("countVideo") < 3;
+        return gameWorld.assetLoader.isInternet && boundVideo.contains(x, y) && AssetLoader.prefs.getInteger("countVideo") < 3;
     }
 
 

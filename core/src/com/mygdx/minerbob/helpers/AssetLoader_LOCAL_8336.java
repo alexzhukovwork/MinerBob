@@ -26,57 +26,57 @@ public class AssetLoader {
 
     public static BitmapFont font;
 
-    public TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
-    public TextureRegion startField;
-    public TextureRegion bgFirst;
-    public TextureRegion currentTexture;
-    public TextureRegion startScreen;
-    public TextureRegion splashScreen;
+    public static TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
+    public static TextureRegion startField;
+    public static TextureRegion bgFirst;
+    public static TextureRegion currentTexture;
+    public static TextureRegion startScreen;
+    public static TextureRegion splashScreen;
 
     //buttons
-    public TextureRegion buttonPlay;
-    public TextureRegion buttonPlayClicked;
-    public TextureRegion buttonPause;
-    public TextureRegion buttonPauseClicked;
-    public TextureRegion buttonClose;
-    public TextureRegion buttonCloseClicked;
-    public TextureRegion buttonBack;
-    public TextureRegion buttonBackClicked;
-    public TextureRegion buttonLeft;
-    public TextureRegion buttonLeftClicked;
-    public TextureRegion buttonRight;
-    public TextureRegion buttonRightClicked;
-    public TextureRegion buttonShop;
-    public TextureRegion buttonShopClicked;
-    public TextureRegion buttonOk;
-    public TextureRegion buttonOkClicked;
-    public TextureRegion buttonSound;
+    public static TextureRegion buttonPlay;
+    public static TextureRegion buttonPlayClicked;
+    public static TextureRegion buttonPause;
+    public static TextureRegion buttonPauseClicked;
+    public static TextureRegion buttonClose;
+    public static TextureRegion buttonCloseClicked;
+    public static TextureRegion buttonBack;
+    public static TextureRegion buttonBackClicked;
+    public static TextureRegion buttonLeft;
+    public static TextureRegion buttonLeftClicked;
+    public static TextureRegion buttonRight;
+    public static TextureRegion buttonRightClicked;
+    public static TextureRegion buttonShop;
+    public static TextureRegion buttonShopClicked;
+    public static TextureRegion buttonOk;
+    public static TextureRegion buttonOkClicked;
+    public static TextureRegion buttonSound;
 
-    private Texture testPlay;
-    private Texture testShop;
-    private Texture testSound;
+    private static Texture testPlay;
+    private static Texture testShop;
+    private static Texture testSound;
 
-    public TextureRegion earthBlock;
+    public static TextureRegion earthBlock;
 
 
-    public Animation currentAnimation;
+    public static Animation currentAnimation;
 
-    public Array<ActorTexture> textures;
-    public Array<TextureRegion> earthTextures;
+    public static Array<ActorTexture> textures;
+    public static Array<TextureRegion> earthTextures;
 
-    public Array<TextureRegion> restoreTextures;
-    public Animation restoreAnimation;
+    public static Array<TextureRegion> restoreTextures;
+    public static Animation restoreAnimation;
 
     public static Preferences prefs;
-    public boolean isInternet;
+    public static boolean isInternet;
 
-    public void loadSplashScreen() {
+    public static void loadSplashScreen() {
         textureSplashScreen = new Texture(Gdx.files.internal("img/splashScreen.jpg"));
         splashScreen = new TextureRegion(textureSplashScreen, 0, 0, 640, 640);
         splashScreen.flip(false, true);
     }
 
-    private void initButtons() {
+    private static void initButtons() {
         textureButtons = new Texture(Gdx.files.internal("img/buttons.png"));
         buttonPlay = new TextureRegion(textureButtons, 512 * 3 + 3, 512 + 1, 512, 512);
         buttonPlayClicked = new TextureRegion(textureButtons, 512 * 4 + 4, 0, 512, 512);
@@ -124,7 +124,7 @@ public class AssetLoader {
         buttonPlayClicked.flip(false, true);
     }
 
-    public void load() {
+    public static void load() {
         restoreTextures = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) {
             TextureRegion temp = new TextureRegion(new Texture(Gdx.files.internal("img/Restore" + i + ".png")));
@@ -197,7 +197,7 @@ public class AssetLoader {
         checkInternet();
     }
 
-    private void initPrefs() {
+    private static void initPrefs() {
         prefs = Gdx.app.getPreferences("MinerBob");
 
         initRecord();
@@ -238,16 +238,16 @@ public class AssetLoader {
         prefs.flush();
     }
 
-    private void checkInternet() {
+    private static void checkInternet() {
         MyDate myDate = new MyDate();
         Date date = myDate.getDate();
-        Date lastDate = new Date(prefs.getLong("dateVideo"));
+        Date lastDate = new Date(AssetLoader.prefs.getLong("dateVideo"));
         int countBonus = prefs.getInteger("countBonus");
 
         isInternet = date != null;
 
         if (isInternet) {
-            if (!date.after(lastDate) && prefs.getInteger("countVideo") >= 3)
+            if (!date.after(lastDate) && AssetLoader.prefs.getInteger("countVideo") >= 3)
                 isInternet = false;
             else if (date.after(lastDate)) {
 
@@ -268,7 +268,7 @@ public class AssetLoader {
         prefs.flush();
     }
 
-    private void initMoney() {
+    private static void initMoney() {
         if (!prefs.contains("money")) {
             prefs.putInteger("money", 0);
         } else {
@@ -276,13 +276,13 @@ public class AssetLoader {
         }
     }
 
-    private void initRecord() {
+    private static void initRecord() {
         if (!prefs.contains("highScore")) {
             prefs.putInteger("highScore", 0);
         }
     }
 
-    private void initBought() {
+    private static void initBought() {
         for (int i = 0; i < textures.size; i++) {
             if (!prefs.contains("bought" + i)) {
                 if (i == 0)
@@ -293,7 +293,7 @@ public class AssetLoader {
         }
     }
 
-    private void initSelected() {
+    private static void initSelected() {
         for (int i = 0; i < textures.size; i++) {
             if (!prefs.contains("selected" + i)) {
                 if (i == 0)
@@ -304,7 +304,7 @@ public class AssetLoader {
         }
     }
 
-    public void dispose() {
+    public static void dispose() {
         textureStart.dispose();
         textureBlock.dispose();
         textureBg.dispose();

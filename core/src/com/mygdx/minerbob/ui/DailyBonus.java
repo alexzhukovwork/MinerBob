@@ -3,6 +3,7 @@ package com.mygdx.minerbob.ui;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.TextSize;
@@ -15,8 +16,10 @@ import com.mygdx.minerbob.screen.GameScreen;
 public class DailyBonus {
     private Rectangle boundRectangle;
     private Rectangle boundOkey;
+    private GameWorld gameWorld;
 
-    public DailyBonus() {
+    public DailyBonus(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
         boundRectangle = new Rectangle(GameScreen.WIDTH / 5, GameScreen.HEIGHT / 4, GameScreen.WIDTH / 5 * 3, GameScreen.WIDTH / 5 * 3);
         boundOkey = new Rectangle(GameScreen.WIDTH / 5 + GameScreen.WIDTH / 10 * 3 - GameScreen.WIDTH / 10,
                 GameScreen.HEIGHT / 4 + GameScreen.WIDTH / 5 * 3 - GameScreen.HEIGHT / 10, GameScreen.WIDTH / 5, GameScreen.HEIGHT / 15);
@@ -31,12 +34,12 @@ public class DailyBonus {
         renderer.end();
         batcher.begin();
         String dayNum = "DAY " + AssetLoader.prefs.getInteger("countBonus");
-        AssetLoader.font.draw(batcher, dayNum,
-                boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(AssetLoader.font, dayNum) / 2,
+        gameWorld.assetLoader.font.draw(batcher, dayNum,
+                boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(gameWorld.assetLoader.font, dayNum) / 2,
                 boundRectangle.y + 3);
         batcher.end();
-        Money.draw(renderer, batcher, boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(AssetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "") / 2,
-                boundRectangle.y + boundRectangle.height / 2 - TextSize.getHeight(AssetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + ""),
+        Money.draw(renderer, batcher, boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "") / 2,
+                boundRectangle.y + boundRectangle.height / 2 - TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + ""),
                 AssetLoader.prefs.getInteger("countBonus") * 10);
     }
 

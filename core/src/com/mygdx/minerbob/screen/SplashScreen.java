@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.minerbob.MainGame;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.TextSize;
 
@@ -17,10 +18,16 @@ public class SplashScreen implements Screen {
     private SpriteBatch batcher;
     private OrthographicCamera camera;
     private final MainGame mainGame;
-
+    private AssetLoader assetLoader;
+    private GameScreen gameScreen;
 
     public SplashScreen(final MainGame mainGame) {
         this.mainGame = mainGame;
+        assetLoader = new AssetLoader();
+    }
+
+    public AssetLoader getAssetLoader() {
+        return assetLoader;
     }
 
     @Override
@@ -36,8 +43,7 @@ public class SplashScreen implements Screen {
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        GameScreen gameScreen = new GameScreen(mainGame.getHandler());
-                        AssetLoader.load();
+                        gameScreen = new GameScreen(mainGame.getHandler(), assetLoader);
                         TextSize.load();
                     /*    try {
                             Thread.sleep(1000);
@@ -54,7 +60,7 @@ public class SplashScreen implements Screen {
     @Override
     public void render(float delta) {
         batcher.begin();
-        batcher.draw(AssetLoader.splashScreen, 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
+        batcher.draw(assetLoader.splashScreen, 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
         batcher.end();
     }
 

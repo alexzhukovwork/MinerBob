@@ -18,6 +18,7 @@ public class GameScreen implements Screen {
     private float runTime = 0;
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
+    private AssetLoader assetLoader;
     public static float screenWidth = Gdx.graphics.getWidth();
     public static float screenHeight = Gdx.graphics.getHeight();
     public static float HEIGHT = 136;
@@ -25,13 +26,15 @@ public class GameScreen implements Screen {
     private InputHandler inputHandler;
     private IActivityRequestHandler handler;
 
-    public GameScreen(IActivityRequestHandler handler) {
+    public GameScreen(IActivityRequestHandler handler, AssetLoader assetLoader) {
         this.handler = handler;
+        this.assetLoader = assetLoader;
+        this.assetLoader.load();
+        gameWorld = new GameWorld((IRewardVideo)handler, this.assetLoader);
     }
 
     @Override
     public void show() {
-        gameWorld = new com.mygdx.minerbob.gameworld.GameWorld((IRewardVideo)handler);
         ((IRewardVideo)handler).setGameWorld(gameWorld);
         gameRenderer = new GameRenderer(gameWorld);
         inputHandler = new InputHandler(gameWorld);

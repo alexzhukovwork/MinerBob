@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 
 /**
@@ -25,10 +26,12 @@ public class Item {
     private float x;
     private TextureRegion textureRegion;
     private Animation animation;
+    private GameWorld gameWorld;
 
     public boolean isAnimation;
 
-    public Item(int id, float x, float y, float width, float height, int cost, TextureRegion textureRegion, Animation animation) {
+    public Item(GameWorld gameWorld, int id, float x, float y, float width, float height, int cost, TextureRegion textureRegion, Animation animation) {
+        this.gameWorld = gameWorld;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         isAnimation = false;
@@ -54,7 +57,7 @@ public class Item {
         Gdx.gl.glLineWidth(3);
         if (!isBought) {
             batcher.begin();
-            AssetLoader.font.draw(batcher, cost + "", position.x, position.y);
+            gameWorld.assetLoader.font.draw(batcher, cost + "", position.x, position.y);
             batcher.end();
         }
         if (isBought && !isSelected) {
@@ -104,8 +107,8 @@ public class Item {
     }
 
     public void setSelected(boolean selected) {
-        com.mygdx.minerbob.helpers.AssetLoader.prefs.putBoolean("selected" + id, selected);
-        com.mygdx.minerbob.helpers.AssetLoader.prefs.flush();
+        AssetLoader.prefs.putBoolean("selected" + id, selected);
+        AssetLoader.prefs.flush();
         isSelected = selected;
     }
 
