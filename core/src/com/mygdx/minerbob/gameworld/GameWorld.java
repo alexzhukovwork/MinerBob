@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.minerbob.IRewardVideo;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.minerbob.gameobjects.Actor;
+import com.mygdx.minerbob.gameobjects.Avalanche;
 import com.mygdx.minerbob.gameobjects.Field;
 import com.mygdx.minerbob.gameobjects.MoneyAnimation;
 import com.mygdx.minerbob.gameobjects.RowBlock;
@@ -54,6 +55,7 @@ public class GameWorld {
     public IRewardVideo rewardVideo;
 
     public MoneyAnimation moneyAnimation;
+    public Avalanche avalanche;
 
     public enum GameState {
        MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS
@@ -74,6 +76,7 @@ public class GameWorld {
         sound = new Sound();
         shop = new ShopForm(this);
         menu = new MenuForm(this);
+        avalanche = new Avalanche(this);
         dailyBonus = new DailyBonus(this);
         currentState = GameState.DAILYBONUS;
         isRecord = false;
@@ -93,6 +96,9 @@ public class GameWorld {
             field.update(delta);
             actor.update(delta);
             rowBlock.update(delta);
+            if (isKickedFirst)
+                avalanche.setVelocity(0, 4);
+            avalanche.update(delta);
         }
 
         if (isShop()) {
@@ -121,6 +127,7 @@ public class GameWorld {
         lastDestroyed = null;
         isRecord = false;
         score = 0;
+        avalanche.restart();
         actor.restart(GameScreen.WIDTH / 5 * 2 + 1, GameScreen.HEIGHT - GameScreen.HEIGHT / 15 - GameScreen.HEIGHT / 7);
         rowBlock.restart();
         field.restart();

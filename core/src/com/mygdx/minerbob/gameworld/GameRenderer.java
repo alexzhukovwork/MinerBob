@@ -90,7 +90,7 @@ public class GameRenderer {
         if (gameWorld.isPause()) {
             gameWorld.getPauseForm().draw(shapeRenderer, batcher);
         }
-
+        gameWorld.avalanche.draw(shapeRenderer, batcher);
         if (gameWorld.isRunning()) {
             gameWorld.getRunningForm().draw(shapeRenderer, batcher);
             if(gameWorld.startCombo != 0) {

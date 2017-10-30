@@ -7,7 +7,7 @@ android {
             storePassword 'k12erst0rm'
         }
     }
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     compileSdkVersion 25
     sourceSets {
         main {

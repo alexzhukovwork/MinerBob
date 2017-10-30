@@ -34,16 +34,20 @@ public class Block {
     private int countKick;
 
     private Rectangle rectangleBounds;
+    private Actor actor;
+    private GameWorld gameWorld;
 
-    public Block() {
+    public Block(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
+        actor = gameWorld.getActor();
         rectangleBounds = new Rectangle();
         position = new Vector2();
         velocity = new Vector2(0, 0);
         staticPosition = new Vector2(0, 0);
         tempVector = new Vector2(0, 0);
     }
-
-    public Block(float x, float y, float width, float height, float speed, com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock type) {
+/*
+    public Block(float x, float y, float width, float height, float speed, ITypeBlock type) {
         isDestroyed = false;
         countKick = 0;
 
@@ -58,7 +62,7 @@ public class Block {
         rectangleBounds = new Rectangle(x, y, width, height);
         staticPosition.y = y;
     }
-
+*/
     public void update(float delta) {
         tempVector.set(velocity.x, velocity.y);
         position.add(tempVector.scl(delta));
@@ -82,9 +86,7 @@ public class Block {
         subHeight = height / type.getLevel();
     }
 
-    public boolean isCollised(GameWorld gameWorld, int rowIndex) {
-        Actor actor = gameWorld.getActor();
-
+    public boolean isCollised() {
         if(actor.getHasCurrentBlock() && actor.getBlock().equals(this)) {
             return false;
         }
@@ -105,7 +107,7 @@ public class Block {
                 actor.setVelocity(0, 0);
 
                 if (position.y <= GameScreen.HEIGHT - height)
-                    kick(gameWorld);
+                    kick();
             }
             else if(isDestroyed && Intersector.overlaps(rectangleBounds, actor.getRectangleBounds()))
                 actor.setOnBlock(false);
@@ -180,8 +182,7 @@ public class Block {
         staticPosition.y = y;
     }
 
-    private void kick(GameWorld gameWorld) {
-        Actor actor = gameWorld.getActor();
+    private void kick() {
         countKick++;
       /*  tempKick += 10 / type.getLevel();
         if (tempKick >= countAnim) {

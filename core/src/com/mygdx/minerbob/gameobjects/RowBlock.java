@@ -89,7 +89,7 @@ public class RowBlock {
         for(int i = 0; i < 4; i++) {
             rows.add(new Array<Block>());
             for (int j = 0; j < 5; j++) {
-                rows.get(i).add(new Block());
+                rows.get(i).add(new Block(gameWorld));
             }
         }
 
@@ -119,8 +119,6 @@ public class RowBlock {
         for (int i = 1; i < 4; i++) {
             generateRow(i, GameScreen.WIDTH / 5, 2 * GameScreen.HEIGHT - heightBlock + (i) * height, -1);
         }
-
-     //   setVelocity(-100);
     }
 
     private void setVelocity(float velocity) {
@@ -179,11 +177,7 @@ public class RowBlock {
         for(int i = 0; i < 5; i++){
             if (!bools.get(i)) {
                 typeBlock = getRandomType();
-            //    if (speed < -30 && typeBlock.getName().equals("Earth")) {
-             //       rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, stoneBlock);
-             //   } else {
-                    rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock);
-              //  }
+                rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock);
             }
         }
 
@@ -199,7 +193,6 @@ public class RowBlock {
             return;
 
         int i = 0;
-        //float speed = 0;
 
         for (Array<Block> l : rows) {
             countTitan = 0;
@@ -211,7 +204,7 @@ public class RowBlock {
                 }
                 b.update(delta);
 
-                if( b.isCollised(gameWorld, i) ) {
+                if( b.isCollised() ) {
 
                 }
             }
@@ -235,7 +228,6 @@ public class RowBlock {
              if(maxTitan >= 2)
                 maxTitan = 2;
         }
-        //Gdx.app.log("level", typeBlocks.get(0).getLevel() + "");
         setStandartSpeed();
     }
 
@@ -347,12 +339,10 @@ public class RowBlock {
             currentSpeed -= currentSpeed / 8.0f;
             restoreType();
         }
-        //Gdx.app.log("infospeed", currentSpeed + "");
+
         maxTitan = 0;
         lastTimeSpeed = TimeUtils.nanoTime();
         setVelocity(currentSpeed);
-        //restartType();
-        //restartRow();
         scoreCount = 0;
     }
 }
