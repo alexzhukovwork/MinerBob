@@ -11,10 +11,12 @@ import com.mygdx.minerbob.helpers.AssetLoader;
 public class EarthBlock implements ITypeBlock {
     private float level;
     private Color color;
+    private AssetLoader assetLoader;
 
-    public EarthBlock(float level) {
+    public EarthBlock(AssetLoader assetLoader, float level) {
         color = new Color(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
         this.level = level;
+        this.assetLoader = assetLoader;
     }
 
     @Override
@@ -24,7 +26,8 @@ public class EarthBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int kick) {
-        return AssetLoader.earthTextures.get(kick);
+        return assetLoader.earthTextures.get(kick);
+        //return AssetLoader.earthBlock;
     }
 
     @Override

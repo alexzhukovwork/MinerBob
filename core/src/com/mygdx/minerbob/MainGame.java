@@ -10,6 +10,7 @@ import com.mygdx.minerbob.screen.SplashScreen;
 
 public class MainGame extends Game {
 	private IActivityRequestHandler handler;
+	private SplashScreen splashScreen;
 
 	public MainGame(IActivityRequestHandler handler) {
 		this.handler = handler;
@@ -22,13 +23,13 @@ public class MainGame extends Game {
 
 	@Override
 	public void create() {
-		SplashScreen splashScreen = new SplashScreen(this);
-		AssetLoader.loadSplashScreen();
+		splashScreen = new SplashScreen(this);
+		splashScreen.getAssetLoader().loadSplashScreen();
 		setScreen(splashScreen);
 	}
 
 	@Override
 	public void dispose() {
-		AssetLoader.dispose();
+		splashScreen.getAssetLoader().dispose();
 	}
 }

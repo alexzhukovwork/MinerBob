@@ -1,6 +1,5 @@
 package com.mygdx.minerbob.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -211,8 +209,6 @@ public class Block {
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
             }
-            if (type.getName().equals("Gold"))
-                gameWorld.moneyAnimation.setPosition(position.x + width / 2, position.y);
 
             if (gameWorld.lastDestroyed != null && !gameWorld.lastDestroyed.getName().equals("Earth") &&
                     !type.getName().equals("Gold") &&
@@ -246,12 +242,13 @@ public class Block {
                 gameWorld.startCombo = 0;
             }
 
-
+            if (type.getName().equals("Gold"))
+                gameWorld.moneyAnimation.setAttributes(position.x + width / 2, position.y, gameWorld.scl);
             GameWorld.score += type.getScore() * gameWorld.scl;
 
             if ( type.getName().equals("Gold") ) {
-                Money.add(1 * gameWorld.scl);
-                GameWorld.currentMoney++;
+                Money.add(gameWorld.scl);
+                GameWorld.currentMoney += gameWorld.scl;
             }
 
             isDestroyed = true;

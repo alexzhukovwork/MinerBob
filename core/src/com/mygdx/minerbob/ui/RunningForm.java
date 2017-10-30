@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -16,8 +17,8 @@ public class RunningForm {
 
     TextureRegion pauseTexture;
 
-    public RunningForm() {
-        pauseTexture = AssetLoader.buttonPause;
+    public RunningForm(GameWorld gameWorld) {
+        pauseTexture = gameWorld.assetLoader.buttonPause;
         boundsPause = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
     }
 

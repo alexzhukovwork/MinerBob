@@ -1,5 +1,6 @@
 package com.mygdx.minerbob.gameworld;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.minerbob.IRewardVideo;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.minerbob.gameobjects.Actor;
@@ -8,6 +9,7 @@ import com.mygdx.minerbob.gameobjects.MoneyAnimation;
 import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.helpers.AssetLoader;
+import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.Sound;
 import com.mygdx.minerbob.screen.GameScreen;
 import com.mygdx.minerbob.ui.DailyBonus;
@@ -33,6 +35,9 @@ public class GameWorld {
     private DailyBonus dailyBonus;
 
     private AdId adState;
+    public AssetLoader assetLoader;
+
+    public final float buttonSize = GameScreen.WIDTH / 7;
 
     public enum AdId { SHOPAD, RESTOREAD }
 
@@ -59,15 +64,17 @@ public class GameWorld {
     public static int score = 0;
     public static int currentMoney = 0;
 
-    public GameWorld(IRewardVideo handler) {
+    public GameWorld(IRewardVideo handler, AssetLoader assetLoader) {
+        this.assetLoader = assetLoader;
+        new Money(this.assetLoader); //это епта фича
         rewardVideo = handler;
         moneyAnimation = new MoneyAnimation();
-        runningForm = new RunningForm();
-        pauseForm = new PauseForm();
+        runningForm = new RunningForm(this);
+        pauseForm = new PauseForm(this);
         sound = new Sound();
-        shop = new ShopForm();
-        menu = new MenuForm();
-        dailyBonus = new DailyBonus();
+        shop = new ShopForm(this);
+        menu = new MenuForm(this);
+        dailyBonus = new DailyBonus(this);
         currentState = GameState.DAILYBONUS;
         isRecord = false;
         isEnd = false;
@@ -77,6 +84,7 @@ public class GameWorld {
                 this);
         rowBlock = new RowBlock(this);
         field = new Field(this);
+        Gdx.app.log("AssetLoader", "world created");
     }
 
     public void update(float delta) {

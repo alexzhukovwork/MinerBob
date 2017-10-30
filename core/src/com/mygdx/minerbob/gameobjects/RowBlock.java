@@ -71,7 +71,7 @@ public class RowBlock {
 
     private void initObjects() {
         goldBlock = new GoldBlock(earthLevel);
-        earthBlock = new EarthBlock(earthLevel);
+        earthBlock = new EarthBlock(gameWorld.assetLoader, earthLevel);
         clayBlock = new ClayBlock(clayLevel);
         stoneBlock = new StoneBlock(stoneLevel);
         diamondBlock = new DiamondBlock(diamondLevel);

@@ -48,10 +48,10 @@ public class GameRenderer {
         batcher.enableBlending();
 
         if(gameWorld.isRestoring) {
-            batcher.draw((TextureRegion) AssetLoader.restoreAnimation.getKeyFrame(stateTime), gameWorld.getActor().getX(),
+            batcher.draw((TextureRegion) gameWorld.assetLoader.restoreAnimation.getKeyFrame(stateTime), gameWorld.getActor().getX(),
                     gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
             stateTime += Gdx.graphics.getDeltaTime();
-            if(AssetLoader.restoreAnimation.isAnimationFinished(stateTime)) {
+            if(gameWorld.assetLoader.restoreAnimation.isAnimationFinished(stateTime)) {
                 gameWorld.isRestoring = false;
                 gameWorld.setRestoring();
                 stateTime = 0f;
@@ -59,10 +59,10 @@ public class GameRenderer {
         }
         else {
             if (gameWorld.getActor().getOnBlock()) {
-                batcher.draw((TextureRegion) AssetLoader.currentAnimation.getKeyFrame(runTime), gameWorld.getActor().getX(),
+                batcher.draw((TextureRegion) gameWorld.assetLoader.currentAnimation.getKeyFrame(runTime), gameWorld.getActor().getX(),
                         gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
             } else {
-                batcher.draw((TextureRegion) AssetLoader.currentTexture, gameWorld.getActor().getX(),
+                batcher.draw((TextureRegion) gameWorld.assetLoader.currentTexture, gameWorld.getActor().getX(),
                         gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
             }
         }
@@ -71,7 +71,7 @@ public class GameRenderer {
             gameWorld.setState(GameWorld.GameState.RESTART);
 
         } else if (gameWorld.isRunning())
-            AssetLoader.font.draw(batcher, GameWorld.score + "", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 3);
+            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 3);
 
         batcher.end();
 
@@ -95,7 +95,7 @@ public class GameRenderer {
             gameWorld.getRunningForm().draw(shapeRenderer, batcher);
             if(gameWorld.startCombo != 0) {
                 batcher.begin();
-                AssetLoader.font.draw(batcher, "X" + gameWorld.scl, 0, 0);
+                gameWorld.assetLoader.font.draw(batcher, "X" + gameWorld.scl, 0, 0);
                 batcher.end();
             }
 

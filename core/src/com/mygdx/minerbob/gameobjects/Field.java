@@ -53,11 +53,11 @@ public class Field {
         batcher.begin();
 
         if (isFirst)
-            batcher.draw(AssetLoader.startField, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
+            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
         else
-            batcher.draw(AssetLoader.bgFirst, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
+            batcher.draw(gameWorld.assetLoader.bgFirst, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
 
-        batcher.draw(AssetLoader.bgFirst, positionSecond.x, positionSecond.y, GameScreen.WIDTH, height);
+        batcher.draw(gameWorld.assetLoader.bgFirst, positionSecond.x, positionSecond.y, GameScreen.WIDTH, height);
         batcher.end();
     }
 }
