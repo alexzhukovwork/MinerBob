@@ -18,7 +18,7 @@ public class MoneyAnimation {
     private int count;
     private float beginY;
 
-
+r
     public MoneyAnimation() {
         position = new Vector2(0, -100);
         velocity = new Vector2(0, -300);

@@ -26,7 +26,6 @@ public class AssetLoader {
 
     public static BitmapFont font;
 
-
     public static TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
     public static TextureRegion startField;
     public static TextureRegion bgFirst;
