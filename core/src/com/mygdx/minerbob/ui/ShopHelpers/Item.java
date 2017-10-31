@@ -86,10 +86,10 @@ public class Item {
 
     public void update(float delta) {
 
-        if (velocity.x != 0 && Math.abs(x - position.x) >= com.mygdx.minerbob.screen.GameScreen.WIDTH - com.mygdx.minerbob.screen.GameScreen.WIDTH / 20) {
+        if (velocity.x != 0 && Math.abs(x - position.x) >= gameWorld.WIDTH - gameWorld.WIDTH / 20) {
           //  acceleration.set(0, 0);
             velocity.set(0, 0);
-            position.x = x - position.x > 0 ? x - com.mygdx.minerbob.screen.GameScreen.WIDTH : x + com.mygdx.minerbob.screen.GameScreen.WIDTH;
+            position.x = x - position.x > 0 ? x - gameWorld.WIDTH : x + gameWorld.WIDTH;
         }
         bound.set(position.x, position.y, bound.width, bound.height);
        // velocity.add(acceleration.cpy().scl(delta));

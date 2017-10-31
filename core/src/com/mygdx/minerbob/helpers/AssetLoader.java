@@ -177,7 +177,8 @@ public class AssetLoader {
         actorAnimation = new Animation(0.09f, actors);
         actorAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 10
+        ));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));

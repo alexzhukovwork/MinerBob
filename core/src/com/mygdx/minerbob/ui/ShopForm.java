@@ -38,16 +38,16 @@ public class ShopForm {
         hasBought = false;
         currentPage = 0;
         boundVideo = new Rectangle(0, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundClose = new Rectangle(GameScreen.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundBack = new Rectangle(0, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
-        boundNext = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, GameScreen.HEIGHT - GameScreen.WIDTH / 6, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundClose = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundBack = new Rectangle(0, gameWorld.HEIGHT - gameWorld.buttonSize, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundNext = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, gameWorld.HEIGHT - gameWorld.buttonSize, gameWorld.buttonSize, gameWorld.buttonSize);
         leftTexture = this.gameWorld.assetLoader.buttonLeft;
         rightTexture = this.gameWorld.assetLoader.buttonRight;
         closeTexture = this.gameWorld.assetLoader.buttonClose;
 
-        float x = GameScreen.WIDTH / 5;
-        float y = GameScreen.HEIGHT / 5;
-        float width = GameScreen.WIDTH / 5 * 3;
+        float x = gameWorld.WIDTH / 5;
+        float y = gameWorld.HEIGHT / 5;
+        float width = gameWorld.WIDTH / 5 * 3;
         float height = width;
         boundFrom = new Rectangle(x, y, width, height);
         boundCancel = new Rectangle(x + width / 2 + width / 10, y + height / 10 * 7, width / 2 - width / 10 * 2, height / 10 * 2);
@@ -77,7 +77,7 @@ public class ShopForm {
     public void draw(ShapeRenderer shaper, SpriteBatch batcher, float runTime) {
         shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(0, 0, 0, 1f);
-        shaper.rect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
+        shaper.rect(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
         shaper.setColor(1, 1, 1, 1);
 
         if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
@@ -114,7 +114,7 @@ public class ShopForm {
             batcher.end();
         }
 
-        Money.draw(shaper, batcher, GameScreen.WIDTH / 5, 1, Money.money);
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 5, 1, Money.money);
     }
 
     public boolean isClickedClose(float x, float y) {

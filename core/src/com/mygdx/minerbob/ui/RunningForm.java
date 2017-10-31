@@ -19,7 +19,7 @@ public class RunningForm {
 
     public RunningForm(GameWorld gameWorld) {
         pauseTexture = gameWorld.assetLoader.buttonPause;
-        boundsPause = new Rectangle(GameScreen.WIDTH - GameScreen.WIDTH / 6, 0, GameScreen.WIDTH / 6, GameScreen.WIDTH / 6);
+        boundsPause = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {

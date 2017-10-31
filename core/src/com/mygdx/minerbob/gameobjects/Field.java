@@ -13,12 +13,13 @@ import com.mygdx.minerbob.screen.GameScreen;
 public class Field {
     private Vector2 positionFirst, positionSecond, velocity, acceleration;
 
-    private float height = GameScreen.HEIGHT;
+    private float height;
     private boolean isFirst;
     private GameWorld gameWorld;
 
     public Field(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
+        height = this.gameWorld.HEIGHT;
         restart();
     }
 
@@ -53,11 +54,11 @@ public class Field {
         batcher.begin();
 
         if (isFirst)
-            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
+            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, gameWorld.WIDTH, height);
         else
-            batcher.draw(gameWorld.assetLoader.bgFirst, positionFirst.x, positionFirst.y, GameScreen.WIDTH, height);
+            batcher.draw(gameWorld.assetLoader.bgFirst, positionFirst.x, positionFirst.y, gameWorld.WIDTH, height);
 
-        batcher.draw(gameWorld.assetLoader.bgFirst, positionSecond.x, positionSecond.y, GameScreen.WIDTH, height);
+        batcher.draw(gameWorld.assetLoader.bgFirst, positionSecond.x, positionSecond.y, gameWorld.WIDTH, height);
         batcher.end();
     }
 }

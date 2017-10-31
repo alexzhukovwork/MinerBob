@@ -38,7 +38,8 @@ public class GameWorld {
     private AdId adState;
     public AssetLoader assetLoader;
 
-    public final float buttonSize = GameScreen.WIDTH / 7;
+    public float buttonSize;
+    public float WIDTH, HEIGHT;
 
     public enum AdId { SHOPAD, RESTOREAD }
 
@@ -66,11 +67,14 @@ public class GameWorld {
     public static int score = 0;
     public static int currentMoney = 0;
 
-    public GameWorld(IRewardVideo handler, AssetLoader assetLoader) {
+    public GameWorld(IRewardVideo handler, AssetLoader assetLoader, float WIDTH, float HEIGHT) {
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
+        buttonSize = WIDTH / 7;
         this.assetLoader = assetLoader;
         new Money(this.assetLoader); //это епта фича
         rewardVideo = handler;
-        moneyAnimation = new MoneyAnimation();
+        moneyAnimation = new MoneyAnimation(this);
         runningForm = new RunningForm(this);
         pauseForm = new PauseForm(this);
         sound = new Sound();
@@ -83,7 +87,7 @@ public class GameWorld {
         isEnd = false;
         isStart = true;
         isKickedFirst = false;
-        actor = new Actor(GameScreen.WIDTH / 5 * 2 + 1, GameScreen.HEIGHT - GameScreen.HEIGHT / 15 - GameScreen.HEIGHT / 7, GameScreen.WIDTH / 5 - 2, GameScreen.HEIGHT / 7,
+        actor = new Actor(WIDTH / 5 * 2 + 1, HEIGHT - HEIGHT / 15 - HEIGHT / 7, WIDTH / 5 - 2, HEIGHT / 7,
                 this);
         rowBlock = new RowBlock(this);
         field = new Field(this);
@@ -128,7 +132,7 @@ public class GameWorld {
         isRecord = false;
         score = 0;
         avalanche.restart();
-        actor.restart(GameScreen.WIDTH / 5 * 2 + 1, GameScreen.HEIGHT - GameScreen.HEIGHT / 15 - GameScreen.HEIGHT / 7);
+        actor.restart(WIDTH / 5 * 2 + 1, HEIGHT - HEIGHT / 15 - HEIGHT / 7);
         rowBlock.restart();
         field.restart();
     }
@@ -140,10 +144,10 @@ public class GameWorld {
         countCombo = 0;
         lastDestroyed = null;
         isRecord = false;
-        int i = rowBlock.identifyRow(0, GameScreen.HEIGHT / 2);
+        int i = rowBlock.identifyRow(0, HEIGHT / 2);
         float x = rowBlock.getBlock(i, 2).getX();
         float y = rowBlock.getBlock(i, 2).getY();
-        actor.restore(x + 2, y - GameScreen.HEIGHT / 7);
+        actor.restore(x + 2, y - HEIGHT / 7);
         rowBlock.setRowEarth(i);
     }
 

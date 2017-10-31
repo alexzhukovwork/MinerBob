@@ -13,11 +13,6 @@ import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.TitanBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.screen.GameScreen;
-
-import java.util.Random;
-
-import sun.rmi.runtime.Log;
 
 /**
  * Created by Алексей on 11.09.2017.
@@ -59,8 +54,8 @@ public class RowBlock {
 
     public RowBlock(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        heightBlock = GameScreen.HEIGHT / 15;
-        widthBlock = GameScreen.WIDTH / 5;
+        heightBlock = gameWorld.HEIGHT / 15;
+        widthBlock = gameWorld.WIDTH / 5;
         lastTimeSpeed = TimeUtils.nanoTime();
         initObjects();
     }
@@ -110,14 +105,14 @@ public class RowBlock {
 
     private void restartRow() {
         countTitan = 0;
-        float height = GameScreen.HEIGHT / 5 + heightBlock;
+        float height = gameWorld.HEIGHT / 5 + heightBlock;
 
         for (int i = 0; i < 5; i++) {
-            rows.get(0).get(i).restart(GameScreen.WIDTH / 5 * i, GameScreen.HEIGHT - heightBlock, widthBlock, heightBlock, -1, earthBlock);
+            rows.get(0).get(i).restart(gameWorld.WIDTH / 5 * i, gameWorld.HEIGHT - heightBlock, widthBlock, heightBlock, -1, earthBlock);
         }
 
         for (int i = 1; i < 4; i++) {
-            generateRow(i, GameScreen.WIDTH / 5, 2 * GameScreen.HEIGHT - heightBlock + (i) * height, -1);
+            generateRow(i, gameWorld.WIDTH / 5, 2 * gameWorld.HEIGHT - heightBlock + (i) * height, -1);
         }
     }
 
@@ -210,9 +205,9 @@ public class RowBlock {
             }
             if (l.get(0).getStaticY() + heightBlock < 0) {
                 if (i == 0)
-                    generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
+                    generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
                 else
-                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
+                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
             }
             i++;
         }
@@ -234,11 +229,11 @@ public class RowBlock {
     private void setStandartSpeed() {
 
         if (gameWorld.isStart && rows.get(0).get(0).getVelocity().y <= -1 && rows.get(0).get(0).getVelocity().y >= -2 && gameWorld.isKickedFirst) {
-            setVelocity(-GameScreen.HEIGHT);
-            gameWorld.getField().setVelocity(0, -GameScreen.HEIGHT);
+            setVelocity(-gameWorld.HEIGHT);
+            gameWorld.getField().setVelocity(0, -gameWorld.HEIGHT);
             gameWorld.getActor().setVelocity(0, -100);
         }
-        if (gameWorld.isCollisedSecond && rows.get(0).get(0).getVelocity().y == -GameScreen.HEIGHT) {
+        if (gameWorld.isCollisedSecond && rows.get(0).get(0).getVelocity().y == -gameWorld.HEIGHT) {
             setVelocity(speedRow);
             gameWorld.getField().setVelocity(0, -10);
         }

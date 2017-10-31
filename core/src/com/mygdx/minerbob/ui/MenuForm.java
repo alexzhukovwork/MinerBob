@@ -24,16 +24,16 @@ public class MenuForm {
         this.gameWorld = gameWorld;
         playTexture = this.gameWorld.assetLoader.buttonPlay;
         shopTexture = this.gameWorld.assetLoader.buttonShop;
-        boundsPlay = new Rectangle(GameScreen.WIDTH / 2 - gameWorld.buttonSize, GameScreen.HEIGHT / 2 - GameScreen.HEIGHT / 8, GameScreen.WIDTH / 3, GameScreen.WIDTH / 3);
-        boundsSound = new Rectangle(GameScreen.WIDTH - gameWorld.buttonSize * 2 - 5, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundsShop = new Rectangle(GameScreen.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsPlay = new Rectangle(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 6, gameWorld.HEIGHT / 2 - gameWorld.WIDTH / 6, gameWorld.WIDTH / 3, gameWorld.WIDTH / 3);
+        boundsSound = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize * 2 - 5, 0, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsShop = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
         batcher.begin();
-        gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", GameScreen.WIDTH / 10, 0);
+        gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
         batcher.end();
-        Money.draw(shaper, batcher, GameScreen.WIDTH / 10, GameScreen.HEIGHT - GameScreen.HEIGHT / 10, Money.money);
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 10, Money.money);
    /*     shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(1, 1, 1, 1);
       //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);

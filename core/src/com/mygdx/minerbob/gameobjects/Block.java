@@ -106,7 +106,7 @@ public class Block {
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
 
-                if (position.y <= GameScreen.HEIGHT - height)
+                if (position.y <= gameWorld.HEIGHT - height)
                     kick();
             }
             else if(isDestroyed && Intersector.overlaps(rectangleBounds, actor.getRectangleBounds()))
@@ -192,7 +192,7 @@ public class Block {
         }
 */
         tempKick += subHeight;
-        if (tempKick >= (GameScreen.HEIGHT/15) / 12f) {
+        if (tempKick >= (gameWorld.HEIGHT / 15) / 12f) {
             tempKick = 0;
 
             if(countAnim != 9)

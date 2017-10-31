@@ -23,7 +23,7 @@ public class Avalanche {
         position = new Vector2(0, - gameWorld.buttonSize - 5);
         velocity = new Vector2(0, 0);
         tempVector = new Vector2(0, 0);
-        rect = new Rectangle(0, - gameWorld.buttonSize - 5, GameScreen.WIDTH, gameWorld.buttonSize / 2);
+        rect = new Rectangle(0, - gameWorld.buttonSize - 5, gameWorld.WIDTH, gameWorld.buttonSize - gameWorld.buttonSize /3);
     }
 
     public void setVelocity(float x, float y) {

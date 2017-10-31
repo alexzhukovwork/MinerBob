@@ -28,7 +28,7 @@ public class GameRenderer {
         menu = gameWorld.getMenu();
         this.gameWorld = gameWorld;
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, GameScreen.WIDTH, GameScreen.HEIGHT);
+        camera.setToOrtho(true, gameWorld.WIDTH, gameWorld.HEIGHT);
 
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(camera.combined);
@@ -71,7 +71,7 @@ public class GameRenderer {
             gameWorld.setState(GameWorld.GameState.RESTART);
 
         } else if (gameWorld.isRunning())
-            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", GameScreen.WIDTH / 10, GameScreen.HEIGHT / 2 + GameScreen.HEIGHT / 3);
+            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT / 2 + gameWorld.HEIGHT / 3);
 
         batcher.end();
 
