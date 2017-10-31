@@ -126,24 +126,12 @@ public class Actor {
         return position.y;
     }
 
-    public float getRectX() {
-        return rectangleBounds.x;
-    }
-
-    public float getRectY() {
-        return rectangleBounds.y;
-    }
-
     public float getWidth() {
         return width;
     }
 
     public float getHeight() {
         return height;
-    }
-
-    public void setAlive(boolean isAlive) {
-        this.isAlive = isAlive;
     }
 
     public boolean getAlive() {
@@ -192,14 +180,6 @@ public class Actor {
 
     public void setAcceleration(float x, float y) {
         acceleration.set(x, y);
-    }
-
-    public Vector2 getAcceleration() {
-        return acceleration;
-    }
-
-    public void setAcceleration(Vector2 acceleration) {
-        this.acceleration = acceleration;
     }
 
 }

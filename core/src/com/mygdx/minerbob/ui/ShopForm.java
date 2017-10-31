@@ -4,14 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.screen.GameScreen;
 import com.mygdx.minerbob.ui.ShopHelpers.Item;
 import com.mygdx.minerbob.ui.ShopHelpers.Page;
-
-import java.util.ArrayList;
 
 /**
  * Created by Алексей on 18.09.2017.
@@ -21,7 +20,7 @@ public class ShopForm {
     private Rectangle boundClose, boundNext, boundBack, boundVideo;
     private Rectangle boundFrom, boundAccept, boundCancel;
     private int currentPage;
-    private ArrayList<Page> pages;
+    private Array<Page> pages;
     private boolean isFormAccept;
     private Item item;
     private String textMessage;
@@ -61,7 +60,7 @@ public class ShopForm {
     }
 
     public void initPage() {
-        pages = new ArrayList<Page>();
+        pages = new Array<Page>();
         int number = 0;
         int count = (int)Math.ceil(gameWorld.assetLoader.textures.size / 6f);
         for (int i = 0; i < count; i++) {
@@ -86,14 +85,14 @@ public class ShopForm {
         shaper.end();
 
         batcher.begin();
-        if (currentPage != pages.size() - 1)
+        if (currentPage != pages.size - 1)
             batcher.draw(rightTexture, boundNext.x, boundNext.y, boundNext.width, boundNext.height);
         if (currentPage != 0)
             batcher.draw(leftTexture, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
         batcher.draw(closeTexture, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
         batcher.end();
-        for(Page p : pages)
-            p.draw(shaper, batcher, runTime);
+        for(int i = 0; i < pages.size; i++)
+            pages.get(i).draw(shaper, batcher, runTime);
 
         if (isFormAccept) {
             shaper.begin(ShapeRenderer.ShapeType.Filled);
@@ -128,21 +127,19 @@ public class ShopForm {
     }
 
     public boolean isClickedNext(float x, float y) {
-        if (currentPage == pages.size() - 1 || pages.get(0).isMove())
+        if (currentPage == pages.size - 1 || pages.get(0).isMove())
             return false;
         return boundNext.contains(x, y);
     }
 
     public void setVelocity(float x, float y) {
-        for (Page p : pages) {
-            p.setVelocity(x, y);
-        }
+        for (int i = 0; i < pages.size; i++)
+            pages.get(i).setVelocity(x, y);
     }
 
     public void setAcceleration(float x, float y) {
-        for (Page p : pages) {
-            p.setAcceleration(x, y);
-        }
+        for (int i = 0; i < pages.size; i++)
+            pages.get(i).setAcceleration(x, y);
     }
 
     public void dicrementPage() {
@@ -180,7 +177,7 @@ public class ShopForm {
         gameWorld.assetLoader.currentAnimation = item.getAnimation();
         gameWorld.assetLoader.currentTexture = item.getTextureRegion();
 
-        for (int i = 0; i < pages.size(); i++) {
+        for (int i = 0; i < pages.size; i++) {
             pages.get(i).setSelected(false);
         }
 
@@ -213,8 +210,6 @@ public class ShopForm {
     public boolean isClickedVideo(float x, float y) {
         return gameWorld.assetLoader.isInternet && boundVideo.contains(x, y) && AssetLoader.prefs.getInteger("countVideo") < 3;
     }
-
-
 
     public boolean getFormAccept() {
         return isFormAccept;

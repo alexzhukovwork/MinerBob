@@ -19,6 +19,7 @@ public class InputHandler implements InputProcessor {
     private GameWorld gameWorld;
     private Item item;
     private long touch;
+    private float x, y;
 
 
     public void setScale() {
@@ -54,8 +55,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        float x = scaleX(screenX);
-        float y = scaleY(screenY);
+        x = scaleX(screenX);
+        y = scaleY(screenY);
 
         if (gameWorld.isDailyBonus()) {
             if (gameWorld.getDailyBonus().isClicked(x, y)) {
@@ -144,8 +145,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        float x = scaleX(screenX);
-        float y = scaleY(screenY);
+        x = scaleX(screenX);
+        y = scaleY(screenY);
 
         if (gameWorld.isDailyBonus()) {
             if (gameWorld.getDailyBonus().isClicked(x, y)) {

@@ -2,7 +2,6 @@ package com.mygdx.minerbob.gameworld;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.minerbob.IRewardVideo;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.minerbob.gameobjects.Actor;
 import com.mygdx.minerbob.gameobjects.Avalanche;
 import com.mygdx.minerbob.gameobjects.Field;

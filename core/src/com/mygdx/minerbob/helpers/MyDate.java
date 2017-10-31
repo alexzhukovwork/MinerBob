@@ -1,7 +1,5 @@
 package com.mygdx.minerbob.helpers;
 
-import com.mygdx.minerbob.MainGame;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

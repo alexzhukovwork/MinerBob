@@ -45,11 +45,6 @@ public class SplashScreen implements Screen {
                     public void run() {
                         gameScreen = new GameScreen(mainGame.getHandler(), assetLoader);
                         TextSize.load();
-                    /*    try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }*/
                         mainGame.setScreen(gameScreen);
                     }
                 });
