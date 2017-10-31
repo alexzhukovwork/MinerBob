@@ -27,6 +27,7 @@ public class Avalanche {
         position = new Vector2(0, - gameWorld.buttonSize - 5);
         velocity = new Vector2(0, 0);
         tempVector = new Vector2(0, 0);
+<<<<<<< HEAD
         rect = new Rectangle(0, - gameWorld.buttonSize - 5, GameScreen.WIDTH, gameWorld.buttonSize / 2);
         colorWhite = new Color();
         colorBlack = new Color();
@@ -34,6 +35,9 @@ public class Avalanche {
         colorBlack.set(0, 0, 0, 1);
         colorWhite.set(1, 1, 1, 1);
         color.set(1, 1, 1, 1);
+=======
+        rect = new Rectangle(0, - gameWorld.buttonSize - 5, gameWorld.WIDTH, gameWorld.buttonSize - gameWorld.buttonSize /3);
+>>>>>>> 2b3e80cc86ed027a0846558e1e4a8889e8de0ad0
     }
 
     public void setVelocity(float x, float y) {

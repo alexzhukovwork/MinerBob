@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.minerbob.IActivityRequestHandler;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.MainGame;
+import com.mygdx.minerbob.gameworld.GameWorld;
 
 public class DesktopLauncher implements IActivityRequestHandler, IRewardVideo{
 
@@ -36,6 +37,11 @@ public class DesktopLauncher implements IActivityRequestHandler, IRewardVideo{
 
 	@Override
 	public void showVideoAd() {
+
+	}
+
+	@Override
+	public void setGameWorld(GameWorld gameWorld) {
 
 	}
 }

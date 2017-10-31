@@ -17,8 +17,11 @@ public class MoneyAnimation {
     private float radius;
     private int count;
     private float beginY;
+    private GameWorld gameWorld;
 
-    public MoneyAnimation() {
+
+    public MoneyAnimation(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
         position = new Vector2(0, -100);
         velocity = new Vector2(0, -300);
         tempVector = new Vector2(0, -10);
@@ -31,7 +34,7 @@ public class MoneyAnimation {
         position.y = y;
 
         beginY = y;
-        velocity.x = (GameScreen.WIDTH - x) * 3;
+        velocity.x = (gameWorld.WIDTH - x) * 3;
         velocity.y = (0 - y) * 3;
     }
 

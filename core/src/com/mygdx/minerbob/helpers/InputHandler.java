@@ -23,8 +23,8 @@ public class InputHandler implements InputProcessor {
 
 
     public void setScale() {
-        sclY = GameScreen.screenHeight / GameScreen.HEIGHT;
-        sclX = GameScreen.screenWidth / GameScreen.WIDTH;
+        sclY = Gdx.graphics.getHeight() / gameWorld.HEIGHT;
+        sclX = Gdx.graphics.getWidth() / gameWorld.WIDTH;
     }
     private int currentElement;
 
@@ -183,13 +183,13 @@ public class InputHandler implements InputProcessor {
                     gameWorld.setState(GameWorld.GameState.MENU);
                 }
                 if (gameWorld.getShop().isClickedBack(x, y)) {
-                    gameWorld.getShop().setVelocity(GameScreen.WIDTH * 3, 0);
-                    gameWorld.getShop().setAcceleration(-GameScreen.WIDTH / 10, 0);
+                    gameWorld.getShop().setVelocity(gameWorld.WIDTH * 3, 0);
+                    gameWorld.getShop().setAcceleration(-gameWorld.WIDTH / 10, 0);
                     gameWorld.getShop().dicrementPage();
                 }
                 if (gameWorld.getShop().isClickedNext(x, y)) {
-                    gameWorld.getShop().setVelocity(-GameScreen.WIDTH * 3, 0);
-                    gameWorld.getShop().setAcceleration(GameScreen.WIDTH / 10, 0);
+                    gameWorld.getShop().setVelocity(-gameWorld.WIDTH * 3, 0);
+                    gameWorld.getShop().setAcceleration(gameWorld.WIDTH / 10, 0);
                     gameWorld.getShop().incrementPage();
                 }
 

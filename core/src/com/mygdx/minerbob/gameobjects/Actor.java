@@ -67,16 +67,16 @@ public class Actor {
             tempVector.set(velocity.x, velocity.y);
             position.add(tempVector.scl(delta));
 
-            if (position.y > GameScreen.HEIGHT - height * 3/4) {
+            if (position.y > gameWorld.HEIGHT - height * 3/4) {
                 velocity.y = 0;
-                position.y = GameScreen.HEIGHT - height * 3/4;
+                position.y = gameWorld.HEIGHT - height * 3/4;
             }
 
         } else {
             checkAlive();
 
             if (gameWorld.isCollisedSecond)
-                acceleration.y = GameScreen.HEIGHT / 2 * 12f;
+                acceleration.y = gameWorld.HEIGHT / 2 * 12f;
             else acceleration.y = 80;
         }
 
@@ -88,18 +88,18 @@ public class Actor {
             position.y -= 1;
             rectangleBounds.y -= 1;
             if (screenX > position.x + width) {
-                if (position.x + GameScreen.WIDTH / 5 < GameScreen.WIDTH) {
-                    velocity.x = GameScreen.WIDTH - 10;
+                if (position.x + gameWorld.WIDTH / 5 < gameWorld.WIDTH) {
+                    velocity.x = gameWorld.WIDTH - 10;
                     hasCurrentBlock = true;
                 }
             } else if (screenX < position.x) {
-                if (position.x - GameScreen.WIDTH / 5 > 0) {
-                    velocity.x = -GameScreen.WIDTH + 10;
+                if (position.x - gameWorld.WIDTH / 5 > 0) {
+                    velocity.x = -gameWorld.WIDTH + 10;
                     hasCurrentBlock = true;
                 }
             } else
                 hasCurrentBlock = false;
-            velocity.y = -GameScreen.HEIGHT;
+            velocity.y = -gameWorld.HEIGHT;
             acceleration.y = -velocity.y * 10f;
             isOnBlock = false;
         }

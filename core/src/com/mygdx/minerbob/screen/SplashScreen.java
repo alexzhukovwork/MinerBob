@@ -20,6 +20,10 @@ public class SplashScreen implements Screen {
     private final MainGame mainGame;
     private AssetLoader assetLoader;
     private GameScreen gameScreen;
+    private float screenWidth = Gdx.graphics.getWidth();
+    private float screenHeight = Gdx.graphics.getHeight();
+    private float HEIGHT = 136;
+    private float WIDTH = screenWidth / (screenHeight / HEIGHT);
 
     public SplashScreen(final MainGame mainGame) {
         this.mainGame = mainGame;
@@ -34,7 +38,7 @@ public class SplashScreen implements Screen {
     public void show() {
         batcher = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, GameScreen.WIDTH, GameScreen.HEIGHT);
+        camera.setToOrtho(true, WIDTH, HEIGHT);
         batcher.setProjectionMatrix(camera.combined);
 
         new Thread(new Runnable() {
@@ -43,7 +47,7 @@ public class SplashScreen implements Screen {
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        gameScreen = new GameScreen(mainGame.getHandler(), assetLoader);
+                        gameScreen = new GameScreen(mainGame.getHandler(), assetLoader, WIDTH, HEIGHT);
                         TextSize.load();
                         mainGame.setScreen(gameScreen);
                     }
@@ -55,7 +59,7 @@ public class SplashScreen implements Screen {
     @Override
     public void render(float delta) {
         batcher.begin();
-        batcher.draw(assetLoader.splashScreen, 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
+        batcher.draw(assetLoader.splashScreen, 0, 0, WIDTH, HEIGHT);
         batcher.end();
     }
 

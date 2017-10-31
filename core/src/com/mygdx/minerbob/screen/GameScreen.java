@@ -19,18 +19,26 @@ public class GameScreen implements Screen {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AssetLoader assetLoader;
-    public static float screenWidth = Gdx.graphics.getWidth();
-    public static float screenHeight = Gdx.graphics.getHeight();
-    public static float HEIGHT = 136;
-    public static float WIDTH = screenWidth / (screenHeight / HEIGHT);
+    private float HEIGHT;
+    private float WIDTH;
     private InputHandler inputHandler;
     private IActivityRequestHandler handler;
 
-    public GameScreen(IActivityRequestHandler handler, AssetLoader assetLoader) {
+    public GameScreen(IActivityRequestHandler handler, AssetLoader assetLoader, float WIDTH, float HEIGHT) {
         this.handler = handler;
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
         this.assetLoader = assetLoader;
         this.assetLoader.load();
-        gameWorld = new GameWorld((IRewardVideo)handler, this.assetLoader);
+        gameWorld = new GameWorld((IRewardVideo)handler, this.assetLoader, WIDTH, HEIGHT);
+    }
+
+    public float getWIDTH() {
+        return WIDTH;
+    }
+
+    public float getHEIGHT() {
+        return HEIGHT;
     }
 
     @Override
@@ -66,9 +74,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        screenWidth = Gdx.graphics.getWidth();
-        screenHeight = Gdx.graphics.getHeight();
-        WIDTH = screenWidth / (screenHeight / HEIGHT);
+        WIDTH =  Gdx.graphics.getWidth() / (Gdx.graphics.getHeight() / HEIGHT);
         inputHandler.setScale();
     }
 

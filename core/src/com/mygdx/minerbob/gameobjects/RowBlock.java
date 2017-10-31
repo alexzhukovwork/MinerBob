@@ -1,5 +1,6 @@
 package com.mygdx.minerbob.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -118,9 +119,9 @@ public class RowBlock {
     }
 
     private void setVelocity(float velocity) {
-        for (int i = 0; i < rows.size; i++) {
-            for (int j = 0; j < rows.get(i).size; j++) {
-                rows.get(i).get(j).setVelocity(0, velocity);
+        for (Array<Block> r : rows) {
+            for (Block b : r) {
+                b.setVelocity(0, velocity);
             }
         }
     }
@@ -169,56 +170,55 @@ public class RowBlock {
             }
         }
 
-      //  ITypeBlock typeBlock;
+        ITypeBlock typeBlock;
         for(int i = 0; i < 5; i++){
             if (!bools.get(i)) {
-                //;
-                rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, getRandomType());
+                typeBlock = getRandomType();
+                rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock);
             }
         }
 
     }
 
     private ITypeBlock getRandomType() {
-        return typeBlocks.get(rnd(0, typeBlocks.size - 1));
+        ITypeBlock type = typeBlocks.get(rnd(0, typeBlocks.size - 1));
+        return type;
     }
 
     public void update(float delta) {
         if (!gameWorld.getActor().getAlive())
             return;
 
-       // int i = 0;
+        int i = 0;
 
-        for (int i = 0; i < rows.size; i++) {
+        for (Array<Block> l : rows) {
             countTitan = 0;
-            for (int j = 0; j < rows.get(i).size; j++) {
+            for (Block b : l) {
                 if (TimeUtils.nanoTime() - lastTimeSpeed > 3000000000L) {
-                    if (rows.get(i).get(j).getVelocity().y > - maxspeed) {
-                        rows.get(i).get(j).setVelocity(0, rows.get(i).get(j).getVelocity().y + (rows.get(i).get(j).getVelocity().y / 24.0f));
+                    if (b.getVelocity().y > - maxspeed) {
+                        b.setVelocity(0, b.getVelocity().y + (b.getVelocity().y / 24.0f));
                     }
                 }
-                rows.get(i).get(j).update(delta);
+                b.update(delta);
 
-                if( rows.get(i).get(j).isCollised() ) {
+                if( b.isCollised() ) {
 
                 }
             }
-            if (rows.get(i).get(0).getStaticY() + heightBlock < 0) {
+            if (l.get(0).getStaticY() + heightBlock < 0) {
                 if (i == 0)
-                    generateRow(i, rows.get(i).get(1).getX(), rows.get(3).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock,
-                            rows.get(i).get(0).getVelocity().y);
+                    generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
                 else
-                    generateRow(i, rows.get(i).get(1).getX(), rows.get(i - 1).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock,
-                            rows.get(i).get(0).getVelocity().y);
+                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + GameScreen.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
             }
-
+            i++;
         }
 
          if (TimeUtils.nanoTime() - lastTimeSpeed > 3000000000L) {
              lastTimeSpeed = TimeUtils.nanoTime();
              if (rows.get(0).get(0).getVelocity().y > - maxspeed) {
-                 for (int j = 0; j < typeBlocks.size; j++)
-                    typeBlocks.get(j).setLevel(typeBlocks.get(j).getLevel() - typeBlocks.get(j).getLevel() / 24.0f);
+                 for (ITypeBlock type : typeBlocks)
+                    type.setLevel(type.getLevel() - type.getLevel() / 24.0f);
              }
              maxTitan++;
 
@@ -244,13 +244,12 @@ public class RowBlock {
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
         shaper.begin(ShapeRenderer.ShapeType.Filled);
 
-        for (int i = 0; i < rows.size; i++) {
-            for (int j = 0; j < rows.get(i).size; j++) {
-                if (!rows.get(i).get(j).getDestroyed()) {
-                    shaper.setColor(rows.get(i).get(j).getColor());
-                    if (!rows.get(i).get(j).getType().getName().equals("Earth"))
-                        shaper.rect(rows.get(i).get(j).getX(), rows.get(i).get(j).getY(),
-                                rows.get(i).get(j).getWidth(), rows.get(i).get(j).getHeight());
+        for (Array<Block> l : rows) {
+            for (Block b : l) {
+                if (!b.getDestroyed()) {
+                    shaper.setColor(b.getColor());
+                    if (!b.getType().getName().equals("Earth"))
+                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
                 }
             }
         }
@@ -260,24 +259,22 @@ public class RowBlock {
         shaper.begin(ShapeRenderer.ShapeType.Line);
         shaper.setColor(0, 0, 0, 1);
 
-        for (int i = 0; i < rows.size; i++) {
-            for (int j = 0; j < rows.get(i).size; j++) {
-                if (!rows.get(i).get(j).getDestroyed()) {
-                    if (!rows.get(i).get(j).getType().getName().equals("Earth"))
-                        shaper.rect(rows.get(i).get(j).getX(), rows.get(i).get(j).getY(),
-                                rows.get(i).get(j).getWidth(), rows.get(i).get(j).getHeight());
+        for (Array<Block> l : rows) {
+            for (Block b : l) {
+                if (!b.getDestroyed()) {
+                    if (!b.getType().getName().equals("Earth"))
+                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
                 }
             }
         }
 
         shaper.end();
         batcher.begin();
-        for (int i = 0; i < rows.size; i++) {
-            for (int j = 0; j < rows.get(i).size; j++) {
+        for (Array<Block> l : rows) {
+            for (Block b : l) {
                 //if (!b.getDestroyed()) {
-                    if (rows.get(i).get(j).getType().getName().equals("Earth")) {
-                        batcher.draw(rows.get(i).get(j).getTexture(), rows.get(i).get(j).getX(),
-                                rows.get(i).get(j).getStaticY(), rows.get(i).get(j).getWidth(), heightBlock);
+                    if (b.getType().getName().equals("Earth")) {
+                        batcher.draw(b.getTexture(), b.getX(), b.getStaticY(), b.getWidth(), heightBlock);
                     }
                 //}
             }
@@ -289,9 +286,9 @@ public class RowBlock {
         if (rows.get(0).get(0).getVelocity().y != 0) {
             currentSpeed = rows.get(0).get(0).getVelocity().y;
         }
-        for (int i = 0; i < rows.size; i++) {
-            for (int j = 0; j < rows.get(i).size; j++) {
-                rows.get(i).get(j).stop();
+        for (Array<Block> l : rows) {
+            for (Block b : l) {
+                b.stop();
             }
         }
     }
