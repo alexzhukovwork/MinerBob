@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
@@ -125,6 +126,7 @@ public class AssetLoader {
     }
 
     public void load() {
+
         restoreTextures = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) {
             TextureRegion temp = new TextureRegion(new Texture(Gdx.files.internal("img/Restore" + i + ".png")));
