@@ -18,12 +18,8 @@ import java.util.Date;
 public class AssetLoader {
     public Animation actorAnimation;
 
-    public Texture texture;
-    public Texture textureBlock;
-    public Texture textureBg;
-    public Texture textureStart;
-    public Texture textureButtons;
-    public Texture textureSplashScreen;
+    private TextureAtlas atlasTexture;
+    private Texture textureSplashScreen;
 
     public BitmapFont font;
 
@@ -53,9 +49,6 @@ public class AssetLoader {
     public TextureRegion buttonOkClicked;
     public TextureRegion buttonSound;
 
-    private Texture testPlay;
-    private Texture testShop;
-    private Texture testSound;
 
     public TextureRegion earthBlock;
 
@@ -78,58 +71,22 @@ public class AssetLoader {
     }
 
     private void initButtons() {
-        textureButtons = new Texture(Gdx.files.internal("img/buttons.png"));
-        buttonPlay = new TextureRegion(textureButtons, 512 * 3 + 3, 512 + 1, 512, 512);
-        buttonPlayClicked = new TextureRegion(textureButtons, 512 * 4 + 4, 0, 512, 512);
-        buttonPause = new TextureRegion(textureButtons, 512 * 3 + 3, 0, 512, 512);
-        buttonPauseClicked = new TextureRegion(textureButtons, 512 * 2 + 2, 512 * 2 + 2, 512, 512);
-        buttonClose = new TextureRegion(textureButtons, 512 + 1, 0, 512, 512);
-        buttonCloseClicked = new TextureRegion(textureButtons, 0, 512 * 2 + 2, 512, 512);
-        buttonBack = new TextureRegion(textureButtons, 0, 0, 512, 512);
-        buttonBackClicked = new TextureRegion(textureButtons, 0, 512 + 1, 512, 512);
-        buttonLeft = new TextureRegion(textureButtons, 512 + 1, 512 + 1, 512, 512);
-        buttonLeftClicked = new TextureRegion(textureButtons, 512 * 2 + 2, 0, 512, 512);
-        buttonRight = new TextureRegion(textureButtons, 512 * 3 + 3, 512 * 2 + 2, 512, 512);
-        buttonRightClicked = new TextureRegion(textureButtons, 512 * 4 + 4, 512 + 1, 512, 512);
-        buttonShop = new TextureRegion(textureButtons, 512 * 5 + 5, 0, 512, 512);
-        buttonShopClicked = new TextureRegion(textureButtons, 512 * 4 + 4, 512 * 2 + 2, 512, 512);
-        buttonOk = new TextureRegion(textureButtons, 512 + 1, 512 * 2 + 2, 512, 512);
-        buttonOkClicked = new TextureRegion(textureButtons, 512 * 2 + 2, 512 + 1, 512, 512);
 
-        testPlay = new Texture(Gdx.files.internal("img/play.png"));
-        buttonPlay = new TextureRegion(testPlay, 0, 0, 257, 269);
-
-        testShop = new Texture(Gdx.files.internal("img/shop.png"));
-        buttonShop = new TextureRegion(testShop, 0, 0, 129, 129);
-
-        testSound = new Texture(Gdx.files.internal("img/audio.png"));
-        buttonSound = new TextureRegion(testSound, 0, 0, 129, 129);
-
+        buttonPlay = atlasTexture.findRegion("play");
+        buttonShop = atlasTexture.findRegion("shop");
+        buttonSound = atlasTexture.findRegion("audio");
 
         buttonSound.flip(false, true);
-        buttonOk.flip(false, true);
-        buttonOkClicked.flip(false, true);
         buttonShop.flip(false, true);
-        buttonShopClicked.flip(false, true);
-        buttonRight.flip(false, true);
-        buttonRightClicked.flip(false, true);
-        buttonLeft.flip(false, true);
-        buttonLeftClicked.flip(false, true);
-        buttonBack.flip(false, true);
-        buttonBackClicked.flip(false, true);
-        buttonClose.flip(false, true);
-        buttonCloseClicked.flip(false, true);
-        buttonPause.flip(false, true);
-        buttonPauseClicked.flip(false, true);
         buttonPlay.flip(false, true);
-        buttonPlayClicked.flip(false, true);
     }
 
     public void load() {
-
+        atlasTexture = new TextureAtlas("Miner Bob.atlas");
+        TextureRegion temp;
         restoreTextures = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) {
-            TextureRegion temp = new TextureRegion(new Texture(Gdx.files.internal("img/Restore" + i + ".png")));
+            temp = atlasTexture.findRegion("Restore" + i);
             temp.flip(false, true);
             restoreTextures.add(temp);
         }
@@ -138,49 +95,36 @@ public class AssetLoader {
 
         earthTextures = new Array<TextureRegion>();
         for (int i = 0; i < 10; i++) {
-            textureBlock = new Texture(Gdx.files.internal("img/earth" + i + ".png"));
-            earthBlock = new TextureRegion(textureBlock, 0, 0, 201, 101);
+            earthBlock = atlasTexture.findRegion("earth" + i);
             earthBlock.flip(false, true);
             earthTextures.add(earthBlock);
         }
-        //textureBlock = new Texture(Gdx.files.internal("img/" + 1 + ".png"));
-        //earthBlock = new TextureRegion(textureBlock, 0, 0, 64, 59);
+
         textures = new Array<ActorTexture>();
         initButtons();
-        textureBg = new Texture(Gdx.files.internal("img/BG.png"));
-        textureBg.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        bgFirst = new TextureRegion(textureBg, 500, 800);
-        textureBlock = new Texture(Gdx.files.internal("img/Blocks.png"));
-        textureBlock.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        bgFirst = atlasTexture.findRegion("BG");
 
-        texture = new Texture(Gdx.files.internal("img/Actor.png"));
-        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-        textureStart = new Texture(Gdx.files.internal("img/StartField.png"));
-        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-        startField = new TextureRegion(textureStart, 0, 0, 256, 512);
+        startField = atlasTexture.findRegion("StartField");
         startField.flip(false, true);
 
-        actorFall = new TextureRegion(texture, 0, 11, 259, 370);
+        actorFall = atlasTexture.findRegion("actor1");
         actorFall.flip(false, true);
 
-        actorKick1 = new TextureRegion(texture, 323, 11, 259, 370);
+        actorKick1 = atlasTexture.findRegion("actor2");
         actorKick1.flip(false, true);
 
-        actorKick2 = new TextureRegion(texture, 656, 11, 259, 370);
+        actorKick2 = atlasTexture.findRegion("actor3");
         actorKick2.flip(false, true);
 
-        actorKick3 = new TextureRegion(texture, 987, 11, 259, 370);
+        actorKick3 = atlasTexture.findRegion("actor4");
         actorKick3.flip(false, true);
 
         TextureRegion[] actors = { actorKick1, actorKick2, actorKick3 };
         actorAnimation = new Animation(0.09f, actors);
         actorAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10
-        ));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
@@ -308,12 +252,8 @@ public class AssetLoader {
     }
 
     public void dispose() {
-        textureStart.dispose();
-        textureBlock.dispose();
-        textureBg.dispose();
-        texture.dispose();
+        atlasTexture.dispose();
         textureSplashScreen.dispose();
-        textureButtons.dispose();
         font.dispose();
     }
 }

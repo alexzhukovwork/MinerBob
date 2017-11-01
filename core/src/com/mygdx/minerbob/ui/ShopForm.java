@@ -82,15 +82,21 @@ public class ShopForm {
         if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
             shaper.rect(boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
 
+        if (currentPage != pages.size - 1)
+            shaper.rect(boundNext.x, boundNext.y, boundNext.width, boundNext.height);
+        if (currentPage != 0)
+            shaper.rect(boundBack.x, boundBack.y, boundBack.width, boundBack.height);
+        shaper.rect(boundClose.x, boundClose.y, boundClose.width, boundClose.height);
+
         shaper.end();
 
-        batcher.begin();
+       /* batcher.begin();
         if (currentPage != pages.size - 1)
             batcher.draw(rightTexture, boundNext.x, boundNext.y, boundNext.width, boundNext.height);
         if (currentPage != 0)
             batcher.draw(leftTexture, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
         batcher.draw(closeTexture, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
-        batcher.end();
+        batcher.end();*/
         for(int i = 0; i < pages.size; i++)
             pages.get(i).draw(shaper, batcher, runTime);
 
