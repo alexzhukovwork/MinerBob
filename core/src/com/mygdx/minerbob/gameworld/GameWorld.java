@@ -90,7 +90,7 @@ public class GameWorld {
                 this);
         rowBlock = new RowBlock(this);
         field = new Field(this);
-        Gdx.app.log("AssetLoader", "world created");
+        //Gdx.app.log("AssetLoader", "world created");
     }
 
     public void update(float delta) {

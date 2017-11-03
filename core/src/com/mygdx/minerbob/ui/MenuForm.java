@@ -19,7 +19,7 @@ public class MenuForm {
     Rectangle boundsSound;
     private GameWorld gameWorld;
 
-    TextureRegion playTexture, shopTexture, soundTexture;
+    TextureRegion playTexture, shopTexture, soundTexture, recordTexture;
     public MenuForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         playTexture = this.gameWorld.assetLoader.buttonPlay;

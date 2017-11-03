@@ -23,9 +23,13 @@ public class RunningForm {
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
-        batcher.begin();
+       shaper.begin(ShapeRenderer.ShapeType.Filled);
+       shaper.setColor(1, 1, 1, 1);
+       shaper.rect(boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
+       shaper.end();
+        /* batcher.begin();
         batcher.draw(pauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
-        batcher.end();
+        batcher.end();*/
     }
 
     public boolean isClickedPause(float x, float y) {

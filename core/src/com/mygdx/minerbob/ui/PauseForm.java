@@ -32,7 +32,6 @@ public class PauseForm {
         float y = gameWorld.HEIGHT / 4;
         float width = gameWorld.WIDTH / 4 * 2.7f;
         float height = width;
-       // if(gameWorld.assetLoader.isInternet)
         boundsRestore = new Rectangle(-100, -100, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
         boundsBoard = new Rectangle(x, y, width, height);
         boundsMenu = new Rectangle(x + width - gameWorld.buttonSize * 1.5f - width / 9, y + height / 10 * 7, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
