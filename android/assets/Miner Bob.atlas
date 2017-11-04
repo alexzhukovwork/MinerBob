@@ -1,0 +1,188 @@
+
+Miner Bob.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Miner-Bob1
+  rotate: false
+  xy: 2, 1218
+  size: 500, 800
+  orig: 500, 800
+  offset: 0, 0
+  index: -1
+Miner-Bob2
+  rotate: false
+  xy: 504, 1218
+  size: 500, 800
+  orig: 500, 800
+  offset: 0, 0
+  index: -1
+Miner-Bob3
+  rotate: false
+  xy: 2, 416
+  size: 500, 800
+  orig: 500, 800
+  offset: 0, 0
+  index: -1
+Restore0
+  rotate: false
+  xy: 1006, 1621
+  size: 271, 397
+  orig: 271, 397
+  offset: 0, 0
+  index: -1
+Restore1
+  rotate: false
+  xy: 504, 420
+  size: 271, 397
+  orig: 271, 397
+  offset: 0, 0
+  index: -1
+Restore2
+  rotate: false
+  xy: 504, 819
+  size: 271, 397
+  orig: 271, 397
+  offset: 0, 0
+  index: -1
+Restore3
+  rotate: false
+  xy: 1006, 1222
+  size: 271, 397
+  orig: 271, 397
+  offset: 0, 0
+  index: -1
+StartScreen
+  rotate: false
+  xy: 2, 2
+  size: 280, 412
+  orig: 280, 412
+  offset: 0, 0
+  index: -1
+actor1
+  rotate: false
+  xy: 1279, 1649
+  size: 283, 369
+  orig: 283, 369
+  offset: 0, 0
+  index: -1
+actor2
+  rotate: false
+  xy: 1279, 1278
+  size: 283, 369
+  orig: 283, 369
+  offset: 0, 0
+  index: -1
+actor3
+  rotate: false
+  xy: 1564, 1649
+  size: 283, 369
+  orig: 283, 369
+  offset: 0, 0
+  index: -1
+actor4
+  rotate: false
+  xy: 1564, 1278
+  size: 283, 369
+  orig: 283, 369
+  offset: 0, 0
+  index: -1
+audio
+  rotate: false
+  xy: 1036, 988
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+earth0
+  rotate: false
+  xy: 1036, 1119
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth1
+  rotate: false
+  xy: 284, 313
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth2
+  rotate: false
+  xy: 777, 844
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth3
+  rotate: false
+  xy: 284, 210
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth4
+  rotate: false
+  xy: 777, 741
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth5
+  rotate: false
+  xy: 284, 107
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth6
+  rotate: false
+  xy: 777, 638
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth7
+  rotate: false
+  xy: 284, 4
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth8
+  rotate: false
+  xy: 777, 535
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+earth9
+  rotate: false
+  xy: 777, 432
+  size: 201, 101
+  orig: 201, 101
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 777, 947
+  size: 257, 269
+  orig: 257, 269
+  offset: 0, 0
+  index: -1
+shop
+  rotate: false
+  xy: 1849, 1889
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 1849, 1762
+  size: 129, 125
+  orig: 129, 125
+  offset: 0, 0
+  index: -1

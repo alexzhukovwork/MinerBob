@@ -38,8 +38,8 @@ public class GameRenderer {
     }
 
     public void render(float runTime) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(1, 1, 1, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         gameWorld.getField().draw(batcher);
         gameWorld.getRowBlock().draw(shapeRenderer, batcher);
@@ -53,7 +53,7 @@ public class GameRenderer {
             stateTime += Gdx.graphics.getDeltaTime();
             if(gameWorld.assetLoader.restoreAnimation.isAnimationFinished(stateTime)) {
                 gameWorld.isRestoring = false;
-                gameWorld.setRestoring();
+                gameWorld.restoring();
                 stateTime = 0f;
             }
         }

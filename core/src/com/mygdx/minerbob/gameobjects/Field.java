@@ -58,7 +58,7 @@ public class Field {
         else
             batcher.draw(gameWorld.assetLoader.bgFirst, positionFirst.x, positionFirst.y, gameWorld.WIDTH, height);
 
-        batcher.draw(gameWorld.assetLoader.bgFirst, positionSecond.x, positionSecond.y, gameWorld.WIDTH, height);
+        batcher.draw(gameWorld.assetLoader.bgSecond, positionSecond.x, positionSecond.y, gameWorld.WIDTH, height);
         batcher.end();
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
+import com.mygdx.minerbob.helpers.TextSize;
 import com.mygdx.minerbob.screen.GameScreen;
 
 /**
@@ -29,13 +30,46 @@ public class MenuForm {
         boundsShop = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
+    private void roundedRectangle(ShapeRenderer shaper, float x, float y, float width, float height, float radius) {
+        shaper.begin(ShapeRenderer.ShapeType.Filled);
+        //shaper.setColor(0.204f, 0.255f, 0.298f, 0.2f);
+        shaper.setColor(0.153f, 0.486f, 0.533f, 1f); //39, 124, 136
+
+        // Width rectangle
+        shaper.rect(x, y + radius, width, height - 2 * radius);
+
+        // Height rectangle
+        shaper.rect(x + radius, y, width - 2 * radius, height);
+
+        // Bottom-left circle
+        shaper.circle(x + radius, y + height - radius, radius, 1000);
+
+        // Top-left circle
+        shaper.circle(x + radius, y + radius, radius, 1000);
+
+        // Top-right circle
+        shaper.circle(x + width - radius, y + radius, radius, 1000);
+
+        // Bottom-right circle
+        shaper.circle(x + width - radius, y + height - radius, radius, 1000);
+
+        shaper.end();
+    }
+
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
+        float textWidth = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("highScore") + "");
+        float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("highScore") + "");
+        roundedRectangle(shaper, gameWorld.buttonSize / 2 + 2, 0, textWidth + 4, gameWorld.buttonSize,
+                gameWorld.buttonSize * 21f / 100f); //radius = 2.5f
         batcher.begin();
-        gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
+        gameWorld.assetLoader.font.draw(batcher, AssetLoader.prefs.getInteger("highScore") + "",gameWorld.buttonSize / 2 + 4,
+                gameWorld.buttonSize / 2 - textHeight / 2);
+        batcher.draw(gameWorld.assetLoader.starTexture, 0, gameWorld.buttonSize / 2 - gameWorld.buttonSize / 4, gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
+        //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
         batcher.end();
         Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 10, Money.money);
    /*     shaper.begin(ShapeRenderer.ShapeType.Filled);
-        shaper.setColor(1, 1, 1, 1);
+        shaper.setColor(1, 1, 1, 1);1
       //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         shaper.end();
      */   batcher.begin();

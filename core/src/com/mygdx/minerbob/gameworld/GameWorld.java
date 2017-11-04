@@ -150,7 +150,7 @@ public class GameWorld {
         rowBlock.setRowEarth(i);
     }
 
-    public void setRestoring() {
+    public void restoring() {
         rowBlock.restore();
         actor.setAcceleration(0, 10);
     }
