@@ -16,10 +16,21 @@ public class Field {
     private float height;
     private boolean isFirst;
     private GameWorld gameWorld;
+    private float scale;
+    private float width;
+
 
     public Field(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         height = this.gameWorld.HEIGHT;
+        width = this.gameWorld.WIDTH;
+        scale = width / height;
+        if (scale > 500 / 800)
+            scale -= 500 / 800;
+        else if (scale < 500 / 800)
+            scale = 500 / 800 - scale;
+        width += width * scale;
+
         restart();
     }
 
