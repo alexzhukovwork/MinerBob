@@ -6,49 +6,63 @@ filter: Nearest,Nearest
 repeat: none
 Miner-Bob1
   rotate: false
-  xy: 2, 1218
+  xy: 2, 416
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob2
   rotate: false
-  xy: 504, 1218
+  xy: 504, 416
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob3
   rotate: false
-  xy: 2, 416
+  xy: 504, 1218
+  size: 500, 800
+  orig: 500, 800
+  offset: 0, 0
+  index: -1
+Miner-Bob4
+  rotate: false
+  xy: 2, 1218
+  size: 500, 800
+  orig: 500, 800
+  offset: 0, 0
+  index: -1
+Miner-Bob5
+  rotate: false
+  xy: 1006, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Restore0
   rotate: false
-  xy: 1006, 1621
+  xy: 1508, 1621
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore1
   rotate: false
-  xy: 504, 420
+  xy: 284, 17
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore2
   rotate: false
-  xy: 504, 819
+  xy: 1006, 819
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore3
   rotate: false
-  xy: 1006, 1222
+  xy: 1006, 420
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
@@ -62,126 +76,126 @@ StartScreen
   index: -1
 actor1
   rotate: false
-  xy: 1279, 1649
+  xy: 557, 45
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor2
   rotate: false
-  xy: 1279, 1278
+  xy: 1508, 1250
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor3
   rotate: false
-  xy: 1564, 1649
+  xy: 1279, 847
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor4
   rotate: false
-  xy: 1564, 1278
+  xy: 1279, 476
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 audio
   rotate: false
-  xy: 1036, 988
+  xy: 1793, 1309
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
   index: -1
 earth0
   rotate: false
-  xy: 1036, 1119
+  xy: 1793, 1440
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth1
   rotate: false
-  xy: 284, 313
+  xy: 1781, 1646
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth2
   rotate: false
-  xy: 777, 844
+  xy: 1564, 1147
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth3
   rotate: false
-  xy: 284, 210
+  xy: 1564, 1044
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth4
   rotate: false
-  xy: 777, 741
+  xy: 1564, 941
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth5
   rotate: false
-  xy: 284, 107
+  xy: 1564, 838
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth6
   rotate: false
-  xy: 777, 638
+  xy: 1564, 735
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth7
   rotate: false
-  xy: 284, 4
+  xy: 1564, 632
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth8
   rotate: false
-  xy: 777, 535
+  xy: 1564, 529
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth9
   rotate: false
-  xy: 777, 432
+  xy: 1793, 1543
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 play
   rotate: false
-  xy: 777, 947
+  xy: 1781, 1749
   size: 257, 269
   orig: 257, 269
   offset: 0, 0
   index: -1
 shop
   rotate: false
-  xy: 1849, 1889
+  xy: 842, 285
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 1849, 1762
+  xy: 842, 158
   size: 129, 125
   orig: 129, 125
   offset: 0, 0
