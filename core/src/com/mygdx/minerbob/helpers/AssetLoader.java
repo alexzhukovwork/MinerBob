@@ -25,8 +25,8 @@ public class AssetLoader {
 
     public TextureRegion actorKick1, actorKick2, actorKick3, actorFall;
     public TextureRegion startField;
-    public TextureRegion bgFirst;
-    public TextureRegion bgSecond;
+    public TextureRegion bgBlue, bgBlueToGreen;
+    public TextureRegion bgGreen, bgGreenToBlue;
     public TextureRegion currentTexture;
     public TextureRegion startScreen;
     public TextureRegion splashScreen;
@@ -109,10 +109,14 @@ public class AssetLoader {
         textures = new Array<ActorTexture>();
         initButtons();
 
-        bgFirst = atlasTexture.findRegion("Miner-Bob2");
-        bgFirst.flip(false, true);
-        bgSecond = atlasTexture.findRegion("Miner-Bob3");
-        bgSecond.flip(false, true);
+        bgBlue = atlasTexture.findRegion("Miner-Bob2");
+        bgBlue.flip(false, true);
+        bgBlueToGreen = atlasTexture.findRegion("Miner-Bob4");
+        bgBlueToGreen.flip(false, true);
+        bgGreen = atlasTexture.findRegion("Miner-Bob3");
+        bgGreen.flip(false, true);
+        bgGreenToBlue = atlasTexture.findRegion("Miner-Bob5");
+        bgGreenToBlue.flip(false, true);
 
         startField = atlasTexture.findRegion("Miner-Bob1");
         startField.flip(false, true);
