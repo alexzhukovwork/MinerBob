@@ -20,14 +20,15 @@ public class MenuForm {
     Rectangle boundsSound;
     private GameWorld gameWorld;
 
-    TextureRegion playTexture, shopTexture, soundTexture, recordTexture;
+    TextureRegion playTexture, shopTexture, soundTexture;
     public MenuForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         playTexture = this.gameWorld.assetLoader.buttonPlay;
         shopTexture = this.gameWorld.assetLoader.buttonShop;
-        boundsPlay = new Rectangle(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 6, gameWorld.HEIGHT / 2 - gameWorld.WIDTH / 6, gameWorld.WIDTH / 3, gameWorld.WIDTH / 3);
-        boundsSound = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize * 2 - 5, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundsShop = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsPlay = new Rectangle(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 6, gameWorld.HEIGHT / 2 - gameWorld.WIDTH / 6,
+                gameWorld.WIDTH / 3, gameWorld.WIDTH / 3);
+        boundsSound = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize * 2 - gameWorld.MARGIN * 2f, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsShop = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
     private void roundedRectangle(ShapeRenderer shaper, float x, float y, float width, float height, float radius) {
@@ -59,12 +60,13 @@ public class MenuForm {
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
         float textWidth = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("highScore") + "");
         float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("highScore") + "");
-        roundedRectangle(shaper, gameWorld.buttonSize / 2 + 2, 0, textWidth + 4, gameWorld.buttonSize,
+        roundedRectangle(shaper, gameWorld.buttonSize / 2 + gameWorld.MARGIN * 2f, gameWorld.MARGIN, textWidth + 4, gameWorld.buttonSize,
                 gameWorld.buttonSize * 21f / 100f); //radius = 2.5f
         batcher.begin();
-        gameWorld.assetLoader.font.draw(batcher, AssetLoader.prefs.getInteger("highScore") + "",gameWorld.buttonSize / 2 + 4,
-                gameWorld.buttonSize / 2 - textHeight / 2);
-        batcher.draw(gameWorld.assetLoader.starTexture, 0, gameWorld.buttonSize / 2 - gameWorld.buttonSize / 4, gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
+        gameWorld.assetLoader.font.draw(batcher, AssetLoader.prefs.getInteger("highScore") + "",gameWorld.buttonSize / 2 + gameWorld.MARGIN *3f,
+                gameWorld.buttonSize / 2 - textHeight / 2 + gameWorld.MARGIN);
+        batcher.draw(gameWorld.assetLoader.starTexture, gameWorld.MARGIN, gameWorld.buttonSize / 2 - gameWorld.buttonSize / 4 + gameWorld.MARGIN,
+                gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
         //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
         batcher.end();
         Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 10, Money.money);

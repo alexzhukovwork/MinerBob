@@ -39,6 +39,7 @@ public class GameWorld {
 
     public float buttonSize;
     public float WIDTH, HEIGHT;
+    public final float MARGIN = 2f;
 
     public enum AdId { SHOPAD, RESTOREAD }
 
