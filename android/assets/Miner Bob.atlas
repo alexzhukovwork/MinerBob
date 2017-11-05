@@ -20,7 +20,7 @@ Miner-Bob2
   index: -1
 Miner-Bob3
   rotate: false
-  xy: 504, 1218
+  xy: 1006, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
@@ -34,28 +34,28 @@ Miner-Bob4
   index: -1
 Miner-Bob5
   rotate: false
-  xy: 1006, 1218
+  xy: 504, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Restore0
   rotate: false
-  xy: 1508, 1621
+  xy: 1006, 819
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore1
   rotate: false
-  xy: 284, 17
+  xy: 1508, 1621
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore2
   rotate: false
-  xy: 1006, 819
+  xy: 284, 17
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
@@ -104,77 +104,77 @@ actor4
   index: -1
 audio
   rotate: false
-  xy: 1793, 1309
+  xy: 842, 285
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
   index: -1
 earth0
   rotate: false
-  xy: 1793, 1440
+  xy: 1781, 1646
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth1
   rotate: false
-  xy: 1781, 1646
+  xy: 1564, 1147
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth2
   rotate: false
-  xy: 1564, 1147
+  xy: 1564, 1044
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth3
   rotate: false
-  xy: 1564, 1044
+  xy: 1564, 941
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth4
   rotate: false
-  xy: 1564, 941
+  xy: 1564, 838
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth5
   rotate: false
-  xy: 1564, 838
+  xy: 1564, 735
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth6
   rotate: false
-  xy: 1564, 735
+  xy: 1564, 632
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth7
   rotate: false
-  xy: 1564, 632
+  xy: 1564, 529
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth8
   rotate: false
-  xy: 1564, 529
+  xy: 1793, 1543
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
   index: -1
 earth9
   rotate: false
-  xy: 1793, 1543
+  xy: 1793, 1440
   size: 201, 101
   orig: 201, 101
   offset: 0, 0
@@ -188,7 +188,7 @@ play
   index: -1
 shop
   rotate: false
-  xy: 842, 285
+  xy: 1793, 1309
   size: 129, 129
   orig: 129, 129
   offset: 0, 0

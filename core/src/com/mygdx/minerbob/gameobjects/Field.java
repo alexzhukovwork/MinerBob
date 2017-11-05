@@ -1,44 +1,47 @@
 package com.mygdx.minerbob.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.helpers.AssetLoader;
-import com.mygdx.minerbob.screen.GameScreen;
 
 /**
  * Created by Алексей on 16.09.2017.
  */
 
 public class Field {
-    private Vector2 positionFirst, positionSecond, velocity, acceleration;
+    private Vector2 positionFirst, positionSecond, velocity, tempVector;
 
     private float height;
     private boolean isFirst;
     private GameWorld gameWorld;
     private float scale;
     private float width;
+    private boolean isGreenFirst, isGreenSecond;
+    private TextureRegion firstTexture, secondTexture;
 
 
     public Field(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         height = this.gameWorld.HEIGHT;
         width = this.gameWorld.WIDTH;
-        scale = width / height;
-        if (scale > 500 / 800)
-            scale -= 500 / 800;
-        else if (scale < 500 / 800)
-            scale = 500 / 800 - scale;
-        width += width * scale;
 
+        tempVector = new Vector2(0, 0);
+        positionFirst = new Vector2(0, 0);
+        positionSecond = new Vector2(0, height);
+        velocity = new Vector2(0, -1);
         restart();
     }
 
     public void restart() {
         isFirst = true;
-        positionFirst = new Vector2(0, 0);
-        positionSecond = new Vector2(0, height);
-        velocity = new Vector2(0, -1);
+        positionFirst.set(0, 0);
+        positionSecond.set(0, height);
+        velocity.set(0, -1);
+        secondTexture = gameWorld.assetLoader.bgGreen;
+        firstTexture = gameWorld.assetLoader.bgGreenToBlue;
+        isGreenFirst = true;
+        isGreenSecond = true;
     }
 
     public void setVelocity(float x, float y) {
@@ -46,30 +49,49 @@ public class Field {
     }
 
     public void update(float delta) {
-        positionFirst.add(velocity.cpy().scl(delta));
-        positionSecond.add(velocity.cpy().scl(delta));
+        tempVector.set(velocity.x, velocity.y);
+        positionFirst.add(tempVector.scl(delta));
+        tempVector.set(velocity.x, velocity.y);
+        positionSecond.add(tempVector.scl(delta));
 
         if(isFirst && positionFirst.y + height <= 0) {
             gameWorld.isStart = false;
             isFirst = false;
         }
 
-        if (positionFirst.y + height <= 0)
+        if (positionFirst.y + height <= 0) {
             positionFirst.y = positionSecond.y + height;
+            if (isGreenFirst) {
+                firstTexture = gameWorld.assetLoader.bgGreenToBlue;
+                isGreenFirst = false;
+            } else {
+                firstTexture = gameWorld.assetLoader.bgBlueToGreen;
+                isGreenFirst = true;
+            }
+        }
 
-        if (positionSecond.y + height <= 0)
+        if (positionSecond.y + height <= 0) {
             positionSecond.y = positionFirst.y + height;
+            if (isGreenSecond) {
+                secondTexture = gameWorld.assetLoader.bgBlue;
+                isGreenSecond = false;
+            }
+            else {
+                secondTexture = gameWorld.assetLoader.bgGreen;
+                isGreenSecond = true;
+            }
+        }
     }
 
     public void draw(SpriteBatch batcher) {
         batcher.begin();
 
         if (isFirst)
-            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, gameWorld.WIDTH, height);
+            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width, height);
         else
-            batcher.draw(gameWorld.assetLoader.bgFirst, positionFirst.x, positionFirst.y, gameWorld.WIDTH, height);
+            batcher.draw(firstTexture, positionFirst.x, positionFirst.y, width, height);
 
-        batcher.draw(gameWorld.assetLoader.bgSecond, positionSecond.x, positionSecond.y, gameWorld.WIDTH, height);
+        batcher.draw(secondTexture, positionSecond.x, positionSecond.y, width, height);
         batcher.end();
     }
 }
