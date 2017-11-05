@@ -36,10 +36,13 @@ public class ShopForm {
         isFormAccept = false;
         hasBought = false;
         currentPage = 0;
-        boundVideo = new Rectangle(0, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundClose = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, 0, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundBack = new Rectangle(0, gameWorld.HEIGHT - gameWorld.buttonSize, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundNext = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize, gameWorld.HEIGHT - gameWorld.buttonSize, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundVideo = new Rectangle(gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+        boundClose = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize,
+                gameWorld.buttonSize);
+        boundBack = new Rectangle(gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.buttonSize,
+                gameWorld.buttonSize);
+        boundNext = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.buttonSize - gameWorld.MARGIN,
+                gameWorld.buttonSize, gameWorld.buttonSize);
         leftTexture = this.gameWorld.assetLoader.buttonLeft;
         rightTexture = this.gameWorld.assetLoader.buttonRight;
         closeTexture = this.gameWorld.assetLoader.buttonClose;
@@ -119,7 +122,8 @@ public class ShopForm {
             batcher.end();
         }
 
-        Money.draw(shaper, batcher, gameWorld.WIDTH / 5, 1, Money.money);
+        Money.draw(shaper, batcher, boundVideo.x + boundVideo.width + gameWorld.MARGIN, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
+                Money.money);
     }
 
     public boolean isClickedClose(float x, float y) {

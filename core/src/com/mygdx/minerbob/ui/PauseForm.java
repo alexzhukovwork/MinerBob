@@ -32,10 +32,10 @@ public class PauseForm {
         float y = gameWorld.HEIGHT / 4;
         float width = gameWorld.WIDTH / 4 * 2.7f;
         float height = width;
-        boundsRestore = new Rectangle(-100, -100, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
+        boundsRestore = new Rectangle(-100, -100, gameWorld.WIDTH / 7 * 1.5f, gameWorld.WIDTH / 7);
         boundsBoard = new Rectangle(x, y, width, height);
-        boundsMenu = new Rectangle(x + width - gameWorld.buttonSize * 1.5f - width / 9, y + height / 10 * 7, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
-        boundsRestart = new Rectangle(x + width / 9, y + height / 10 * 7, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
+        boundsMenu = new Rectangle(x + width - gameWorld.WIDTH / 7 * 1.5f - width / 9, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.5f, gameWorld.WIDTH / 7);
+        boundsRestart = new Rectangle(x + width / 9, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.5f, gameWorld.WIDTH / 7);
     }
 
     public void checkRecord() {
@@ -123,14 +123,14 @@ public class PauseForm {
         float height = width;
         if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
                 && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
-            boundsMenu.set(x + width - gameWorld.buttonSize * 1.3f - width / 20, y + height / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
-            boundsRestart.set(x + width / 20, y + height / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
-            boundsRestore.set(x + width / 2 - (gameWorld.buttonSize * 1.3f) / 2, y + height / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
+            boundsMenu.set(x + width - gameWorld.WIDTH / 7 * 1.3f - width / 20, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.3f, gameWorld.WIDTH / 7);
+            boundsRestart.set(x + width / 20, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.3f, gameWorld.WIDTH / 7);
+            boundsRestore.set(x + width / 2 - (gameWorld.WIDTH / 7 * 1.3f) / 2, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.3f, gameWorld.WIDTH / 7);
         }
         else {
-            boundsRestore.set(-100, -100, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
-            boundsMenu.set(x + width - gameWorld.buttonSize * 1.5f - width / 9, y + height / 10 * 7, gameWorld.buttonSize * 1.5f, gameWorld.buttonSize);
-            boundsRestart.set(x + width / 9, y + height / 10 * 7, gameWorld.buttonSize  * 1.5f, gameWorld.buttonSize);
+            boundsRestore.set(-100, -100, gameWorld.WIDTH / 7 * 1.5f, gameWorld.WIDTH / 7);
+            boundsMenu.set(x + width - gameWorld.WIDTH / 7 * 1.5f - width / 9, y + height / 10 * 7, gameWorld.WIDTH / 7 * 1.5f, gameWorld.WIDTH / 7);
+            boundsRestart.set(x + width / 9, y + height / 10 * 7, gameWorld.WIDTH / 7  * 1.5f, gameWorld.WIDTH / 7);
         }
     }
 }
