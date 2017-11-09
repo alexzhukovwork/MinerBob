@@ -60,7 +60,7 @@ public class Field {
         }
 
         if (positionFirst.y + height <= 0) {
-            positionFirst.y = positionSecond.y + height;
+            positionFirst.y = positionSecond.y + height - 1;
             if (isGreenFirst) {
                 firstTexture = gameWorld.assetLoader.bgGreenToBlue;
                 isGreenFirst = false;
@@ -71,7 +71,7 @@ public class Field {
         }
 
         if (positionSecond.y + height <= 0) {
-            positionSecond.y = positionFirst.y + height;
+            positionSecond.y = positionFirst.y + height - 1;
             if (isGreenSecond) {
                 secondTexture = gameWorld.assetLoader.bgBlue;
                 isGreenSecond = false;
@@ -87,7 +87,7 @@ public class Field {
         batcher.begin();
 
         if (isFirst)
-            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width, height);
+            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width-100, height - 100 );
         else
             batcher.draw(firstTexture, positionFirst.x, positionFirst.y, width, height);
 

@@ -59,6 +59,7 @@ public class AssetLoader {
 
     public Array<ActorTexture> textures;
     public Array<TextureRegion> earthTextures;
+    public Array<TextureRegion> grassTextures;
 
     public Array<TextureRegion> restoreTextures;
     public Animation restoreAnimation;
@@ -100,10 +101,17 @@ public class AssetLoader {
         restoreAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         earthTextures = new Array<TextureRegion>();
-        for (int i = 0; i < 10; i++) {
+        grassTextures = new Array<TextureRegion>();
+        for (int i = 0; i < 11; i++) {
             earthBlock = atlasTexture.findRegion("earth" + i);
             earthBlock.flip(false, true);
             earthTextures.add(earthBlock);
+        }
+
+        for (int i = 0; i < 11; i++) {
+            earthBlock = atlasTexture.findRegion("grass" + i);
+            earthBlock.flip(false, true);
+            grassTextures.add(earthBlock);
         }
 
         textures = new Array<ActorTexture>();
@@ -148,7 +156,9 @@ public class AssetLoader {
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(0.05f, -0.05f);
+        font.getData().setScale(.08f, -.08f);
+
+    //    font.getData().setScale(0.05f, -0.05f);
 
         currentAnimation = textures.get(0).animation;
         currentTexture = textures.get(0).textureFall;

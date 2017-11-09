@@ -49,6 +49,7 @@ public class SplashScreen implements Screen {
                     public void run() {
                         gameScreen = new GameScreen(mainGame.getHandler(), assetLoader, WIDTH, HEIGHT);
                         TextSize.load();
+                      //  assetLoader.font = mainGame.getHandler().generateFont();
                         mainGame.setScreen(gameScreen);
                     }
                 });

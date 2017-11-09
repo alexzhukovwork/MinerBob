@@ -9,6 +9,7 @@ import com.mygdx.minerbob.gameobjects.typeblock.ClayBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DiamondBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.EarthBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GoldBlock;
+import com.mygdx.minerbob.gameobjects.typeblock.GrassBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.TitanBlock;
@@ -32,7 +33,7 @@ public class RowBlock {
     //Animation
     private int countEarthAnim = 0;
 
-    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock;
+    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock;
     private Array<ITypeBlock> typeBlocks;
 
     //private ArrayList<Boolean> bools = new ArrayList<Boolean>();
@@ -72,6 +73,7 @@ public class RowBlock {
         clayBlock = new ClayBlock(clayLevel);
         stoneBlock = new StoneBlock(stoneLevel);
         diamondBlock = new DiamondBlock(diamondLevel);
+        grassBlock = new GrassBlock(gameWorld.assetLoader, earthLevel);
         titanBlock = new TitanBlock(5000);
         typeBlocks = new Array<ITypeBlock>();
 
@@ -102,6 +104,7 @@ public class RowBlock {
         clayBlock.setLevel(clayLevel);
         stoneBlock.setLevel(stoneLevel);
         diamondBlock.setLevel(diamondLevel);
+        grassBlock.setLevel(earthLevel);
         titanBlock.setLevel(5000);
     }
 
@@ -110,7 +113,7 @@ public class RowBlock {
         float height = gameWorld.HEIGHT / 5 + heightBlock;
 
         for (int i = 0; i < 5; i++) {
-            rows.get(0).get(i).restart(gameWorld.WIDTH / 5 * i, gameWorld.HEIGHT - heightBlock, widthBlock, heightBlock, -1, earthBlock);
+            rows.get(0).get(i).restart(gameWorld.WIDTH / 5 * i, gameWorld.HEIGHT - heightBlock, widthBlock, heightBlock, -1, grassBlock);
         }
 
         for (int i = 1; i < 4; i++) {
@@ -210,6 +213,7 @@ public class RowBlock {
                     generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
                 else
                     generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
+                System.out.println(i);
             }
             i++;
         }

@@ -69,7 +69,7 @@ public class Block {
 
         rectangleBounds.set(position.x, position.y, width, height);
         if(isDestroyed)
-            countAnim = 9;
+            countAnim = 10;
 
         tempVector.set(velocity.x, velocity.y);
         staticPosition.add(tempVector.scl(delta));
@@ -192,10 +192,10 @@ public class Block {
         }
 */
         tempKick += subHeight;
-        if (tempKick >= (gameWorld.HEIGHT / 15) / 12f) {
+        if (tempKick >= (gameWorld.HEIGHT / 15) / 9f) {
             tempKick = 0;
 
-            if(countAnim != 9)
+            if(countAnim != 10)
                 countAnim++;
         }
 

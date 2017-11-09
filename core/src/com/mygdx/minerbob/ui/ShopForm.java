@@ -116,9 +116,9 @@ public class ShopForm {
             }
             shaper.end();
             batcher.begin();
-            gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
+           // gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
             gameWorld.assetLoader.font.draw(batcher, textMessage, boundFrom.x, boundFrom.y);
-            gameWorld.assetLoader.font.getData().setScale(0.05f, -0.05f);
+           // gameWorld.assetLoader.font.getData().setScale(0.05f, -0.05f);
             batcher.end();
         }
 
