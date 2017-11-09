@@ -142,8 +142,8 @@ public class AssetLoader {
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 1000));
 
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
