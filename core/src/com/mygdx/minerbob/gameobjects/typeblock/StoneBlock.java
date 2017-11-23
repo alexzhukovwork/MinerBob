@@ -2,6 +2,7 @@ package com.mygdx.minerbob.gameobjects.typeblock;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.minerbob.helpers.AssetLoader;
 
 /**
  * Created by Алексей on 15.09.2017.
@@ -10,10 +11,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class StoneBlock implements ITypeBlock {
     private float level;
     private Color color;
+    private AssetLoader assetLoader;
 
-    public StoneBlock(float level) {
+    public StoneBlock(AssetLoader assetLoader, float level) {
         this.level = level;
         color = new Color(1, 1, 0, 1);
+        this.assetLoader = assetLoader;
     }
 
     @Override
@@ -22,9 +25,8 @@ public class StoneBlock implements ITypeBlock {
     }
 
     @Override
-    public TextureRegion getTexture(int countKick) {
-        return null;
-        //return com.mygdx.minerbob.helpers.AssetLoader.stoneBlock;
+    public TextureRegion getTexture(int count, int kick) {
+        return assetLoader.stoneTextures.get(count).get(kick);
     }
 
     @Override

@@ -8,5 +8,4 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public interface IActivityRequestHandler {
     public void showAds(boolean show);
-    public BitmapFont generateFont();
 }

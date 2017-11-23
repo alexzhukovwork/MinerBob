@@ -55,7 +55,6 @@ public class MyDate {
     }
 
     public boolean isNextDay(long prevDay, long nextDay) {
-        System.out.println("Fucking dick prev motherfucker it is bullshit " + (nextDay - prevDay));
         return nextDay - prevDay == DAY_SECONDS;
     }
 

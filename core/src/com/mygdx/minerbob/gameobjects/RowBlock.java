@@ -1,6 +1,5 @@
 package com.mygdx.minerbob.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -12,9 +11,8 @@ import com.mygdx.minerbob.gameobjects.typeblock.GoldBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GrassBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
-import com.mygdx.minerbob.gameobjects.typeblock.TitanBlock;
+import com.mygdx.minerbob.gameobjects.typeblock.DeadBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.screen.GameScreen;
 
 
 /**
@@ -68,13 +66,13 @@ public class RowBlock {
     }
 
     private void initObjects() {
-        goldBlock = new GoldBlock(earthLevel);
+        goldBlock = new GoldBlock(gameWorld.assetLoader, earthLevel);
         earthBlock = new EarthBlock(gameWorld.assetLoader, earthLevel);
-        clayBlock = new ClayBlock(clayLevel);
-        stoneBlock = new StoneBlock(stoneLevel);
-        diamondBlock = new DiamondBlock(diamondLevel);
+        clayBlock = new ClayBlock(gameWorld.assetLoader, clayLevel);
+        stoneBlock = new StoneBlock(gameWorld.assetLoader, stoneLevel);
+        diamondBlock = new DiamondBlock(gameWorld.assetLoader, diamondLevel);
         grassBlock = new GrassBlock(gameWorld.assetLoader, earthLevel);
-        titanBlock = new TitanBlock(5000);
+        titanBlock = new DeadBlock(gameWorld.assetLoader,5000);
         typeBlocks = new Array<ITypeBlock>();
 
         typeBlocks.add(earthBlock);
@@ -113,7 +111,7 @@ public class RowBlock {
         float height = gameWorld.HEIGHT / 5 + heightBlock;
 
         for (int i = 0; i < 5; i++) {
-            rows.get(0).get(i).restart(gameWorld.WIDTH / 5 * i, gameWorld.HEIGHT - heightBlock, widthBlock, heightBlock, -1, grassBlock);
+            rows.get(0).get(i).restart(gameWorld.WIDTH / 5 * i, gameWorld.HEIGHT - heightBlock, widthBlock, heightBlock, -1, grassBlock, i);
         }
 
         for (int i = 1; i < 4; i++) {
@@ -146,7 +144,7 @@ public class RowBlock {
             scoreCount = GameWorld.score / 50;
             bools.set(j, true);
             goldBlock.setLevel(earthBlock.getLevel());
-            rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, goldBlock);
+            rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, goldBlock, j);
         }
 
         j = rnd(0, 1);
@@ -154,13 +152,13 @@ public class RowBlock {
         if (j == 0) {
             j = rnd(0, 4);
             if (!bools.get(j)) {
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, earthBlock);
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, earthBlock, j);
                 bools.set(j, true);
             }
         } else {
             j = rnd(0, 4);
             if (!bools.get(j)) {
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, clayBlock);
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, clayBlock, j);
                 bools.set(j, true);
             }
         }
@@ -169,7 +167,7 @@ public class RowBlock {
             j = rnd(0, 4);
             if (!bools.get(j)) {
                 bools.set(j, true);
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, titanBlock);
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, titanBlock, j);
             }
         }
 
@@ -177,7 +175,7 @@ public class RowBlock {
         for(int i = 0; i < 5; i++){
             if (!bools.get(i)) {
                 typeBlock = getRandomType();
-                rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock);
+                rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock, i);
             }
         }
 
@@ -212,9 +210,7 @@ public class RowBlock {
                 if (i == 0)
                     generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
                 else
-                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
-                System.out.println(i);
-            }
+                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);            }
             i++;
         }
 
@@ -246,6 +242,7 @@ public class RowBlock {
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
+        /*
         shaper.begin(ShapeRenderer.ShapeType.Filled);
 
         for (Array<Block> l : rows) {
@@ -271,16 +268,14 @@ public class RowBlock {
                 }
             }
         }
-
         shaper.end();
+        */
+
         batcher.begin();
         for (Array<Block> l : rows) {
             for (Block b : l) {
-                //if (!b.getDestroyed()) {
-                    if (b.getType().getName().equals("Earth")) {
-                        batcher.draw(b.getTexture(), b.getX(), b.getStaticY(), b.getWidth(), heightBlock);
-                    }
-                //}
+                batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
+                        b.getWidth(), heightBlock + 2);
             }
         }
         batcher.end();

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public interface ITypeBlock {
     public float getLevel();
-    public TextureRegion getTexture(int countKick);
+    public TextureRegion getTexture(int count, int kick);
     public Color getColor();
     public void setLevel(float level);
     public int getScore();

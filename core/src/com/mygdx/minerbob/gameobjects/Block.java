@@ -32,6 +32,7 @@ public class Block {
     private boolean isDestroyed;
 
     private int countKick;
+    private int countPosition;
 
     private Rectangle rectangleBounds;
     private Actor actor;
@@ -158,7 +159,7 @@ public class Block {
     }
 
     public TextureRegion getTexture() {
-        return type.getTexture(countAnim);
+        return type.getTexture(countPosition, countAnim);
     }
 
     public void setWidth(float width) {
@@ -169,7 +170,8 @@ public class Block {
         return type.getColor();
     }
 
-    public void restart(float x, float y, float width, float height, float velocityY, ITypeBlock type) {
+    public void restart(float x, float y, float width, float height, float velocityY,
+                        ITypeBlock type, int countPosition) {
         tempKick = 0;
         countAnim = 0;
         this.type = type;
@@ -180,6 +182,7 @@ public class Block {
         subHeight = height / type.getLevel();
         isDestroyed = false;
         staticPosition.y = y;
+        this.countPosition = countPosition;
     }
 
     private void kick() {
@@ -192,7 +195,7 @@ public class Block {
         }
 */
         tempKick += subHeight;
-        if (tempKick >= (gameWorld.HEIGHT / 15) / 9f) {
+        if (tempKick >= (gameWorld.HEIGHT / 15) / 10f) {
             tempKick = 0;
 
             if(countAnim != 10)

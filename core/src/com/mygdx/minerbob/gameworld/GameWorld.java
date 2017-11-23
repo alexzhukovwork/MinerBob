@@ -1,6 +1,8 @@
 package com.mygdx.minerbob.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.gameobjects.Actor;
 import com.mygdx.minerbob.gameobjects.Avalanche;
@@ -38,6 +40,8 @@ public class GameWorld {
     public AssetLoader assetLoader;
 
     public float buttonSize;
+    public float buttonDialogWidth;
+    public float dialogSize;
     public float WIDTH, HEIGHT;
     public final float MARGIN = 2f;
 
@@ -71,6 +75,8 @@ public class GameWorld {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         buttonSize = WIDTH / 7;
+        dialogSize = WIDTH / 4 * 2.7f;
+        buttonDialogWidth = WIDTH / 7 * 1.5f;
         this.assetLoader = assetLoader;
         new Money(this.assetLoader); //это епта фича
         rewardVideo = handler;
@@ -154,6 +160,29 @@ public class GameWorld {
     public void restoring() {
         rowBlock.restore();
         actor.setAcceleration(0, 10);
+    }
+
+    public void roundedRectangle(ShapeRenderer shaper, float x, float y, float width, float height, float radius, Color color) {
+        //shaper.setColor(0.204f, 0.255f, 0.298f, 0.2f);
+        shaper.setColor(color); //39, 124, 136
+
+        // Width rectangle
+        shaper.rect(x, y + radius, width, height - 2 * radius);
+
+        // Height rectangle
+        shaper.rect(x + radius, y, width - 2 * radius, height);
+
+        // Bottom-left circle
+        shaper.circle(x + radius, y + height - radius, radius, 1000);
+
+        // Top-left circle
+        shaper.circle(x + radius, y + radius, radius, 1000);
+
+        // Top-right circle
+        shaper.circle(x + width - radius, y + radius, radius, 1000);
+
+        // Bottom-right circle
+        shaper.circle(x + width - radius, y + height - radius, radius, 1000);
     }
 
     public boolean isAdShop() {

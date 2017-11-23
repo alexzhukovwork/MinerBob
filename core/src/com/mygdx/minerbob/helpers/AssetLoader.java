@@ -19,7 +19,8 @@ public class AssetLoader {
     public Animation actorAnimation;
 
     private TextureAtlas atlasTexture;
-    private Texture textureSplashScreen;
+    private TextureAtlas atlasTextureField;
+    public Texture textureSplashScreen;
 
     public BitmapFont font;
 
@@ -52,14 +53,21 @@ public class AssetLoader {
     public TextureRegion buttonSound;
 
 
-    public TextureRegion earthBlock;
+    public TextureRegion tempRegion;
 
 
     public Animation currentAnimation;
 
     public Array<ActorTexture> textures;
-    public Array<TextureRegion> earthTextures;
-    public Array<TextureRegion> grassTextures;
+
+    public Array<Array<TextureRegion>> earthTextures;
+    public Array<Array<TextureRegion>> grassTextures;
+    public Array<Array<TextureRegion>> clayTextures;
+  //  public Array<Array<TextureRegion>> deadTextures;
+    public Array<TextureRegion> deadTextures;
+    public Array<Array<TextureRegion>> goldTextures;
+    public Array<Array<TextureRegion>> stoneTextures;
+    public Array<Array<TextureRegion>> diamondTextures;
 
     public Array<TextureRegion> restoreTextures;
     public Animation restoreAnimation;
@@ -84,8 +92,85 @@ public class AssetLoader {
         buttonPlay.flip(false, true);
     }
 
+    private void initBlocks() {
+        earthTextures = new Array<Array<TextureRegion>>();
+        grassTextures = new Array<Array<TextureRegion>>();
+        //deadTextures = new Array<Array<TextureRegion>>();
+        deadTextures = new Array<TextureRegion>();
+        clayTextures = new Array<Array<TextureRegion>>();
+        goldTextures = new Array<Array<TextureRegion>>();
+        stoneTextures = new Array<Array<TextureRegion>>();
+        diamondTextures = new Array<Array<TextureRegion>>();
+
+        for (int i = 0; i < 5; i ++) {
+            earthTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("earth" + i + j);
+                tempRegion.flip(false, true);
+                earthTextures.get(i).add(tempRegion);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            grassTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("grass" + i + j);
+                tempRegion.flip(false, true);
+                grassTextures.get(i).add(tempRegion);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            clayTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("clay" + i + j);
+                tempRegion.flip(false, true);
+                clayTextures.get(i).add(tempRegion);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+           // deadTextures.add(new Array<TextureRegion>());
+           // for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("black" + i);
+                tempRegion.flip(false, true);
+               // deadTextures.get(i).add(tempRegion);
+                deadTextures.add(tempRegion);
+           // }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            goldTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("money" + i + j);
+                tempRegion.flip(false, true);
+                goldTextures.get(i).add(tempRegion);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            stoneTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("dead" + i + j);
+                tempRegion.flip(false, true);
+                stoneTextures.get(i).add(tempRegion);
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            diamondTextures.add(new Array<TextureRegion>());
+            for (int j = 0; j < 11; j++) {
+                tempRegion = atlasTexture.findRegion("diamond" + i + j);
+                tempRegion.flip(false, true);
+                diamondTextures.get(i).add(tempRegion);
+            }
+        }
+    }
+
     public void load() {
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
+        atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
+        initBlocks();
 
         starTexture = atlasTexture.findRegion("star");
         starTexture.flip(false, true);
@@ -100,33 +185,19 @@ public class AssetLoader {
         restoreAnimation = new Animation(0.3f, restoreTextures);
         restoreAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-        earthTextures = new Array<TextureRegion>();
-        grassTextures = new Array<TextureRegion>();
-        for (int i = 0; i < 11; i++) {
-            earthBlock = atlasTexture.findRegion("earth" + i);
-            earthBlock.flip(false, true);
-            earthTextures.add(earthBlock);
-        }
-
-        for (int i = 0; i < 11; i++) {
-            earthBlock = atlasTexture.findRegion("grass" + i);
-            earthBlock.flip(false, true);
-            grassTextures.add(earthBlock);
-        }
-
         textures = new Array<ActorTexture>();
         initButtons();
 
-        bgBlue = atlasTexture.findRegion("Miner-Bob2");
+        bgBlue = atlasTextureField.findRegion("Miner-Bob2");
         bgBlue.flip(false, true);
-        bgBlueToGreen = atlasTexture.findRegion("Miner-Bob4");
+        bgBlueToGreen = atlasTextureField.findRegion("Miner-Bob4");
         bgBlueToGreen.flip(false, true);
-        bgGreen = atlasTexture.findRegion("Miner-Bob3");
+        bgGreen = atlasTextureField.findRegion("Miner-Bob3");
         bgGreen.flip(false, true);
-        bgGreenToBlue = atlasTexture.findRegion("Miner-Bob5");
+        bgGreenToBlue = atlasTextureField.findRegion("Miner-Bob5");
         bgGreenToBlue.flip(false, true);
 
-        startField = atlasTexture.findRegion("Miner-Bob1");
+        startField = atlasTextureField.findRegion("Miner-Bob1");
         startField.flip(false, true);
 
         actorFall = atlasTexture.findRegion("actor1");
@@ -150,8 +221,8 @@ public class AssetLoader {
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 1000));
 
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
@@ -276,7 +347,8 @@ public class AssetLoader {
 
     public void dispose() {
         atlasTexture.dispose();
-        textureSplashScreen.dispose();
+        atlasTextureField.dispose();
+       // textureSplashScreen.dispose();
         font.dispose();
     }
 }

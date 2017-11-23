@@ -1,0 +1,41 @@
+
+Miner Bob Field.png
+size: 4096,4096
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Miner-Bob1
+  rotate: false
+  xy: 2, 1604
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
+Miner-Bob2
+  rotate: false
+  xy: 2, 2
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
+Miner-Bob3
+  rotate: false
+  xy: 1004, 1604
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
+Miner-Bob4
+  rotate: false
+  xy: 1004, 2
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
+Miner-Bob5
+  rotate: false
+  xy: 2006, 1604
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1

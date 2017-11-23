@@ -94,8 +94,9 @@ public class InputHandler implements InputProcessor {
                 }
 
                 if (gameWorld.getShop().isClickedElement(x, y)) {
-                    if (item == null)
+                    if (item == null) {
                         item = gameWorld.getShop().getItem();
+                    }
                 }
             }
             return true;
@@ -174,7 +175,9 @@ public class InputHandler implements InputProcessor {
             if (item != null) {
                 item.isAnimation = false;
                 item = null;
+                return true;
             }
+
             if (gameWorld.getShop().getFormAccept()) {
                 gameWorld.getShop().onAcceptClicked(x, y);
                 gameWorld.getShop().onCancelClicked(x, y);

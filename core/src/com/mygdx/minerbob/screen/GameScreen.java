@@ -103,5 +103,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         Gdx.app.log("Screen", "dispose");
         GameWorld.score = 0;
+        assetLoader.dispose();
     }
 }

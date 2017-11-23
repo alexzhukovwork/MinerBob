@@ -11,11 +11,12 @@ import com.mygdx.minerbob.helpers.AssetLoader;
 public class ClayBlock implements ITypeBlock {
     private float level;
     private Color color;
+    private AssetLoader assetLoader;
 
-
-    public ClayBlock(float level) {
+    public ClayBlock(AssetLoader assetLoader, float level) {
         this.level = level;
         color = new Color(0, 1, 0, 1);
+        this.assetLoader = assetLoader;
     }
     @Override
     public float getLevel() {
@@ -23,9 +24,8 @@ public class ClayBlock implements ITypeBlock {
     }
 
     @Override
-    public TextureRegion getTexture(int countKick) {
-      //  return AssetLoader.clayBlock;
-        return null;
+    public TextureRegion getTexture(int count,int kick) {
+        return assetLoader.clayTextures.get(count).get(kick);
     }
 
     @Override

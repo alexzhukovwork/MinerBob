@@ -46,29 +46,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 	protected View gameView;
     private GameWorld gameWorld;
 
-	public BitmapFont generateFont() {
-		final String FONT_PATH = "arial.ttf";
-		BitmapFont font;
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ProximaNova-Semibold.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.characters =
-				"абвгдежзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
-						"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]" +
-						"[_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
-		parameter.borderWidth = 2;
-		parameter.borderColor = Color.BLACK;
-		parameter.size = 78;
-
-		parameter.flip = true;
-		parameter.color = Color.WHITE;
-		font = generator.generateFont(parameter);
-        font.getData().setScale(0.1f, 0.1f);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-		generator.dispose();
-		return font;
-	}
-
 	protected Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -228,7 +205,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 	@Override
 	public void onResume() {
 		super.onResume();
-		System.out.println("Resume Activity");
 		if (adView != null) {
 			adView.resume();
 		}
@@ -237,7 +213,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 	@Override
 	public void onPause() {
 		super.onPause();
-		System.out.println("Pause Activity");
 		if (adView != null) {
 			adView.pause();
 		}
@@ -245,7 +220,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
 	@Override
 	public void onDestroy() {
-		System.out.println("Destroy Activity");
 		if (adView != null) {
 			adView.destroy();
 		}

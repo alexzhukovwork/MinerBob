@@ -25,9 +25,9 @@ public class GrassBlock implements ITypeBlock {
     }
 
     @Override
-    public TextureRegion getTexture(int kick) {
-        return assetLoader.grassTextures.get(kick);
-        //return AssetLoader.earthBlock;
+    public TextureRegion getTexture(int count,int kick) {
+        return assetLoader.grassTextures.get(count).get(kick);
+        //return AssetLoader.tempRegion;
     }
 
     @Override

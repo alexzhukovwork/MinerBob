@@ -87,7 +87,7 @@ public class Field {
         batcher.begin();
 
         if (isFirst)
-            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width-100, height - 100 );
+            batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width, height);
         else
             batcher.draw(firstTexture, positionFirst.x, positionFirst.y, width, height);
 
