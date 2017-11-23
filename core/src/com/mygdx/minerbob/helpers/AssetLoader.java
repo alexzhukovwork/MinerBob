@@ -2,6 +2,8 @@ package com.mygdx.minerbob.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -51,6 +53,17 @@ public class AssetLoader {
     public TextureRegion buttonOk;
     public TextureRegion buttonOkClicked;
     public TextureRegion buttonSound;
+    public TextureRegion buttonNoneSound;
+
+    //Sounds
+    public Sound money;
+    public Sound moneycombox2;
+    public Sound moneycombox3;
+    public Sound moneycombox5;
+    public Sound fall;
+    public Sound drill;
+
+    public Music bgMusic;
 
 
     public TextureRegion tempRegion;
@@ -86,6 +99,7 @@ public class AssetLoader {
         buttonPlay = atlasTexture.findRegion("play");
         buttonShop = atlasTexture.findRegion("shop");
         buttonSound = atlasTexture.findRegion("audio");
+        buttonNoneSound = atlasTexture.findRegion("disaudio");
 
         buttonSound.flip(false, true);
         buttonShop.flip(false, true);
@@ -168,6 +182,15 @@ public class AssetLoader {
     }
 
     public void load() {
+        //load sounds
+        money = Gdx.audio.newSound(Gdx.files.internal("audio/money.wav"));
+        moneycombox2 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox2.wav"));
+        moneycombox3 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox3.wav"));
+        moneycombox5 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox5.wav"));
+        fall = Gdx.audio.newSound(Gdx.files.internal("audio/fall.wav"));
+        drill = Gdx.audio.newSound(Gdx.files.internal("audio/drill.wav"));
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/bgSound.mp3"));
+
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         initBlocks();
@@ -350,5 +373,12 @@ public class AssetLoader {
         atlasTextureField.dispose();
        // textureSplashScreen.dispose();
         font.dispose();
+        money.dispose();
+        moneycombox2.dispose();
+        moneycombox3.dispose();
+        moneycombox5.dispose();
+        fall.dispose();
+        drill.dispose();
+        bgMusic.dispose();
     }
 }

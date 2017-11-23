@@ -44,10 +44,10 @@ public class RowBlock {
     private float speedRow = -20;
     private float currentSpeed = 0;
 
-    private float earthLevel = 52;
-    private float clayLevel = 62;
-    private float stoneLevel = 110;
-    private float diamondLevel = 130;
+    private float earthLevel = 57; //52
+    private float clayLevel = 67; //62
+    private float stoneLevel = 115; //110
+    private float diamondLevel = 135; //130
 
     private int scoreCount = 0;
     private int maxspeed = 55;
