@@ -22,10 +22,12 @@ public class MenuForm {
     private GameWorld gameWorld;
 
     TextureRegion playTexture, shopTexture, soundTexture;
+
     public MenuForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         playTexture = this.gameWorld.assetLoader.buttonPlay;
         shopTexture = this.gameWorld.assetLoader.buttonShop;
+        soundTexture = this.gameWorld.assetLoader.buttonSound;
         boundsPlay = new Rectangle(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 6, gameWorld.HEIGHT / 2 - gameWorld.WIDTH / 6,
                 gameWorld.WIDTH / 3, gameWorld.WIDTH / 3);
         boundsSound = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize * 2 - gameWorld.MARGIN * 2f, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
@@ -51,8 +53,13 @@ public class MenuForm {
         shaper.setColor(1, 1, 1, 1);1
       //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         shaper.end();
-     */   batcher.begin();
-        batcher.draw(gameWorld.assetLoader.buttonSound, boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
+     */
+        if(gameWorld.isSound)
+            soundTexture = gameWorld.assetLoader.buttonSound;
+        else
+            soundTexture = gameWorld.assetLoader.buttonNoneSound;
+        batcher.begin();
+        batcher.draw(soundTexture, boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         batcher.draw(playTexture, boundsPlay.x, boundsPlay.y, boundsPlay.width, boundsPlay.height);
         batcher.draw(shopTexture, boundsShop.x, boundsShop.y, boundsShop.width, boundsShop.height);
         batcher.end();

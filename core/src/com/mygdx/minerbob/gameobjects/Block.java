@@ -1,5 +1,6 @@
 package com.mygdx.minerbob.gameobjects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
@@ -31,7 +32,7 @@ public class Block {
 
     private boolean isDestroyed;
 
-    private int countKick;
+    private int countKick = 0;
 
     private Rectangle rectangleBounds;
     private Actor actor;
@@ -103,6 +104,8 @@ public class Block {
                 actor.setPosition(position.x + 1, position.y - actor.getHeight() + 1);
                 actor.setRectangleBounds(position.x + 1, position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
 
+                if (!actor.getOnBlock() && gameWorld.isSound)
+                    gameWorld.assetLoader.fall.play(0.4f);
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
 
@@ -183,20 +186,29 @@ public class Block {
     }
 
     private void kick() {
-        countKick++;
       /*  tempKick += 10 / type.getLevel();
         if (tempKick >= countAnim) {
             countAnim++;
             if(countAnim >= 10)
                 countAnim = 9;
         }
-*/
+        */
+
         tempKick += subHeight;
         if (tempKick >= (gameWorld.HEIGHT / 15) / 12f) {
             tempKick = 0;
 
-            if(countAnim != 9)
+            if(countAnim != 9) {
                 countAnim++;
+            }
+        }
+
+        if(gameWorld.isSound) {
+            countKick++;
+            if(countKick >= 10) {
+                gameWorld.assetLoader.drill.play(0.8f);
+                countKick = 0;
+            }
         }
 
         position.y += subHeight;
@@ -207,6 +219,8 @@ public class Block {
         actor.setRectangleBounds(actor.getX(),  position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
 
         if (height <= 0) {
+            if(gameWorld.isSound)
+               gameWorld.assetLoader.drill.pause();
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
             }
@@ -243,13 +257,31 @@ public class Block {
                 gameWorld.startCombo = 0;
             }
 
-            if (type.getName().equals("Gold"))
-                gameWorld.moneyAnimation.setAttributes(position.x + width / 2, position.y, gameWorld.scl);
+            //if (type.getName().equals("Gold"))
+
+
             GameWorld.score += type.getScore() * gameWorld.scl;
 
             if ( type.getName().equals("Gold") ) {
+                gameWorld.moneyAnimation.setAttributes(position.x + width / 2, position.y, gameWorld.scl);
                 Money.add(gameWorld.scl);
                 GameWorld.currentMoney += gameWorld.scl;
+                if(gameWorld.isSound) {
+                    switch(gameWorld.scl) {
+                        case 1:
+                            gameWorld.assetLoader.money.play(1.0f);
+                            break;
+                        case 2:
+                            gameWorld.assetLoader.moneycombox2.play(1.0f);
+                            break;
+                        case 3:
+                            gameWorld.assetLoader.moneycombox3.play(1.0f);
+                            break;
+                        case 5:
+                            gameWorld.assetLoader.moneycombox5.play(1.0f);
+                            break;
+                    }
+                }
             }
 
             isDestroyed = true;

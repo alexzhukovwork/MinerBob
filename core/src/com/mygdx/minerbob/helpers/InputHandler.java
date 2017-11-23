@@ -214,8 +214,8 @@ public class InputHandler implements InputProcessor {
             if (gameWorld.getMenu().isClickedShop(x, y)) {
                 gameWorld.setState(GameWorld.GameState.SHOP);
             }
-            if (gameWorld.getMenu().isClickedSound(x, y));
-            gameWorld.getSound().setState();
+            if (gameWorld.getMenu().isClickedSound(x, y))
+                gameWorld.isSound = !gameWorld.isSound;
 
 
             return true;

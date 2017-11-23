@@ -6,63 +6,63 @@ filter: Nearest,Nearest
 repeat: none
 Miner-Bob1
   rotate: false
-  xy: 2, 416
+  xy: 1006, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob2
   rotate: false
-  xy: 504, 1218
+  xy: 504, 416
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob3
   rotate: false
-  xy: 1006, 1218
+  xy: 2, 416
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob4
   rotate: false
-  xy: 2, 1218
+  xy: 504, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Miner-Bob5
   rotate: false
-  xy: 504, 416
+  xy: 2, 1218
   size: 500, 800
   orig: 500, 800
   offset: 0, 0
   index: -1
 Restore0
   rotate: false
-  xy: 1006, 420
+  xy: 1006, 819
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore1
   rotate: false
-  xy: 1006, 819
+  xy: 1508, 1621
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore2
   rotate: false
-  xy: 1508, 1621
+  xy: 284, 17
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
   index: -1
 Restore3
   rotate: false
-  xy: 284, 17
+  xy: 1006, 420
   size: 271, 397
   orig: 271, 397
   offset: 0, 0
@@ -105,6 +105,13 @@ actor4
 audio
   rotate: false
   xy: 1793, 1309
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+disaudio
+  rotate: false
+  xy: 842, 154
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
@@ -195,7 +202,7 @@ shop
   index: -1
 star
   rotate: false
-  xy: 842, 158
+  xy: 842, 27
   size: 129, 125
   orig: 129, 125
   offset: 0, 0

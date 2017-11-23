@@ -1,6 +1,7 @@
 package com.mygdx.minerbob.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.minerbob.IRewardVideo;
@@ -12,8 +13,6 @@ import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
-import com.mygdx.minerbob.helpers.Sound;
-import com.mygdx.minerbob.screen.GameScreen;
 import com.mygdx.minerbob.ui.DailyBonus;
 import com.mygdx.minerbob.ui.MenuForm;
 import com.mygdx.minerbob.ui.PauseForm;
@@ -31,7 +30,6 @@ public class GameWorld {
     private GameState currentState;
     private MenuForm menu;
     private ShopForm shop;
-    private Sound sound;
     private PauseForm pauseForm;
     private RunningForm runningForm;
     private DailyBonus dailyBonus;
@@ -51,11 +49,13 @@ public class GameWorld {
     public int countCombo = 1;
     public int scl = 1;
     public long startCombo = 0;
+    private long idSound = 0;
 
     public boolean isKickedFirst;
     public boolean isStart;
     public boolean isCollisedSecond;
     public boolean isRestoring;
+    public boolean isSound;
 
     public IRewardVideo rewardVideo;
 
@@ -83,7 +83,6 @@ public class GameWorld {
         moneyAnimation = new MoneyAnimation(this);
         runningForm = new RunningForm(this);
         pauseForm = new PauseForm(this);
-        sound = new Sound();
         shop = new ShopForm(this);
         menu = new MenuForm(this);
         avalanche = new Avalanche(this);
@@ -93,6 +92,7 @@ public class GameWorld {
         isEnd = false;
         isStart = true;
         isKickedFirst = false;
+        isSound = true;
         actor = new Actor(WIDTH / 5 * 2 + 1, HEIGHT - HEIGHT / 15 - HEIGHT / 7, WIDTH / 5 - 2, HEIGHT / 7,
                 this);
         rowBlock = new RowBlock(this);
@@ -101,6 +101,15 @@ public class GameWorld {
     }
 
     public void update(float delta) {
+        if(isSound && !assetLoader.bgMusic.isPlaying()) {
+            assetLoader.bgMusic.setLooping(true);
+            assetLoader.bgMusic.setVolume(0.3f);
+            assetLoader.bgMusic.play();
+        }
+        else
+        if(!isSound && assetLoader.bgMusic.isPlaying())
+            assetLoader.bgMusic.stop();
+
          if (isRunning()) {
             moneyAnimation.update(delta);
             field.update(delta);
@@ -243,10 +252,6 @@ public class GameWorld {
 
     public ShopForm getShop() {
         return shop;
-    }
-
-    public Sound getSound() {
-        return sound;
     }
 
     public PauseForm getPauseForm() {
