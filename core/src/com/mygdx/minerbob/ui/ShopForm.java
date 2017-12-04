@@ -9,7 +9,6 @@ import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.TextSize;
-import com.mygdx.minerbob.screen.GameScreen;
 import com.mygdx.minerbob.ui.ShopHelpers.Item;
 import com.mygdx.minerbob.ui.ShopHelpers.Page;
 
@@ -28,8 +27,6 @@ public class ShopForm {
     private boolean hasBought;
     private GameWorld gameWorld;
 
-    TextureRegion rightTexture, leftTexture, closeTexture;
-
 
     public ShopForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -44,9 +41,6 @@ public class ShopForm {
                 gameWorld.buttonSize);
         boundNext = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.buttonSize - gameWorld.MARGIN,
                 gameWorld.buttonSize, gameWorld.buttonSize);
-        leftTexture = this.gameWorld.assetLoader.buttonLeft;
-        rightTexture = this.gameWorld.assetLoader.buttonRight;
-        closeTexture = this.gameWorld.assetLoader.buttonClose;
 
         float x = gameWorld.WIDTH / 6;
         float y = gameWorld.HEIGHT / 4;
@@ -78,9 +72,11 @@ public class ShopForm {
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher, float runTime) {
-        shaper.begin(ShapeRenderer.ShapeType.Filled);
+       /* shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(0, 0, 0, 1f);
         shaper.rect(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
+        shaper.end();
+        /*
         shaper.setColor(1, 1, 1, 1);
 
         if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
@@ -92,15 +88,18 @@ public class ShopForm {
             shaper.rect(boundBack.x, boundBack.y, boundBack.width, boundBack.height);
         shaper.rect(boundClose.x, boundClose.y, boundClose.width, boundClose.height);
 
-        shaper.end();
+        shaper.end();*/
 
-       /* batcher.begin();
+        batcher.begin();
+        batcher.draw(gameWorld.assetLoader.shopField, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
+        if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
+            batcher.draw(gameWorld.assetLoader.buttonVideo, boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
         if (currentPage != pages.size - 1)
-            batcher.draw(rightTexture, boundNext.x, boundNext.y, boundNext.width, boundNext.height);
+            batcher.draw(gameWorld.assetLoader.buttonRight, boundNext.x, boundNext.y, boundNext.width, boundNext.height);
         if (currentPage != 0)
-            batcher.draw(leftTexture, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
-        batcher.draw(closeTexture, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
-        batcher.end();*/
+            batcher.draw(gameWorld.assetLoader.buttonLeft, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
+        batcher.draw(gameWorld.assetLoader.buttonBack, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
+        batcher.end();
         for(int i = 0; i < pages.size; i++)
             pages.get(i).draw(shaper, batcher, runTime);
 

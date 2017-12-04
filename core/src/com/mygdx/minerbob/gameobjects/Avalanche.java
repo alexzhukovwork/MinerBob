@@ -3,6 +3,7 @@ package com.mygdx.minerbob.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -47,7 +48,7 @@ public class Avalanche {
     }
 
     public void update(float delta) {
-        if(countScore == (int)(GameWorld.score / 1000) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
+        if(countScore == (int)(GameWorld.score / 100) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
             countScore++;
             subHeight += rect.height / 5f;
         }
@@ -69,15 +70,19 @@ public class Avalanche {
         rect.y = position.y;
     }
 
-    public void draw(ShapeRenderer renderer, SpriteBatch batcher) {
+    public void draw(SpriteBatch batcher, float runTime) {
         if (rect.y + rect.height >= 0) {
-            renderer.begin(ShapeRenderer.ShapeType.Filled);
-            /*if (color.equals(colorWhite))
-                color.set(colorBlack);
-            else color.set(colorWhite);
-            */renderer.setColor(color);
-            renderer.rect(rect.x, rect.y, rect.width, rect.height);
-            renderer.end();
+//           renderer.begin(ShapeRenderer.ShapeType.Filled);
+//            if (color.equals(colorWhite))
+//                color.set(colorBlack);
+//            else color.set(colorWhite);
+//            renderer.setColor(color);
+//            renderer.rect(rect.x, rect.y, rect.width, rect.height);
+//            renderer.end();
+            batcher.begin();
+            batcher.draw((TextureRegion) gameWorld.assetLoader.lavaAnimation.getKeyFrame(runTime),
+                    rect.x, rect.y, rect.width, rect.height);
+            batcher.end();
         }
     }
 }

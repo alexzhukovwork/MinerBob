@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Date;
 
+import javax.xml.soap.Text;
+
 /**
  * Created by Алексей on 10.09.2017.
  */
@@ -31,29 +33,20 @@ public class AssetLoader {
     public TextureRegion bgBlue, bgBlueToGreen;
     public TextureRegion bgGreen, bgGreenToBlue;
     public TextureRegion currentTexture;
-    public TextureRegion startScreen;
     public TextureRegion splashScreen;
     public TextureRegion starTexture;
 
     //buttons
     public TextureRegion buttonPlay;
-    public TextureRegion buttonPlayClicked;
     public TextureRegion buttonPause;
-    public TextureRegion buttonPauseClicked;
-    public TextureRegion buttonClose;
-    public TextureRegion buttonCloseClicked;
-    public TextureRegion buttonBack;
-    public TextureRegion buttonBackClicked;
-    public TextureRegion buttonLeft;
-    public TextureRegion buttonLeftClicked;
-    public TextureRegion buttonRight;
-    public TextureRegion buttonRightClicked;
     public TextureRegion buttonShop;
-    public TextureRegion buttonShopClicked;
-    public TextureRegion buttonOk;
-    public TextureRegion buttonOkClicked;
     public TextureRegion buttonSound;
+
     public TextureRegion buttonNoneSound;
+    public TextureRegion buttonLeft;
+    public TextureRegion buttonRight;
+    public TextureRegion buttonBack;
+    public TextureRegion buttonVideo;
 
     //Sounds
     public Sound money;
@@ -65,7 +58,6 @@ public class AssetLoader {
 
     public Music bgMusic;
 
-
     public TextureRegion tempRegion;
 
 
@@ -76,14 +68,21 @@ public class AssetLoader {
     public Array<Array<TextureRegion>> earthTextures;
     public Array<Array<TextureRegion>> grassTextures;
     public Array<Array<TextureRegion>> clayTextures;
-  //  public Array<Array<TextureRegion>> deadTextures;
     public Array<TextureRegion> deadTextures;
     public Array<Array<TextureRegion>> goldTextures;
     public Array<Array<TextureRegion>> stoneTextures;
     public Array<Array<TextureRegion>> diamondTextures;
 
+
+    public TextureRegion item;
+    public TextureRegion boughtItem;
+    public TextureRegion selectedItem;
+    public TextureRegion shopField;
+
+    public TextureRegion [] lava;
     public Array<TextureRegion> restoreTextures;
     public Animation restoreAnimation;
+    public Animation lavaAnimation;
 
     public static Preferences prefs;
     public boolean isInternet;
@@ -99,17 +98,36 @@ public class AssetLoader {
         buttonPlay = atlasTexture.findRegion("play");
         buttonShop = atlasTexture.findRegion("shop");
         buttonSound = atlasTexture.findRegion("audio");
-        buttonNoneSound = atlasTexture.findRegion("disaudio");
+        buttonNoneSound = atlasTexture.findRegion("noneAudio");
+        buttonLeft = atlasTexture.findRegion("left");
+        buttonRight = atlasTexture.findRegion("right");
+        buttonVideo = atlasTexture.findRegion("video");
+        buttonBack = atlasTexture.findRegion("back");
 
         buttonSound.flip(false, true);
         buttonShop.flip(false, true);
         buttonPlay.flip(false, true);
+        buttonNoneSound.flip(false, true);
+        buttonLeft.flip(false, true);
+        buttonRight.flip(false, true);
+        buttonVideo.flip(false, true);
+        buttonBack.flip(false, true);
+    }
+
+    private void initLava() {
+        lava = new TextureRegion[5];
+        for (int i = 0; i < 5; i++)
+        {
+            lava[i] = atlasTexture.findRegion("lava" + i);
+            lava[i].flip(false , true);
+        }
+        lavaAnimation = new Animation(0.3f, lava);
+        lavaAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     private void initBlocks() {
         earthTextures = new Array<Array<TextureRegion>>();
         grassTextures = new Array<Array<TextureRegion>>();
-        //deadTextures = new Array<Array<TextureRegion>>();
         deadTextures = new Array<TextureRegion>();
         clayTextures = new Array<Array<TextureRegion>>();
         goldTextures = new Array<Array<TextureRegion>>();
@@ -194,7 +212,15 @@ public class AssetLoader {
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         initBlocks();
+        initLava();
 
+        shopField = atlasTextureField.findRegion("Miner-Bob6");
+        boughtItem = atlasTexture.findRegion("boughtItem");
+        item = atlasTexture.findRegion("item");
+        selectedItem = atlasTexture.findRegion("selectedItem");
+        selectedItem.flip(false, true);
+        boughtItem.flip(false, true);
+        item.flip(false, true);
         starTexture = atlasTexture.findRegion("star");
         starTexture.flip(false, true);
 

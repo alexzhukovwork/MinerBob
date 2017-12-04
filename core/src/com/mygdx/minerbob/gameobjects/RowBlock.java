@@ -44,10 +44,10 @@ public class RowBlock {
     private float speedRow = -20;
     private float currentSpeed = 0;
 
-    private float earthLevel = 57; //52
-    private float clayLevel = 67; //62
-    private float stoneLevel = 115; //110
-    private float diamondLevel = 135; //130
+    private float earthLevel = 52; //52
+    private float clayLevel = 62; //62
+    private float stoneLevel = 110; //110
+    private float diamondLevel = 130; //130
 
     private int scoreCount = 0;
     private int maxspeed = 55;
@@ -192,12 +192,20 @@ public class RowBlock {
 
         int i = 0;
 
+        // изменение скорости
+        float velocity = rows.get(0).get(0).getVelocity().y;
+        velocity += velocity / 24.0f;
+
+        long timeNow = TimeUtils.nanoTime();
+
         for (Array<Block> l : rows) {
             countTitan = 0;
+
+            //b.getVelocity().y + (b.getVelocity().y / 24.0f
             for (Block b : l) {
-                if (TimeUtils.nanoTime() - lastTimeSpeed > 3000000000L) {
+                if (timeNow - lastTimeSpeed > 3000000000L) {
                     if (b.getVelocity().y > - maxspeed) {
-                        b.setVelocity(0, b.getVelocity().y + (b.getVelocity().y / 24.0f));
+                        b.setVelocity(0, velocity);
                     }
                 }
                 b.update(delta);
@@ -214,7 +222,7 @@ public class RowBlock {
             i++;
         }
 
-         if (TimeUtils.nanoTime() - lastTimeSpeed > 3000000000L) {
+         if (timeNow - lastTimeSpeed > 3000000000L) {
              lastTimeSpeed = TimeUtils.nanoTime();
              if (rows.get(0).get(0).getVelocity().y > - maxspeed) {
                  for (ITypeBlock type : typeBlocks)

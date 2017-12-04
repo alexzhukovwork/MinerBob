@@ -39,3 +39,10 @@ Miner-Bob5
   orig: 1000, 1600
   offset: 0, 0
   index: -1
+Miner-Bob6
+  rotate: false
+  xy: 2006, 2
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
