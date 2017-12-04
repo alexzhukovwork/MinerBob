@@ -65,6 +65,12 @@ public class Item {
             gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - width / 2,
                     position.y + bound.height / 2 - height / 2);
         */
+            gameWorld.assetLoader.font.getData().setScale(0.075f, -0.075f);
+            float textWidth = TextSize.getWidth(gameWorld.assetLoader.font, cost + "");
+            //float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, cost + "");
+            gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - textWidth / 2,
+                    position.y + bound.height - bound.height / 6);
+            gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
             batcher.draw(textureRegion, position.x + bound.width / 4, position.y + 2,
                     bound.width / 2.0f, bound.height - 10);
         } else {

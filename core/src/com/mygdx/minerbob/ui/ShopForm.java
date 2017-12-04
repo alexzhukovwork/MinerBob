@@ -129,7 +129,8 @@ public class ShopForm {
             batcher.end();
         }
 
-        Money.draw(shaper, batcher, boundVideo.x + boundVideo.width + gameWorld.MARGIN, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
+        float width = TextSize.getWidth(gameWorld.assetLoader.font, Money.money + "");
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 2 - width, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
                 Money.money);
     }
 
