@@ -215,9 +215,9 @@ public class AssetLoader {
         initLava();
 
         shopField = atlasTextureField.findRegion("Miner-Bob6");
-        boughtItem = atlasTexture.findRegion("boughtItem");
+        selectedItem = atlasTexture.findRegion("boughtItem");
         item = atlasTexture.findRegion("item");
-        selectedItem = atlasTexture.findRegion("selectedItem");
+        boughtItem = atlasTexture.findRegion("selectedItem");
         selectedItem.flip(false, true);
         boughtItem.flip(false, true);
         item.flip(false, true);
@@ -267,16 +267,17 @@ public class AssetLoader {
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 80));
+        textures.add(new ActorTexture(actorFall, actorAnimation, 500));
         textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
         textures.add(new ActorTexture(actorFall, actorAnimation, 1000));
 
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
+        font.setFixedWidthGlyphs("0123456789");
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(.08f, -.08f);
+        font.getData().setScale(0.1f, -0.1f);
 
     //    font.getData().setScale(0.05f, -0.05f);
 

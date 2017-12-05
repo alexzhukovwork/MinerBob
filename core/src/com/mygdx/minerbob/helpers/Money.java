@@ -56,7 +56,7 @@ public class Money {
         renderer.setColor(1, 1, 0, 1);
         radius = TextSize.getHeight(assetLoader.font, money + "") / 2;
         renderer.circle(x + TextSize.getWidth(assetLoader.font, money + "") + radius + radius,
-                y + radius,
+                y + radius + 1f,
                 radius, 100);
         renderer.end();
     }

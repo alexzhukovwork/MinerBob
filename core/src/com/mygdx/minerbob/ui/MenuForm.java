@@ -43,12 +43,12 @@ public class MenuForm {
         shaper.end();
         batcher.begin();
         gameWorld.assetLoader.font.draw(batcher, AssetLoader.prefs.getInteger("highScore") + "",gameWorld.buttonSize / 2 + gameWorld.MARGIN *3f,
-                gameWorld.buttonSize / 2 - textHeight / 2 + gameWorld.MARGIN);
+                gameWorld.buttonSize / 2 - textHeight / 2 + gameWorld.MARGIN - 1f);
         batcher.draw(gameWorld.assetLoader.starTexture, gameWorld.MARGIN, gameWorld.buttonSize / 2 - gameWorld.buttonSize / 4 + gameWorld.MARGIN,
                 gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
         //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
         batcher.end();
-        Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 10, Money.money);
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 8, Money.money);
    /*     shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(1, 1, 1, 1);1
       //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);

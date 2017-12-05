@@ -20,19 +20,19 @@ public class Page {
         items = new Array<Item>();
         int index = 0;
         Item item;
-        float tx = gameWorld.WIDTH / 7, ty = gameWorld.HEIGHT / 6;
+        float tx = gameWorld.WIDTH / 10 - 1, ty = gameWorld.HEIGHT / 8;
         for(int i = 0; i < amountRow; i++) {
             for (int j = 0; j < amountCol && items.size < amount; j++) {
                 index = number * 6 + j + 2 * (i);
-                item = new Item(gameWorld, index, tx + gameWorld.WIDTH * number, ty, gameWorld.WIDTH / 3, gameWorld.HEIGHT / 5, gameWorld.assetLoader.textures.get(index).cost,
+                item = new Item(gameWorld, index, tx + gameWorld.WIDTH * number, ty, gameWorld.WIDTH / 2.5f, gameWorld.WIDTH / 2.5f, gameWorld.assetLoader.textures.get(index).cost,
                         gameWorld.assetLoader.textures.get(index).textureFall, gameWorld.assetLoader.textures.get(index).animation);
                 item.setSelected(AssetLoader.prefs.getBoolean("selected" + index));
                 item.setBought(AssetLoader.prefs.getBoolean("bought" + index));
                 items.add(item);
-                tx += gameWorld.WIDTH / 3 + 5;
+                tx += gameWorld.WIDTH / 3 + 8;
             }
-            ty += gameWorld.HEIGHT / 5 + 5;
-            tx = gameWorld.WIDTH / 7;
+            ty += gameWorld.WIDTH / 3 + 8;
+            tx = gameWorld.WIDTH / 10 - 1;
         }
     }
 
