@@ -1,0 +1,146 @@
+
+Lava.png
+size: 2048,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+lava10
+  rotate: false
+  xy: 2, 2
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava0
+  rotate: false
+  xy: 2, 2
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava11
+  rotate: false
+  xy: 504, 114
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava1
+  rotate: false
+  xy: 504, 114
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava12
+  rotate: false
+  xy: 1006, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava2
+  rotate: false
+  xy: 1006, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava13
+  rotate: false
+  xy: 1508, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava3
+  rotate: false
+  xy: 1508, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava4
+  rotate: false
+  xy: 2, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava14
+  rotate: false
+  xy: 2, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava5
+  rotate: false
+  xy: 2, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava17
+  rotate: false
+  xy: 2, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava6
+  rotate: false
+  xy: 504, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava16
+  rotate: false
+  xy: 504, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava7
+  rotate: false
+  xy: 2, 114
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava15
+  rotate: false
+  xy: 2, 114
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava8
+  rotate: false
+  xy: 504, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava18
+  rotate: false
+  xy: 504, 226
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava9
+  rotate: false
+  xy: 1006, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1
+lava19
+  rotate: false
+  xy: 1006, 338
+  size: 500, 110
+  orig: 500, 110
+  offset: 0, 0
+  index: -1

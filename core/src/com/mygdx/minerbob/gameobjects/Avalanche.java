@@ -2,6 +2,7 @@ package com.mygdx.minerbob.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -25,6 +26,8 @@ public class Avalanche {
     private Color color;
     private float subHeight;
     private int countScore;
+    private float stateTime;
+    private Animation.PlayMode state;
 
     public Avalanche(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -40,6 +43,8 @@ public class Avalanche {
         rect = new Rectangle(0, position.y, gameWorld.WIDTH, gameWorld.HEIGHT / 7f);
         subHeight = rect.height / 3f;
         countScore = 1;
+        stateTime = 0f;
+        state = Animation.PlayMode.LOOP;
     }
 
     public void setVelocity(float x, float y) {
@@ -50,7 +55,7 @@ public class Avalanche {
     public void update(float delta) {
         if(countScore == (int)(GameWorld.score / 100) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
             countScore++;
-            subHeight += rect.height / 5f;
+            subHeight += rect.height / 3f;
         }
 
         if ((rect.y + rect.height) < subHeight) {
@@ -70,7 +75,7 @@ public class Avalanche {
         rect.y = position.y;
     }
 
-    public void draw(SpriteBatch batcher, float runTime) {
+    public void draw(SpriteBatch batcher) {
         if (rect.y + rect.height >= 0) {
 //           renderer.begin(ShapeRenderer.ShapeType.Filled);
 //            if (color.equals(colorWhite))
@@ -79,10 +84,22 @@ public class Avalanche {
 //            renderer.setColor(color);
 //            renderer.rect(rect.x, rect.y, rect.width, rect.height);
 //            renderer.end();
+
             batcher.begin();
-            batcher.draw((TextureRegion) gameWorld.assetLoader.lavaAnimation.getKeyFrame(runTime),
-                    rect.x, rect.y, rect.width, rect.height);
+            batcher.draw((TextureRegion) gameWorld.assetLoader.lavaAnimation.getKeyFrame(stateTime),
+                    rect.x, rect.y - 0.5f, rect.width, rect.height);
             batcher.end();
+            stateTime += Gdx.graphics.getDeltaTime();
+            if(gameWorld.assetLoader.lavaAnimation.isAnimationFinished(stateTime)) {
+                stateTime = 0f;
+                if (state == Animation.PlayMode.LOOP)
+                    state = Animation.PlayMode.LOOP_REVERSED;
+                else
+                    state = Animation.PlayMode.LOOP;
+
+                gameWorld.assetLoader.lavaAnimation.setPlayMode(state);
+              //  gameWorld.assetLoader.lavaAnimation.setPlayMode();
+            }
         }
     }
 }

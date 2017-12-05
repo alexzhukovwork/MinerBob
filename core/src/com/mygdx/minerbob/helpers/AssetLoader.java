@@ -115,13 +115,13 @@ public class AssetLoader {
     }
 
     private void initLava() {
-        lava = new TextureRegion[5];
-        for (int i = 0; i < 5; i++)
-        {
+        lava = new TextureRegion[10];
+        for (int i = 0; i < 10; i++)      {
             lava[i] = atlasTexture.findRegion("lava" + i);
             lava[i].flip(false , true);
         }
-        lavaAnimation = new Animation(0.3f, lava);
+
+        lavaAnimation = new Animation(0.1f, lava);
         lavaAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 

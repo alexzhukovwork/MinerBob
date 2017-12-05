@@ -21,6 +21,7 @@ public class GameRenderer {
 
     private MenuForm menu;
     private float stateTime = 0f;
+    private float stateLavaTime = 0f;
 
     public GameRenderer(GameWorld gameWorld) {
         menu = gameWorld.getMenu();
@@ -88,7 +89,7 @@ public class GameRenderer {
         if (gameWorld.isPause()) {
             gameWorld.getPauseForm().draw(shapeRenderer, batcher);
         }
-        gameWorld.avalanche.draw(batcher, runTime);
+        gameWorld.avalanche.draw(batcher);
         if (gameWorld.isRunning()) {
             gameWorld.getRunningForm().draw(shapeRenderer, batcher);
             if(gameWorld.startCombo != 0) {
