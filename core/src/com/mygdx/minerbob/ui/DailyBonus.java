@@ -22,8 +22,8 @@ public class DailyBonus {
         this.gameWorld = gameWorld;
         float x = gameWorld.WIDTH / 6;
         float y = gameWorld.HEIGHT / 4;
-        boundRectangle = new Rectangle(x, y, gameWorld.dialogSize, gameWorld.dialogSize);
-        boundOkey = new Rectangle(x + gameWorld.dialogSize / 2 - this.gameWorld.WIDTH / 7 * 1.5f / 2, y + gameWorld.dialogSize / 10 * 7,
+        boundRectangle = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        boundOkey = new Rectangle(x + gameWorld.dialogWidth / 2 - this.gameWorld.WIDTH / 7 * 1.5f / 2, y + gameWorld.dialogHeight / 10 * 7,
                 this.gameWorld.buttonDialogWidth, this.gameWorld.buttonSize);
     }
 

@@ -44,10 +44,10 @@ public class ShopForm {
 
         float x = gameWorld.WIDTH / 6;
         float y = gameWorld.HEIGHT / 4;
-        boundForm = new Rectangle(x, y, gameWorld.dialogSize, gameWorld.dialogSize);
-        boundCancel = new Rectangle(x + gameWorld.dialogSize - gameWorld.buttonDialogWidth - gameWorld.dialogSize / 9,
-                y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-        boundAccept = new Rectangle(x + gameWorld.dialogSize / 9, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonDialogWidth,
+        boundForm = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        boundCancel = new Rectangle(x + gameWorld.dialogWidth - gameWorld.buttonDialogWidth - gameWorld.dialogWidth / 9,
+                y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
+        boundAccept = new Rectangle(x + gameWorld.dialogWidth / 9, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth,
                 gameWorld.buttonSize);
     }
 
@@ -130,7 +130,7 @@ public class ShopForm {
         }
 
         float width = TextSize.getWidth(gameWorld.assetLoader.font, Money.money + "");
-        Money.draw(shaper, batcher, gameWorld.WIDTH / 2 - width, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 2 - width / 2, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
                 Money.money);
     }
 
@@ -176,7 +176,7 @@ public class ShopForm {
                     textMessage = "SPEND " + item.getCost() + "?";
                     boundCancel.set(boundForm.x + boundForm.width / 2 + boundForm.width / 10, boundAccept.y,
                             boundCancel.width, boundCancel.height);
-                    boundAccept.set(boundForm.x + gameWorld.dialogSize / 9, boundForm.y + gameWorld.dialogSize / 10 * 7,
+                    boundAccept.set(boundForm.x + gameWorld.dialogWidth / 9, boundAccept.y,
                             boundAccept.width, boundAccept.height);
                     hasBought = true;
                 } else {

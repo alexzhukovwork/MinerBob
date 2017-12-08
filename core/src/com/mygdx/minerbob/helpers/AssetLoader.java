@@ -275,7 +275,7 @@ public class AssetLoader {
 
 
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
-        font.setFixedWidthGlyphs("0123456789");
+        font.setUseIntegerPositions(false);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(0.1f, -0.1f);
 

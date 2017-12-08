@@ -65,7 +65,7 @@ public class Item {
             gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - width / 2,
                     position.y + bound.height / 2 - height / 2);
         */
-            gameWorld.assetLoader.font.getData().setScale(0.075f, -0.075f);
+            gameWorld.assetLoader.font.getData().setScale(0.06f, -0.06f);
             float textWidth = TextSize.getWidth(gameWorld.assetLoader.font, cost + "");
             //float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, cost + "");
             gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - textWidth / 2,
