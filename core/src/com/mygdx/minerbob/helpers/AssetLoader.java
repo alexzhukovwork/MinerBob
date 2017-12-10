@@ -78,6 +78,7 @@ public class AssetLoader {
     public TextureRegion boughtItem;
     public TextureRegion selectedItem;
     public TextureRegion shopField;
+    public TextureRegion moneyTexture;
 
     public TextureRegion [] lava;
     public Array<TextureRegion> restoreTextures;
@@ -213,6 +214,7 @@ public class AssetLoader {
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         initBlocks();
         initLava();
+        moneyTexture = atlasTexture.findRegion("money");
 
         shopField = atlasTextureField.findRegion("Miner-Bob6");
         selectedItem = atlasTexture.findRegion("boughtItem");

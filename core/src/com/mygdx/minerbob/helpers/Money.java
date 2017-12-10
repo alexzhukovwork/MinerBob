@@ -48,16 +48,20 @@ public class Money {
     }
 
     public static void draw(ShapeRenderer renderer, SpriteBatch batcher, float x, float y, int money) {
-        float radius = 0;
+        float width = 0;
+        width = TextSize.getHeight(assetLoader.font, money + "");
         batcher.begin();
         assetLoader.font.draw(batcher, "" + money, x, y);
+        batcher.draw(assetLoader.moneyTexture, x + TextSize.getWidth(assetLoader.font, money + "") + 1f,
+                y + 1f, width, width);
         batcher.end();
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setColor(1, 1, 0, 1);
-        radius = TextSize.getHeight(assetLoader.font, money + "") / 2;
-        renderer.circle(x + TextSize.getWidth(assetLoader.font, money + "") + radius + radius,
-                y + radius + 1f,
-                radius, 100);
-        renderer.end();
+      //  renderer.begin(ShapeRenderer.ShapeType.Filled);
+       // renderer.setColor(1, 1, 0, 1);
+
+        //renderer.circle(x + TextSize.getWidth(assetLoader.font, money + "") + width + width,
+            //    y + width + 1f,
+            //    width, 100);
+
+        //renderer.end();
     }
 }

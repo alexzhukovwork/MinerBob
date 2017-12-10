@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.helpers.AssetLoader;
-import com.mygdx.minerbob.helpers.Money;
-import com.mygdx.minerbob.helpers.TextSize;
-import com.mygdx.minerbob.screen.GameScreen;
 
 /**
  * Created by Алексей on 19.10.2017.
@@ -15,7 +11,7 @@ import com.mygdx.minerbob.screen.GameScreen;
 
 public class MoneyAnimation {
     private Vector2 position, velocity, tempVector;
-    private float radius;
+    private float width;
     private int count;
     private float beginY;
     private GameWorld gameWorld;
@@ -26,7 +22,7 @@ public class MoneyAnimation {
         position = new Vector2(0, -100);
         velocity = new Vector2(0, -300);
         tempVector = new Vector2(0, -10);
-        this.radius = 2f;
+        this.width = 4f;
     }
 
     public void setAttributes(float x, float y, int count) {
@@ -40,19 +36,24 @@ public class MoneyAnimation {
     }
 
     public void draw(SpriteBatch batcher, ShapeRenderer shaper) {
-        if (position.y + count * radius * 2> 0) {
-            shaper.begin(ShapeRenderer.ShapeType.Filled);
-            shaper.setColor(255, 255, 0, 1);
+        if (position.y + count * width > 0) {
+          //  shaper.begin(ShapeRenderer.ShapeType.Filled);
+           // shaper.setColor(255, 255, 0, 1);
+            batcher.begin();
             for (int i = 0; i < count; i++) {
-                if (beginY - position.y > radius * i * 2)
-                    shaper.circle(position.x - i * radius * 2, position.y + i * radius * 2, radius);
+                if (beginY - position.y > width * i)
+                    batcher.draw(gameWorld.assetLoader.moneyTexture,
+                            position.x - i * width, position.y + i * width, width, width);
+                   // shaper.circle(position.x - i * width * 2, position.y + i * width * 2, width);
             }
-            shaper.end();
+
+            batcher.end();
+           // shaper.end();
         }
     }
 
     public void update(float delta) {
-        if (position.y + count * radius * 2 > 0) {
+        if (position.y + count * width * 2 > 0) {
             tempVector.y = velocity.y;
             tempVector.x = velocity.x;
             position.add(tempVector.scl(delta));
