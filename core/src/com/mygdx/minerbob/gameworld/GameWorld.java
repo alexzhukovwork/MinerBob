@@ -39,7 +39,8 @@ public class GameWorld {
 
     public float buttonSize;
     public float buttonDialogWidth;
-    public float dialogSize;
+    public float dialogWidth;
+    public float dialogHeight;
     public float WIDTH, HEIGHT;
     public final float MARGIN = 2f;
 
@@ -75,7 +76,8 @@ public class GameWorld {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         buttonSize = WIDTH / 7;
-        dialogSize = WIDTH / 4 * 2.7f;
+        dialogWidth = WIDTH / 4 * 2.7f;
+        dialogHeight = HEIGHT / 2.5f;
         buttonDialogWidth = WIDTH / 7 * 1.5f;
         this.assetLoader = assetLoader;
         new Money(this.assetLoader); //это епта фича

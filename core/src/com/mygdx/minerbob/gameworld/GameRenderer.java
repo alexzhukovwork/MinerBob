@@ -70,7 +70,7 @@ public class GameRenderer {
             gameWorld.setState(GameWorld.GameState.RESTART);
 
         } else if (gameWorld.isRunning())
-            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT / 2 + gameWorld.HEIGHT / 3);
+            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7);
 
         batcher.end();
 

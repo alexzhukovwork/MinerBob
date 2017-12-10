@@ -31,7 +31,7 @@ public class Avalanche {
 
     public Avalanche(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        position = new Vector2(0, - gameWorld.HEIGHT / 7f - 5);
+        position = new Vector2(0, - gameWorld.HEIGHT / 7f);
         velocity = new Vector2(0, 0);
         tempVector = new Vector2(0, 0);
         colorWhite = new Color();
@@ -41,7 +41,7 @@ public class Avalanche {
         colorWhite.set(1, 1, 1, 1);
         color.set(1, 1, 1, 1);
         rect = new Rectangle(0, position.y, gameWorld.WIDTH, gameWorld.HEIGHT / 7f);
-        subHeight = rect.height / 3f;
+        subHeight = rect.height / 2.5f;
         countScore = 1;
         stateTime = 0f;
         state = Animation.PlayMode.LOOP;
@@ -53,9 +53,9 @@ public class Avalanche {
     }
 
     public void update(float delta) {
-        if(countScore == (int)(GameWorld.score / 100) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
+        if(countScore == (int)(GameWorld.score / 300) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
             countScore++;
-            subHeight += rect.height / 3f;
+            subHeight += rect.height / 2.5f;
         }
 
         if ((rect.y + rect.height) < subHeight) {

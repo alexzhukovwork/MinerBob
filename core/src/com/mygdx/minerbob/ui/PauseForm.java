@@ -31,10 +31,10 @@ public class PauseForm {
         float x = gameWorld.WIDTH / 6;
         float y = gameWorld.HEIGHT / 4;
         boundsRestore = new Rectangle(-100, -100, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-        boundsBoard = new Rectangle(x, y, gameWorld.dialogSize, gameWorld.dialogSize);
-        boundsMenu = new Rectangle(x + gameWorld.dialogSize - gameWorld.buttonDialogWidth - gameWorld.dialogSize / 9,
-                y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-        boundsRestart = new Rectangle(x + gameWorld.dialogSize / 9, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonDialogWidth,
+        boundsBoard = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        boundsMenu = new Rectangle(x + gameWorld.dialogWidth - gameWorld.buttonDialogWidth - gameWorld.dialogWidth / 9,
+                y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
+        boundsRestart = new Rectangle(x + gameWorld.dialogWidth / 9, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth,
                 gameWorld.buttonSize);
     }
 
@@ -79,12 +79,13 @@ public class PauseForm {
         height = TextSize.getHeight(gameWorld.assetLoader.font, text);
 
         gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + boundsBoard.width / 2 - width / 2, boundsBoard.y + height / 2);
-        //width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
+        width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
         //height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
         gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", boundsBoard.x + boundsBoard.width / 5,
                 boundsBoard.y + boundsBoard.height / 10 * 4);
         batcher.end();
-        Money.draw(shaper, batcher, boundsBoard.x + boundsBoard.width - boundsBoard.width / 3 , boundsBoard.y + boundsBoard.height / 10 * 4, GameWorld.currentMoney);
+        Money.draw(shaper, batcher, boundsBoard.x + boundsBoard.width - boundsBoard.width / 3,
+                boundsBoard.y + boundsBoard.height / 10 * 4, GameWorld.currentMoney);
     }
 
     public boolean isClickedRestart(float x, float y) {
@@ -121,14 +122,14 @@ public class PauseForm {
         float y = gameWorld.HEIGHT / 4;
         if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
                 && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
-            boundsMenu.set(x + gameWorld.dialogSize - gameWorld.buttonSize * 1.3f - gameWorld.dialogSize / 20, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
-            boundsRestart.set(x + gameWorld.dialogSize / 20, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
-            boundsRestore.set(x + gameWorld.dialogSize / 2 - (gameWorld.buttonSize * 1.3f) / 2, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
+            boundsMenu.set(x + gameWorld.dialogWidth - gameWorld.buttonSize * 1.3f - gameWorld.dialogWidth / 20, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
+            boundsRestart.set(x + gameWorld.dialogWidth / 20, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
+            boundsRestore.set(x + gameWorld.dialogWidth / 2 - (gameWorld.buttonSize * 1.3f) / 2, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonSize * 1.3f, gameWorld.buttonSize);
         }
         else {
             boundsRestore.set(-100, -100, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-            boundsMenu.set(x + gameWorld.dialogSize - gameWorld.buttonDialogWidth - gameWorld.dialogSize / 9, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-            boundsRestart.set(x + gameWorld.dialogSize / 9, y + gameWorld.dialogSize / 10 * 7, gameWorld.buttonSize  * 1.5f, gameWorld.buttonSize);
+            boundsMenu.set(x + gameWorld.dialogWidth - gameWorld.buttonDialogWidth - gameWorld.dialogWidth / 9, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
+            boundsRestart.set(x + gameWorld.dialogWidth / 9, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonSize  * 1.5f, gameWorld.buttonSize);
         }
     }
 }

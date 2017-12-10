@@ -48,7 +48,7 @@ public class MenuForm {
                 gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
         //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
         batcher.end();
-        Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 8, Money.money);
+        Money.draw(shaper, batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, Money.money);
    /*     shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(1, 1, 1, 1);1
       //  shaper.rect(boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
