@@ -217,6 +217,8 @@ public class AssetLoader {
         initLava();
         moneyTexture = atlasTexture.findRegion("money");
         moneyTexture.flip(false, true);
+        recordTexture = atlasTexture.findRegion("starRecord");
+        recordTexture.flip(false, true);
 
         shopField = atlasTextureField.findRegion("Miner-Bob6");
         selectedItem = atlasTexture.findRegion("boughtItem");
