@@ -88,7 +88,7 @@ public class Block {
         subHeight = height / type.getLevel();
     }
 
-    public boolean isCollised() {
+    public boolean isCollised(float delta) {
         if(actor.getHasCurrentBlock() && actor.getBlock().equals(this)) {
             return false;
         }
@@ -111,13 +111,14 @@ public class Block {
                 actor.setVelocity(0, 0);
 
                 if (position.y <= gameWorld.HEIGHT - height)
-                    kick();
+                    kick(delta);
+                return true;
             }
             else if(isDestroyed && Intersector.overlaps(rectangleBounds, actor.getRectangleBounds()))
                 actor.setOnBlock(false);
         }
 
-        return actor.getOnBlock();
+        return  false;//   actor.getOnBlock();
     }
 
     public void stop() {
@@ -188,7 +189,7 @@ public class Block {
         this.countPosition = countPosition;
     }
 
-    private void kick() {
+    private void kick(float delta) {
       /*  tempKick += 10 / type.getLevel();
         if (tempKick >= countAnim) {
             countAnim++;
@@ -197,7 +198,7 @@ public class Block {
         }
         */
 
-        tempKick += subHeight;
+        tempKick += subHeight * delta * 60.0f;
         if (tempKick >= (gameWorld.HEIGHT / 15) / 10f) {
             tempKick = 0;
 
@@ -214,8 +215,8 @@ public class Block {
             }
         }
 
-        position.y += subHeight;
-        height -= subHeight;
+        position.y += subHeight * delta * 60.0f;
+        height -= subHeight * delta * 60.0f;
         rectangleBounds.set(position.x, position.y, width, height);
 
         actor.setPosition(actor.getX(), position.y - actor.getHeight() + 1);

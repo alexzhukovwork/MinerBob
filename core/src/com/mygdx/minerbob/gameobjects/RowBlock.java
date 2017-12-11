@@ -187,9 +187,11 @@ public class RowBlock {
     }
 
     public void update(float delta) {
+
         if (!gameWorld.getActor().getAlive())
             return;
 
+        boolean isCollised = false;
         int i = 0;
 
         // изменение скорости
@@ -210,8 +212,10 @@ public class RowBlock {
                 }
                 b.update(delta);
 
-                if( b.isCollised() ) {
-
+                if (!isCollised) {
+                    if (b.isCollised(delta)) {
+                        isCollised = true;
+                    }
                 }
             }
             if (l.get(0).getStaticY() + heightBlock < 0) {

@@ -65,6 +65,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		super.onCreate(savedInstanceState);
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useGL30 = true;
 
 		RelativeLayout layout = new RelativeLayout(this);
 

@@ -36,7 +36,7 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
-    public void render(float runTime) {
+    public void render(float runTime, float delta) { // delete delta for fps recording
       //  Gdx.gl.glClearColor(1, 1, 1, 1);
       //  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -45,7 +45,8 @@ public class GameRenderer {
 
         batcher.begin();
         batcher.enableBlending();
-
+      //  int fps = (int)(1.0f / delta);
+       // gameWorld.assetLoader.font.draw(batcher, fps+ "", 10, 10);
         if(gameWorld.isRestoring) {
             batcher.draw((TextureRegion) gameWorld.assetLoader.restoreAnimation.getKeyFrame(stateTime), gameWorld.getActor().getX(),
                     gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());

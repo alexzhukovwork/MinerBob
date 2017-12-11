@@ -2,6 +2,7 @@ package com.mygdx.minerbob.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.IActivityRequestHandler;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.gameworld.GameRenderer;
@@ -23,6 +24,13 @@ public class GameScreen implements Screen {
     private float WIDTH;
     private InputHandler inputHandler;
     private IActivityRequestHandler handler;
+    float DELTA = 1.0f / 30.0f;
+
+    final float TIME_STEP= 1 / 60f; // 60 times a second
+    final int MAX_FRAMESKIPS = 20; // Make 5 updates mostly without a render
+
+    float accumulator;
+    int skippedFrames;
 
     public GameScreen(IActivityRequestHandler handler, AssetLoader assetLoader, float WIDTH, float HEIGHT) {
         this.handler = handler;
@@ -31,6 +39,18 @@ public class GameScreen implements Screen {
         this.assetLoader = assetLoader;
         this.assetLoader.load();
         gameWorld = new GameWorld((IRewardVideo)handler, this.assetLoader, WIDTH, HEIGHT);
+
+       /* new Thread(new Runnable() {
+            @Override
+            public void run() {
+                float lastUpdate = TimeUtils.millis();
+                while (true) {
+                    float delta = TimeUtils.millis() - lastUpdate;
+                    gameWorld.update(delta);
+                    lastUpdate = TimeUtils.millis();
+                }
+            }
+        }).start();*/
     }
 
     public float getWIDTH() {
@@ -64,12 +84,21 @@ public class GameScreen implements Screen {
 
 
         runTime += delta;
-        gameWorld.update(delta);
+        accumulator += Gdx.graphics.getDeltaTime();
+        skippedFrames = 0;
+       // while (accumulator >= TIME_STEP && skippedFrames <= MAX_FRAMESKIPS) {
+      //      accumulator -= TIME_STEP;
+            gameWorld.update(delta);
+
+    //        skippedFrames++;
+    //    }
+
+
 
         if (gameWorld.isPause())
-            gameRenderer.render(0);
+            gameRenderer.render(0, delta);
         else
-            gameRenderer.render(runTime);
+            gameRenderer.render(runTime, delta);
     }
 
     @Override
