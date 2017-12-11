@@ -48,6 +48,16 @@ public class AssetLoader {
     public TextureRegion buttonBack;
     public TextureRegion buttonVideo;
 
+    // Form menu
+    public TextureRegion pauseTexture;
+    public TextureRegion bestTexture;
+    public TextureRegion scoreTexture;
+    public TextureRegion boxTexture;
+    public TextureRegion menuTexture;
+    public TextureRegion videoMenuTexure;
+    public TextureRegion playMenuTexture;
+    public TextureRegion okMenuTexture;
+
     //Sounds
     public Sound money;
     public Sound moneycombox2;
@@ -95,8 +105,26 @@ public class AssetLoader {
         splashScreen.flip(false, true);
     }
 
-    private void initButtons() {
+    private void initFormMenu() {
+        scoreTexture = atlasTextureField.findRegion("scoreMenu");
+        scoreTexture.flip(false, true);
+        pauseTexture = atlasTextureField.findRegion("pauseMenu");
+        pauseTexture.flip(false, true);
+        bestTexture = atlasTextureField.findRegion("bestMenu");
+        bestTexture.flip(false, true);
+        boxTexture = atlasTextureField.findRegion("boxMenu");
+        boxTexture.flip(false, true);
+        menuTexture = atlasTextureField.findRegion("menuMenu");
+        menuTexture.flip(false, true);
+        videoMenuTexure = atlasTextureField.findRegion("videoMenu");
+        videoMenuTexure.flip(false, true);
+        playMenuTexture = atlasTextureField.findRegion("playMenu");
+        playMenuTexture.flip(false, true);
+        okMenuTexture = atlasTextureField.findRegion("okMenu");
+        okMenuTexture.flip(false, true);
+    }
 
+    private void initButtons() {
         buttonPlay = atlasTexture.findRegion("play");
         buttonShop = atlasTexture.findRegion("shop");
         buttonSound = atlasTexture.findRegion("audio");
@@ -215,6 +243,7 @@ public class AssetLoader {
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         initBlocks();
         initLava();
+        initFormMenu();
         moneyTexture = atlasTexture.findRegion("money");
         moneyTexture.flip(false, true);
         recordTexture = atlasTexture.findRegion("starRecord");

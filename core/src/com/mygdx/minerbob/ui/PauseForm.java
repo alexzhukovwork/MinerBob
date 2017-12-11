@@ -49,7 +49,7 @@ public class PauseForm {
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
-        shaper.begin(ShapeRenderer.ShapeType.Filled);
+     /*   shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(0.75f, 0.75f, 0.75f, 1);
         shaper.rect(boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
         shaper.setColor(0, 0, 0, 1);
@@ -60,26 +60,34 @@ public class PauseForm {
             shaper.setColor(1, 1, 1, 1);
             shaper.rect(boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
         }
-        shaper.end();
+        shaper.end();*/
         batcher.begin();
         float width = 0;
         float height = 0;
         String text = "";
 
         if (isRecord()) {
-            text = "NEW RECORD!";
+            batcher.draw(gameWorld.assetLoader.bestTexture, boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
         }
         else {
             if(currentState == State.PAUSE)
-                text = "PAUSE";
+                batcher.draw(gameWorld.assetLoader.pauseTexture, boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
             else
-                text = "SCORE";
+                batcher.draw(gameWorld.assetLoader.scoreTexture, boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
         }
 
-        width = TextSize.getWidth(gameWorld.assetLoader.font, text);
-        height = TextSize.getHeight(gameWorld.assetLoader.font, text);
+        batcher.draw(gameWorld.assetLoader.menuTexture, boundsMenu.x, boundsMenu.y, boundsMenu.width, boundsMenu.height);
+        batcher.draw(gameWorld.assetLoader.playMenuTexture, boundsRestart.x, boundsRestart.y, boundsRestart.width, boundsRestart.height);
 
-        gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + boundsBoard.width / 2 - width / 2, boundsBoard.y + height / 2);
+        if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
+                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
+            batcher.draw(gameWorld.assetLoader.videoMenuTexure, boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
+        }
+
+      //  width = TextSize.getWidth(gameWorld.assetLoader.font, text);
+      //  height = TextSize.getHeight(gameWorld.assetLoader.font, text);
+
+      //  gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + boundsBoard.width / 2 - width / 2, boundsBoard.y + height / 2);
         //height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
         batcher.end();
         width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
