@@ -79,6 +79,7 @@ public class AssetLoader {
     public TextureRegion selectedItem;
     public TextureRegion shopField;
     public TextureRegion moneyTexture;
+    public TextureRegion recordTexture;
 
     public TextureRegion [] lava;
     public Array<TextureRegion> restoreTextures;
