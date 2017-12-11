@@ -13,6 +13,7 @@ import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
+import com.mygdx.minerbob.helpers.Record;
 import com.mygdx.minerbob.ui.DailyBonus;
 import com.mygdx.minerbob.ui.MenuForm;
 import com.mygdx.minerbob.ui.PauseForm;
@@ -81,6 +82,7 @@ public class GameWorld {
         buttonDialogWidth = WIDTH / 7 * 1.5f;
         this.assetLoader = assetLoader;
         new Money(this.assetLoader); //это епта фича
+        new Record(this.assetLoader); //фича v2.0
         rewardVideo = handler;
         moneyAnimation = new MoneyAnimation(this);
         runningForm = new RunningForm(this);

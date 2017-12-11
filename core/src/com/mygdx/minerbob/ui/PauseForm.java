@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
+import com.mygdx.minerbob.helpers.Record;
 import com.mygdx.minerbob.helpers.TextSize;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -79,12 +80,13 @@ public class PauseForm {
         height = TextSize.getHeight(gameWorld.assetLoader.font, text);
 
         gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + boundsBoard.width / 2 - width / 2, boundsBoard.y + height / 2);
-        width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
         //height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
-        gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", boundsBoard.x + boundsBoard.width / 5,
-                boundsBoard.y + boundsBoard.height / 10 * 4);
         batcher.end();
-        Money.draw(shaper, batcher, boundsBoard.x + boundsBoard.width - boundsBoard.width / 3,
+        width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.score + "");
+        Record.draw(batcher,boundsRestart.x + boundsRestart.width / 2 - width - 1f, // -1f - это отступ между текстом и текстурой
+                boundsBoard.y + boundsBoard.height / 10 * 4, GameWorld.score);
+        width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.currentMoney + "");
+        Money.draw(batcher, boundsMenu.x + boundsMenu.width / 2 - width - 1f,
                 boundsBoard.y + boundsBoard.height / 10 * 4, GameWorld.currentMoney);
     }
 

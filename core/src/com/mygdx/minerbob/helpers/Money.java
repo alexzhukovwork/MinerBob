@@ -47,13 +47,11 @@ public class Money {
         saveMoney();
     }
 
-    public static void draw(ShapeRenderer renderer, SpriteBatch batcher, float x, float y, int money) {
-        float width = 0;
-        width = TextSize.getHeight(assetLoader.font, money + "");
+    public static void draw(SpriteBatch batcher, float x, float y, int money) {
+        float width = TextSize.getHeight(assetLoader.font, money + "");
         batcher.begin();
-        assetLoader.font.draw(batcher, "" + money, x, y);
-        batcher.draw(assetLoader.moneyTexture, x + TextSize.getWidth(assetLoader.font, money + "") + 1f,
-                y + 1f, width, width);
+        batcher.draw(assetLoader.moneyTexture, x, y + 1f, width, width);
+        assetLoader.font.draw(batcher, "" + money, x + width + 1f, y);
         batcher.end();
       //  renderer.begin(ShapeRenderer.ShapeType.Filled);
        // renderer.setColor(1, 1, 0, 1);

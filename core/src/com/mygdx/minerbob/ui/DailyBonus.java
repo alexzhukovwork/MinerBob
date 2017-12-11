@@ -40,8 +40,9 @@ public class DailyBonus {
                 boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(gameWorld.assetLoader.font, dayNum) / 2,
                 boundRectangle.y + 3);
         batcher.end();
-        Money.draw(renderer, batcher, boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "") / 2,
-                boundRectangle.y + boundRectangle.height / 2 - TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + ""),
+        float width = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
+        float height = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
+        Money.draw(batcher, boundRectangle.x + boundRectangle.width / 2 - width / 2, boundRectangle.y + boundRectangle.height / 2 - height,
                 AssetLoader.prefs.getInteger("countBonus") * 10);
     }
 
