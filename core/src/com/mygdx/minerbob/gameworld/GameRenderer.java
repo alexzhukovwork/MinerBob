@@ -80,15 +80,15 @@ public class GameRenderer {
         }
 
         if (gameWorld.isShop()) {
-            gameWorld.getShop().draw(shapeRenderer, batcher, runTime);
+            gameWorld.getShop().draw(batcher, runTime);
         }
 
         if (gameWorld.isRestart()) {
-            gameWorld.getPauseForm().draw(shapeRenderer, batcher);
+            gameWorld.getPauseForm().draw(batcher);
         }
 
         if (gameWorld.isPause()) {
-            gameWorld.getPauseForm().draw(shapeRenderer, batcher);
+            gameWorld.getPauseForm().draw(batcher);
         }
         gameWorld.avalanche.draw(batcher);
         if (gameWorld.isRunning()) {
@@ -102,7 +102,7 @@ public class GameRenderer {
         }
 
         if (gameWorld.isDailyBonus()) {
-            gameWorld.getDailyBonus().draw(shapeRenderer, batcher);
+            gameWorld.getDailyBonus().draw(batcher);
         }
 
         gameWorld.moneyAnimation.draw(batcher, shapeRenderer);

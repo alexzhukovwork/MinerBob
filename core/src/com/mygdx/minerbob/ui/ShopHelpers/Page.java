@@ -37,9 +37,9 @@ public class Page {
         }
     }
 
-    public void draw(ShapeRenderer renderer, SpriteBatch batcher, float runTime) {
+    public void draw(SpriteBatch batcher, float runTime) {
         for (int i = 0; i < items.size; i++)
-            items.get(i).draw(renderer, batcher, runTime);
+            items.get(i).draw(batcher, runTime);
     }
 
     public void setVelocity(float x, float y) {

@@ -20,30 +20,23 @@ public class DailyBonus {
 
     public DailyBonus(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        float x = gameWorld.WIDTH / 6;
-        float y = gameWorld.HEIGHT / 4;
-        boundRectangle = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
-        boundOkey = new Rectangle(x + gameWorld.dialogWidth / 2 - this.gameWorld.WIDTH / 7 * 1.5f / 2, y + gameWorld.dialogHeight / 10 * 7,
-                this.gameWorld.buttonDialogWidth, this.gameWorld.buttonSize);
+        boundRectangle = new Rectangle(gameWorld.WIDTH / 6, gameWorld.HEIGHT / 4, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        boundOkey = new Rectangle(boundRectangle.x + boundRectangle.width / 2 - this.gameWorld.buttonDialogWidth * 1.2f / 2,
+                boundRectangle.y + boundRectangle.height - boundRectangle.height / 5,
+                this.gameWorld.buttonDialogWidth * 1.2f, this.gameWorld.buttonDialogHeight);
     }
 
-    public void draw(ShapeRenderer renderer, SpriteBatch batcher) {
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setColor(0.75f, 0.75f, 0.75f, 1);
-        renderer.rect(boundRectangle.x, boundRectangle.y, boundRectangle.width, boundRectangle.height);
-        renderer.setColor(0, 0, 0, 1);
-        renderer.rect(boundOkey.x, boundOkey.y, boundOkey.width, boundOkey.height);
-        renderer.end();
+    public void draw(SpriteBatch batcher) {
         batcher.begin();
+        batcher.draw(gameWorld.assetLoader.boxTexture, boundRectangle.x, boundRectangle.y, boundRectangle.width, boundRectangle.height);
+        batcher.draw(gameWorld.assetLoader.okMenuTexture, boundOkey.x, boundOkey.y, boundOkey.width, boundOkey.height);
         String dayNum = "DAY " + AssetLoader.prefs.getInteger("countBonus");
-        gameWorld.assetLoader.font.draw(batcher, dayNum,
-                boundRectangle.x + boundRectangle.width / 2 - TextSize.getWidth(gameWorld.assetLoader.font, dayNum) / 2,
-                boundRectangle.y + 3);
+        gameWorld.assetLoader.font.draw(batcher, dayNum, boundRectangle.x + boundRectangle.width / 12, boundRectangle.y + gameWorld.MARGIN);
         batcher.end();
         float width = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
         float height = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
-        Money.draw(batcher, boundRectangle.x + boundRectangle.width / 2 - width / 2, boundRectangle.y + boundRectangle.height / 2 - height,
-                AssetLoader.prefs.getInteger("countBonus") * 10);
+        Money.draw(batcher, boundRectangle.x + boundRectangle.width - boundRectangle.width / 12 - width - height - 1f,
+                boundRectangle.y + gameWorld.MARGIN, AssetLoader.prefs.getInteger("countBonus") * 10);
     }
 
     public boolean isClicked(float x, float y) {

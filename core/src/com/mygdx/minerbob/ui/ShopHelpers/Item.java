@@ -46,10 +46,9 @@ public class Item {
         this.id = id;
     }
 
-    public void draw(ShapeRenderer renderer, SpriteBatch batcher, float runTime) {
+    public void draw(SpriteBatch batcher, float runTime) {
 
         batcher.begin();
-
         if(!isBought) {
             batcher.draw(gameWorld.assetLoader.item, position.x, position.y, bound.width, bound.height);
         }
@@ -60,17 +59,6 @@ public class Item {
             batcher.draw(gameWorld.assetLoader.selectedItem, position.x, position.y, bound.width, bound.height);
         }
         if (!isBought) {
-        /*    float width = TextSize.getWidth(gameWorld.assetLoader.font, "" + cost);
-            float height = TextSize.getHeight(gameWorld.assetLoader.font, "" + cost);
-            gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - width / 2,
-                    position.y + bound.height / 2 - height / 2);
-        */
-            gameWorld.assetLoader.font.getData().setScale(0.06f, -0.06f);
-            float textWidth = TextSize.getWidth(gameWorld.assetLoader.font, cost + "");
-            //float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, cost + "");
-            gameWorld.assetLoader.font.draw(batcher, cost + "", position.x + bound.width / 2 - textWidth / 2,
-                    position.y + bound.height - bound.height / 6);
-            gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
             batcher.draw(textureRegion, position.x + bound.width / 4, position.y + 2,
                     bound.width / 2.0f, bound.height - 10);
         } else {
@@ -82,6 +70,14 @@ public class Item {
                         position.y + 2, bound.width / 1.5f, bound.height - 4);
         }
         batcher.end();
+        if(!isBought) {
+            gameWorld.assetLoader.font.getData().setScale(0.06f, -0.06f);
+            float width = TextSize.getWidth(gameWorld.assetLoader.font, cost + "");
+            float height = TextSize.getHeight(gameWorld.assetLoader.font, cost + "");
+            Money.draw(batcher, position.x + bound.width / 2 - width / 2 - height,
+                    position.y + bound.height - bound.height / 6, cost);
+            gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
+        }
     }
 
     public boolean isClicked(float x, float y) {

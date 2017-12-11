@@ -71,7 +71,7 @@ public class ShopForm {
         }
     }
 
-    public void draw(ShapeRenderer shaper, SpriteBatch batcher, float runTime) {
+    public void draw(SpriteBatch batcher, float runTime) {
        /* shaper.begin(ShapeRenderer.ShapeType.Filled);
         shaper.setColor(0, 0, 0, 1f);
         shaper.rect(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
@@ -101,31 +101,21 @@ public class ShopForm {
         batcher.draw(gameWorld.assetLoader.buttonBack, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
         batcher.end();
         for(int i = 0; i < pages.size; i++)
-            pages.get(i).draw(shaper, batcher, runTime);
+            pages.get(i).draw(batcher, runTime);
 
         if (isFormAccept) {
-            shaper.begin(ShapeRenderer.ShapeType.Filled);
-            shaper.setColor(0.75f, 0.75f, 0.75f, 1);
-            shaper.rect(boundForm.x, boundForm.y, boundForm.width, boundForm.height);
-            shaper.setColor(0, 0, 0, 1);
-            if (hasBought) {
-                shaper.rect(boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
-                shaper.rect(boundAccept.x, boundAccept.y, boundAccept.width, boundAccept.height);
-            } else {
-                shaper.rect(boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
-            }
-            shaper.end();
             batcher.begin();
+            batcher.draw(gameWorld.assetLoader.boxTexture, boundForm.x, boundForm.y, boundForm.width, boundForm.height);
+            if (hasBought) {
+                batcher.draw(gameWorld.assetLoader.menuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
+                batcher.draw(gameWorld.assetLoader.playMenuTexture, boundAccept.x, boundAccept.y, boundAccept.width, boundAccept.height);
+            } else {
+                batcher.draw(gameWorld.assetLoader.okMenuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
+            }
 
            // gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
-            gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x, boundForm.y);
-           // gameWorld.assetLoader.font.getData().setScale(0.05f, -0.05f);
             float width = TextSize.getWidth(gameWorld.assetLoader.font, textMessage);
-            float height = TextSize.getHeight(gameWorld.assetLoader.font, textMessage);
-            //gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
-            gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x + boundForm.width / 2 - width / 2,
-                    boundForm.y + boundForm.height / 2 - height);
-            //gameWorld.assetLoader.font.getData().setScale(0.05f, -0.05f);
+            gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x + boundForm.width / 2 - width / 2, boundForm.y + gameWorld.MARGIN);
             batcher.end();
         }
 
@@ -174,14 +164,17 @@ public class ShopForm {
                 isFormAccept = true;
                 if (Money.hasEnough(item.getCost())) {
                     textMessage = "SPEND " + item.getCost() + "?";
-                    boundCancel.set(boundForm.x + boundForm.width / 2 + boundForm.width / 10, boundAccept.y,
-                            boundCancel.width, boundCancel.height);
-                    boundAccept.set(boundForm.x + gameWorld.dialogWidth / 9, boundAccept.y,
-                            boundAccept.width, boundAccept.height);
+                    boundAccept.set(boundForm.x + boundForm.width / 13, boundForm.y + boundForm.height - boundForm.height / 5,
+                            gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
+                    boundCancel.set(boundForm.x + boundForm.width - gameWorld.buttonDialogWidth - boundForm.width / 13,
+                            boundForm.y + boundForm.height - boundForm.height / 5,
+                            gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
                     hasBought = true;
                 } else {
                     textMessage = "NOT ENOUGH";
-                    boundCancel.set(boundForm.x + boundForm.width / 2 - boundCancel.width / 2, boundCancel.y, boundCancel.width, boundCancel.height);
+                    boundCancel.set(boundForm.x + boundForm.width / 2 - this.gameWorld.buttonDialogWidth * 1.2f / 2,
+                            boundForm.y + boundForm.height - boundForm.height / 5,
+                            this.gameWorld.buttonDialogWidth * 1.2f, this.gameWorld.buttonDialogHeight);
                     hasBought = false;
                 }
             }
