@@ -23,9 +23,9 @@ public class DailyBonus {
         float x = gameWorld.WIDTH / 2 - gameWorld.dialogWidth / 2;
         float y = gameWorld.HEIGHT / 2 - gameWorld.dialogHeight / 2;
         boundRectangle = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
-        boundOkey = new Rectangle(boundRectangle.x + boundRectangle.width / 2 - this.gameWorld.buttonDialogWidth * 1.2f / 2,
+        boundOkey = new Rectangle(boundRectangle.x + boundRectangle.width / 2 - this.gameWorld.buttonDialogWidth / 2,
                 boundRectangle.y + boundRectangle.height - boundRectangle.height / 5,
-                this.gameWorld.buttonDialogWidth * 1.2f, this.gameWorld.buttonDialogHeight);
+                this.gameWorld.buttonDialogWidth, this.gameWorld.buttonDialogHeight);
     }
 
     public void draw(SpriteBatch batcher) {
