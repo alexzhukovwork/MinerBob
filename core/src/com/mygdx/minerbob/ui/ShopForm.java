@@ -174,9 +174,9 @@ public class ShopForm {
                     hasBought = true;
                 } else {
                     textMessage = "NOT ENOUGH";
-                    boundCancel.set(boundForm.x + boundForm.width / 2 - this.gameWorld.buttonDialogWidth * 1.2f / 2,
+                    boundCancel.set(boundForm.x + boundForm.width / 2 - this.gameWorld.buttonDialogWidth / 2,
                             boundForm.y + boundForm.height - boundForm.height / 5,
-                            this.gameWorld.buttonDialogWidth * 1.2f, this.gameWorld.buttonDialogHeight);
+                            this.gameWorld.buttonDialogWidth, this.gameWorld.buttonDialogHeight);
                     hasBought = false;
                 }
             }

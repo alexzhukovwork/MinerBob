@@ -80,7 +80,7 @@ public class GameWorld {
         buttonSize = WIDTH / 7;
         dialogWidth = WIDTH / 2f * 1.65f;
         dialogHeight = HEIGHT / 2f;
-        buttonDialogWidth = WIDTH / 6.3f;
+        buttonDialogWidth = WIDTH / 6.3f * 1.2f;
         buttonDialogHeight = WIDTH / 9f;
         this.assetLoader = assetLoader;
         new Money(this.assetLoader); //это епта фича
