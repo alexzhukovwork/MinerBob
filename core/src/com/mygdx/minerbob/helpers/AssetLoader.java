@@ -57,6 +57,8 @@ public class AssetLoader {
     public TextureRegion videoMenuTexure;
     public TextureRegion playMenuTexture;
     public TextureRegion okMenuTexture;
+    public TextureRegion yesMenuTexture;
+    public TextureRegion noMenuTexture;
 
     //Sounds
     public Sound money;
@@ -122,6 +124,10 @@ public class AssetLoader {
         playMenuTexture.flip(false, true);
         okMenuTexture = atlasTextureField.findRegion("okMenu");
         okMenuTexture.flip(false, true);
+        yesMenuTexture = atlasTexture.findRegion("yes");
+        yesMenuTexture.flip(false, true);
+        noMenuTexture = atlasTexture.findRegion("no");
+        noMenuTexture.flip(false, true);
     }
 
     private void initButtons() {

@@ -108,8 +108,8 @@ public class ShopForm {
             batcher.begin();
             batcher.draw(gameWorld.assetLoader.boxTexture, boundForm.x, boundForm.y, boundForm.width, boundForm.height);
             if (hasBought) {
-                batcher.draw(gameWorld.assetLoader.menuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
-                batcher.draw(gameWorld.assetLoader.playMenuTexture, boundAccept.x, boundAccept.y, boundAccept.width, boundAccept.height);
+                batcher.draw(gameWorld.assetLoader.noMenuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
+                batcher.draw(gameWorld.assetLoader.yesMenuTexture, boundAccept.x, boundAccept.y, boundAccept.width, boundAccept.height);
             } else {
                 batcher.draw(gameWorld.assetLoader.okMenuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
             }
