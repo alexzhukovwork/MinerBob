@@ -31,8 +31,8 @@ public class PauseForm {
 
     public PauseForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        float x = gameWorld.WIDTH / 6;
-        float y = gameWorld.HEIGHT / 4;
+        float x = gameWorld.WIDTH / 2 - gameWorld.dialogWidth / 2;
+        float y = gameWorld.HEIGHT / 2 - gameWorld.dialogHeight / 2;
         boundsBoard = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
         boundsRestart = new Rectangle(boundsBoard.x + boundsBoard.width / padding, y,
                 gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
@@ -93,11 +93,11 @@ public class PauseForm {
         //height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
         batcher.end();
         Record.draw(batcher,boundsBoard.x + boundsBoard.width / padding,
-                boundsBoard.y + gameWorld.MARGIN, GameWorld.score);
+                boundsBoard.y + boundsBoard.height / 15, GameWorld.score);
         width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.currentMoney + "");
         height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.currentMoney + "");
         Money.draw(batcher, boundsBoard.x + boundsBoard.width - boundsBoard.width / padding - width - height - 1f,
-                boundsBoard.y + gameWorld.MARGIN, GameWorld.currentMoney); // -1f - это отступ между текстом и текстурой
+                boundsBoard.y + boundsBoard.height / 15, GameWorld.currentMoney); // -1f - это отступ между текстом и текстурой
     }
 
     public boolean isClickedRestart(float x, float y) {

@@ -20,7 +20,9 @@ public class DailyBonus {
 
     public DailyBonus(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        boundRectangle = new Rectangle(gameWorld.WIDTH / 6, gameWorld.HEIGHT / 4, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        float x = gameWorld.WIDTH / 2 - gameWorld.dialogWidth / 2;
+        float y = gameWorld.HEIGHT / 2 - gameWorld.dialogHeight / 2;
+        boundRectangle = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
         boundOkey = new Rectangle(boundRectangle.x + boundRectangle.width / 2 - this.gameWorld.buttonDialogWidth * 1.2f / 2,
                 boundRectangle.y + boundRectangle.height - boundRectangle.height / 5,
                 this.gameWorld.buttonDialogWidth * 1.2f, this.gameWorld.buttonDialogHeight);
@@ -31,12 +33,12 @@ public class DailyBonus {
         batcher.draw(gameWorld.assetLoader.boxTexture, boundRectangle.x, boundRectangle.y, boundRectangle.width, boundRectangle.height);
         batcher.draw(gameWorld.assetLoader.okMenuTexture, boundOkey.x, boundOkey.y, boundOkey.width, boundOkey.height);
         String dayNum = "DAY " + AssetLoader.prefs.getInteger("countBonus");
-        gameWorld.assetLoader.font.draw(batcher, dayNum, boundRectangle.x + boundRectangle.width / 12, boundRectangle.y + gameWorld.MARGIN);
+        gameWorld.assetLoader.font.draw(batcher, dayNum, boundRectangle.x + boundRectangle.width / 12, boundRectangle.y + boundRectangle.height / 15);
         batcher.end();
         float width = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
         float height = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
         Money.draw(batcher, boundRectangle.x + boundRectangle.width - boundRectangle.width / 12 - width - height - 1f,
-                boundRectangle.y + gameWorld.MARGIN, AssetLoader.prefs.getInteger("countBonus") * 10);
+                boundRectangle.y + boundRectangle.height / 15, AssetLoader.prefs.getInteger("countBonus") * 10);
     }
 
     public boolean isClicked(float x, float y) {

@@ -42,13 +42,14 @@ public class ShopForm {
         boundNext = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.buttonSize - gameWorld.MARGIN,
                 gameWorld.buttonSize, gameWorld.buttonSize);
 
-        float x = gameWorld.WIDTH / 6;
-        float y = gameWorld.HEIGHT / 4;
+        float x = gameWorld.WIDTH / 2 - gameWorld.dialogWidth / 2;
+        float y = gameWorld.HEIGHT / 2 - gameWorld.dialogHeight / 2;
         boundForm = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
-        boundCancel = new Rectangle(x + gameWorld.dialogWidth - gameWorld.buttonDialogWidth - gameWorld.dialogWidth / 9,
-                y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-        boundAccept = new Rectangle(x + gameWorld.dialogWidth / 9, y + gameWorld.dialogHeight / 10 * 7, gameWorld.buttonDialogWidth,
-                gameWorld.buttonSize);
+        boundAccept = new Rectangle(boundForm.x + boundForm.width / 13, boundForm.y + boundForm.height - boundForm.height / 5,
+                gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
+        boundCancel = new Rectangle(boundForm.x + boundForm.width - gameWorld.buttonDialogWidth - boundForm.width / 13,
+                boundForm.y + boundForm.height - boundForm.height / 5,
+                gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
     }
 
     public void update(float delta) {
@@ -115,7 +116,8 @@ public class ShopForm {
 
            // gameWorld.assetLoader.font.getData().setScale(0.03f, -0.03f);
             float width = TextSize.getWidth(gameWorld.assetLoader.font, textMessage);
-            gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x + boundForm.width / 2 - width / 2, boundForm.y + gameWorld.MARGIN);
+            gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x + boundForm.width / 2 - width / 2,
+                    boundForm.y + boundForm.height / 15);
             batcher.end();
         }
 
