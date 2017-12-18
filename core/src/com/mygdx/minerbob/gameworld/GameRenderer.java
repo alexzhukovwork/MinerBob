@@ -92,13 +92,7 @@ public class GameRenderer {
         }
         gameWorld.avalanche.draw(batcher);
         if (gameWorld.isRunning()) {
-            gameWorld.getRunningForm().draw(shapeRenderer, batcher);
-            if(gameWorld.startCombo != 0) {
-                batcher.begin();
-                gameWorld.assetLoader.font.draw(batcher, "X" + gameWorld.scl, 0, 0);
-                batcher.end();
-            }
-
+            gameWorld.getRunningForm().draw(batcher);
         }
 
         if (gameWorld.isDailyBonus()) {

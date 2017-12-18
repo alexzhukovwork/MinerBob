@@ -6,98 +6,98 @@ filter: Nearest,Nearest
 repeat: none
 Miner-Bob1
   rotate: false
-  xy: 2, 2408
+  xy: 2, 2406
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 Miner-Bob2
   rotate: false
-  xy: 2, 806
+  xy: 2, 804
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 Miner-Bob3
   rotate: false
-  xy: 1004, 2408
+  xy: 1004, 2406
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 Miner-Bob4
   rotate: false
-  xy: 1004, 806
+  xy: 1004, 804
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 Miner-Bob5
   rotate: false
-  xy: 2006, 2408
+  xy: 2006, 2406
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 Miner-Bob6
   rotate: false
-  xy: 2006, 806
+  xy: 2006, 804
   size: 1000, 1600
   orig: 1000, 1600
   offset: 0, 0
   index: -1
 bestMenu
   rotate: false
-  xy: 404, 404
-  size: 400, 400
-  orig: 400, 400
+  xy: 804, 2
+  size: 800, 800
+  orig: 800, 800
   offset: 0, 0
   index: -1
 boxMenu
   rotate: false
-  xy: 3008, 3608
-  size: 400, 400
-  orig: 400, 400
+  xy: 3008, 2404
+  size: 800, 800
+  orig: 800, 800
   offset: 0, 0
   index: -1
 menuMenu
   rotate: false
-  xy: 806, 675
+  xy: 3810, 3746
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
 okMenu
   rotate: false
-  xy: 404, 273
+  xy: 3008, 2273
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
 pauseMenu
   rotate: false
-  xy: 2, 2
-  size: 400, 400
-  orig: 400, 400
+  xy: 3008, 3206
+  size: 800, 800
+  orig: 800, 800
   offset: 0, 0
   index: -1
 playMenu
   rotate: false
-  xy: 3008, 3477
+  xy: 3810, 3877
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
 scoreMenu
   rotate: false
-  xy: 2, 404
-  size: 400, 400
-  orig: 400, 400
+  xy: 2, 2
+  size: 800, 800
+  orig: 800, 800
   offset: 0, 0
   index: -1
 videoMenu
   rotate: false
-  xy: 3410, 3879
+  xy: 1606, 673
   size: 243, 129
   orig: 243, 129
   offset: 0, 0

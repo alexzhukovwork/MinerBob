@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
+import com.mygdx.minerbob.helpers.TextSize;
 import com.mygdx.minerbob.screen.GameScreen;
 
 /**
@@ -14,22 +15,23 @@ import com.mygdx.minerbob.screen.GameScreen;
 
 public class RunningForm {
     Rectangle boundsPause;
-
-    TextureRegion pauseTexture;
+    GameWorld gameWorld;
 
     public RunningForm(GameWorld gameWorld) {
-        pauseTexture = gameWorld.assetLoader.buttonPause;
-        boundsPause = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+        this.gameWorld = gameWorld;
+        boundsPause = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN,
+                gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
-    public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
-       shaper.begin(ShapeRenderer.ShapeType.Filled);
-       shaper.setColor(1, 1, 1, 1);
-       shaper.rect(boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
-       shaper.end();
-        /* batcher.begin();
-        batcher.draw(pauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
-        batcher.end();*/
+    public void draw(SpriteBatch batcher) {
+        //gameWorld.assetLoader.font.getData().setScale(0.2f, - 0.2f);
+        batcher.begin();
+        if(gameWorld.startCombo != 0) {
+            gameWorld.assetLoader.font.draw(batcher, "X" + gameWorld.scl, gameWorld.MARGIN, gameWorld.MARGIN);
+        }
+        batcher.draw(gameWorld.assetLoader.buttonPauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
+        batcher.end();
+        //gameWorld.assetLoader.font.getData().setScale(0.1f, - 0.1f);
     }
 
     public boolean isClickedPause(float x, float y) {
