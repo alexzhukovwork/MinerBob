@@ -78,6 +78,8 @@ public class Actor {
             if (gameWorld.isCollisedSecond)
                 acceleration.y = gameWorld.HEIGHT / 2 * 12f;
             else acceleration.y = 80;
+
+
         }
 
         rectangleBounds.set(position.x, position.y, width, height);

@@ -48,14 +48,14 @@ Miner-Bob6
   index: -1
 bestMenu
   rotate: false
-  xy: 804, 2
+  xy: 3008, 2404
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
   index: -1
 boxMenu
   rotate: false
-  xy: 3008, 2404
+  xy: 2, 2
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
@@ -76,7 +76,7 @@ okMenu
   index: -1
 pauseMenu
   rotate: false
-  xy: 3008, 3206
+  xy: 804, 2
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
@@ -90,7 +90,7 @@ playMenu
   index: -1
 scoreMenu
   rotate: false
-  xy: 2, 2
+  xy: 3008, 3206
   size: 800, 800
   orig: 800, 800
   offset: 0, 0

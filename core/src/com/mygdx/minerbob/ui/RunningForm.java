@@ -19,15 +19,25 @@ public class RunningForm {
 
     public RunningForm(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        boundsPause = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN,
-                gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsPause = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize / 1.3f - gameWorld.MARGIN, gameWorld.MARGIN * 2 + 0.6f,
+                gameWorld.buttonSize / 1.8f, gameWorld.buttonSize / 1.8f);
     }
 
     public void draw(SpriteBatch batcher) {
         //gameWorld.assetLoader.font.getData().setScale(0.2f, - 0.2f);
         batcher.begin();
         if(gameWorld.startCombo != 0) {
-            gameWorld.assetLoader.font.draw(batcher, "X" + gameWorld.scl, gameWorld.MARGIN, gameWorld.MARGIN);
+            switch (gameWorld.scl) {
+                case 2:
+                    batcher.draw(gameWorld.assetLoader.x2Texture, gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+                    break;
+                case 3:
+                    batcher.draw(gameWorld.assetLoader.x3Texture, gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+                    break;
+                case 5:
+                    batcher.draw(gameWorld.assetLoader.x5Texture, gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
+                    break;
+            }
         }
         batcher.draw(gameWorld.assetLoader.buttonPauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
         batcher.end();

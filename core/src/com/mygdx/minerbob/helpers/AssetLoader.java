@@ -24,6 +24,7 @@ public class AssetLoader {
 
     private TextureAtlas atlasTexture;
     private TextureAtlas atlasTextureField;
+    private TextureAtlas atlasTextureActor;
     public Texture textureSplashScreen;
 
     public BitmapFont font;
@@ -99,12 +100,18 @@ public class AssetLoader {
     public Animation restoreAnimation;
     public Animation lavaAnimation;
 
+    // Combo
+    public TextureRegion x2Texture;
+    public TextureRegion x3Texture;
+    public TextureRegion x5Texture;
+
+
     public static Preferences prefs;
     public boolean isInternet;
 
     public void loadSplashScreen() {
-        textureSplashScreen = new Texture(Gdx.files.internal("img/splashScreen.jpg"));
-        splashScreen = new TextureRegion(textureSplashScreen, 0, 0, 640, 640);
+        textureSplashScreen = new Texture(Gdx.files.internal("img/splashScreen.png"));
+        splashScreen = new TextureRegion(textureSplashScreen, 0, 0, 1000, 1600);
         splashScreen.flip(false, true);
     }
 
@@ -151,6 +158,15 @@ public class AssetLoader {
         buttonRight.flip(false, true);
         buttonVideo.flip(false, true);
         buttonBack.flip(false, true);
+    }
+
+    private void initCombo() {
+        x2Texture = atlasTexture.findRegion("2x");
+        x2Texture.flip(false, true);
+        x3Texture = atlasTexture.findRegion("3x");
+        x3Texture.flip(false, true);
+        x5Texture = atlasTexture.findRegion("5x");
+        x5Texture.flip(false, true);
     }
 
     private void initLava() {
@@ -250,9 +266,11 @@ public class AssetLoader {
 
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
+        initActors();
         initBlocks();
         initLava();
         initFormMenu();
+        initCombo();
         moneyTexture = atlasTexture.findRegion("money");
         moneyTexture.flip(false, true);
         recordTexture = atlasTexture.findRegion("starRecord");
@@ -271,14 +289,13 @@ public class AssetLoader {
         TextureRegion temp;
         restoreTextures = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) {
-            temp = atlasTexture.findRegion("Restore" + i);
+            temp = atlasTextureActor.findRegion("Restore" + i);
             temp.flip(false, true);
             restoreTextures.add(temp);
         }
         restoreAnimation = new Animation(0.3f, restoreTextures);
         restoreAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-        textures = new Array<ActorTexture>();
         initButtons();
 
         bgBlue = atlasTextureField.findRegion("Miner-Bob2");
@@ -293,31 +310,6 @@ public class AssetLoader {
         startField = atlasTextureField.findRegion("Miner-Bob1");
         startField.flip(false, true);
 
-        actorFall = atlasTexture.findRegion("actor1");
-        actorFall.flip(false, true);
-
-        actorKick1 = atlasTexture.findRegion("actor2");
-        actorKick1.flip(false, true);
-
-        actorKick2 = atlasTexture.findRegion("actor3");
-        actorKick2.flip(false, true);
-
-        actorKick3 = atlasTexture.findRegion("actor4");
-        actorKick3.flip(false, true);
-
-        TextureRegion[] actors = { actorKick1, actorKick2, actorKick3 };
-        actorAnimation = new Animation(0.09f, actors);
-        actorAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 80));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 500));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 10000));
-        textures.add(new ActorTexture(actorFall, actorAnimation, 1000));
-
-
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
         font.setUseIntegerPositions(false);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -330,6 +322,36 @@ public class AssetLoader {
 
         initPrefs();
         checkInternet();
+    }
+
+    private void initActors() {
+        atlasTextureActor = new TextureAtlas("Miner Bob Actor.atlas");
+        textures = new Array<ActorTexture>();
+        initCurrentActor("actor", 0);
+        initCurrentActor("hohol", 500);
+        initCurrentActor("pirate", 1000);
+        initCurrentActor("rastaman", 2000);
+        initCurrentActor("cosmonaut", 3500);
+        initCurrentActor("santa", 5000);
+    }
+
+    private void initCurrentActor(String actor, int cost) {
+        actorFall = atlasTextureActor.findRegion(actor + "0");
+        actorFall.flip(false, true);
+
+        actorKick1 = atlasTextureActor.findRegion(actor + "1");
+        actorKick1.flip(false, true);
+
+        actorKick2 = atlasTextureActor.findRegion(actor + "2");
+        actorKick2.flip(false, true);
+
+        actorKick3 = atlasTextureActor.findRegion(actor + "3");
+        actorKick3.flip(false, true);
+
+        TextureRegion[] actors = { actorKick1, actorKick2, actorKick3 };
+        actorAnimation = new Animation(0.09f, actors);
+        actorAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        textures.add(new ActorTexture(actorFall, actorAnimation, cost));
     }
 
     private void initPrefs() {
