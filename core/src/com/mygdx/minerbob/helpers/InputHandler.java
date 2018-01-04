@@ -140,7 +140,6 @@ public class InputHandler implements InputProcessor {
             return true;
         }
 
-
         return true;
     }
 
@@ -157,6 +156,15 @@ public class InputHandler implements InputProcessor {
                     AssetLoader.prefs.putBoolean("isNextDay", false);
                     AssetLoader.prefs.flush();
                 }
+            }
+            return true;
+        }
+
+        if(gameWorld.isTraining()) {
+
+            if(gameWorld.getTrainingForm().isClicked(x, y))
+            {
+                gameWorld.setState(GameWorld.GameState.RUNNING);
             }
             return true;
         }
@@ -208,7 +216,13 @@ public class InputHandler implements InputProcessor {
             if (gameWorld.getMenu().isClickedPlay(x, y)) {
                 GameWorld.currentMoney = 0;
                 AssetLoader.prefs.putInteger("countRestore", 0);
-                gameWorld.setState(GameWorld.GameState.RUNNING);
+                if(AssetLoader.prefs.getBoolean("isFirstRun")) {
+                    gameWorld.setState(GameWorld.GameState.TRAINING);
+                    AssetLoader.prefs.putBoolean("isFirstRun", false);
+                }
+                else
+                    gameWorld.setState(GameWorld.GameState.RUNNING);
+                //gameWorld.setState(GameWorld.GameState.TRAINING);
                 AssetLoader.prefs.flush();
             }
             if (gameWorld.getMenu().isClickedShop(x, y)) {
@@ -261,7 +275,6 @@ public class InputHandler implements InputProcessor {
             return true;
         }
 
-
         return true;
     }
 
@@ -294,8 +307,10 @@ public class InputHandler implements InputProcessor {
     private void onBackClicked() {
         if (gameWorld.isShop())
             gameWorld.setState(GameWorld.GameState.MENU);
-        else if (gameWorld.isRunning())
+        else if (gameWorld.isRunning()) {
             gameWorld.setState(GameWorld.GameState.PAUSE);
+            gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);
+        }
         else if (gameWorld.isMenu())
             Gdx.app.exit();
     }

@@ -392,6 +392,10 @@ public class AssetLoader {
             prefs.putInteger("countRestore", 0);
         }
 
+        if(!prefs.contains("isFirstRun")) {
+            prefs.putBoolean("isFirstRun", true);
+        }
+
         prefs.flush();
     }
 
