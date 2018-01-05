@@ -22,7 +22,7 @@ public class PauseForm {
     private Rectangle boundsRestore;
     private State currentState;
     private GameWorld gameWorld;
-    private final int restoreScore = 10;
+    private final int restoreScore = 150;
     private final int padding = 13;
 
     public enum State {

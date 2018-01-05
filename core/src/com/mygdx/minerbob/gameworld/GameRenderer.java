@@ -99,6 +99,10 @@ public class GameRenderer {
             gameWorld.getDailyBonus().draw(batcher);
         }
 
+        if (gameWorld.isTraining()) {
+            gameWorld.getTrainingForm().draw(shapeRenderer, batcher);
+        }
+
         gameWorld.moneyAnimation.draw(batcher, shapeRenderer);
         batcher.end();
     }

@@ -17,6 +17,7 @@ import com.mygdx.minerbob.ui.MenuForm;
 import com.mygdx.minerbob.ui.PauseForm;
 import com.mygdx.minerbob.ui.RunningForm;
 import com.mygdx.minerbob.ui.ShopForm;
+import com.mygdx.minerbob.ui.TrainingForm;
 
 /**
  * Created by Алексей on 10.09.2017.
@@ -32,6 +33,7 @@ public class GameWorld {
     private PauseForm pauseForm;
     private RunningForm runningForm;
     private DailyBonus dailyBonus;
+    private TrainingForm trainingForm;
 
     private AdId adState;
     public AssetLoader assetLoader;
@@ -63,7 +65,7 @@ public class GameWorld {
     public Avalanche avalanche;
 
     public enum GameState {
-       MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS
+       MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS, TRAINING
     }
 
     public static boolean isRecord;
@@ -90,6 +92,7 @@ public class GameWorld {
         menu = new MenuForm(this);
         avalanche = new Avalanche(this);
         dailyBonus = new DailyBonus(this);
+        trainingForm = new TrainingForm(this);
         currentState = GameState.DAILYBONUS;
         isRecord = false;
         isEnd = false;
@@ -132,6 +135,10 @@ public class GameWorld {
             stop();
             pauseForm.setState(PauseForm.State.SCORE);
             pauseForm.checkRecord();
+        }
+
+        if(isTraining()) {
+             trainingForm.update(delta);
         }
     }
 
@@ -246,6 +253,10 @@ public class GameWorld {
         return currentState == GameState.DAILYBONUS;
     }
 
+    public boolean isTraining() {
+        return  currentState == GameState.TRAINING;
+    }
+
     public MenuForm getMenu() {
         return menu;
     }
@@ -268,5 +279,9 @@ public class GameWorld {
 
     public DailyBonus getDailyBonus() {
         return dailyBonus;
+    }
+
+    public TrainingForm getTrainingForm() {
+        return trainingForm;
     }
 }
