@@ -138,6 +138,10 @@ public class GameWorld {
             pauseForm.setState(PauseForm.State.SCORE);
             pauseForm.checkRecord();
         }
+
+        if(isTraining()) {
+             trainingForm.update(delta);
+        }
     }
 
     public void stop()
