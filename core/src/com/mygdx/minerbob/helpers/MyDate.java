@@ -25,7 +25,7 @@ public class MyDate {
         String urlText = "https://time.is/Unix_time_now";
         Document doc = null;
 
-      /*  try {
+        try {
             URL url = new URL(urlText);
          //   URLConnection urlConnection = url.openConnection();
          //   urlConnection.setConnectTimeout(5000);
@@ -43,7 +43,7 @@ public class MyDate {
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
+
         return 0;
     }
 
