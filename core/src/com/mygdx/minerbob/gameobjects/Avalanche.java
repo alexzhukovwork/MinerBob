@@ -53,7 +53,7 @@ public class Avalanche {
     }
 
     public void update(float delta) {
-        if(countScore == (int)(GameWorld.score / 300) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
+        if(countScore == (GameWorld.score / 300) && subHeight <= gameWorld.HEIGHT / 7f - subHeight / 2) {
             countScore++;
             subHeight += rect.height / 2.5f;
         }
@@ -64,7 +64,6 @@ public class Avalanche {
             rect.x = position.x;
             rect.y = position.y;
         }
-       // Gdx.app.log("length", "y = " + rect.y + "width = " + rect.width);
     }
 
     public void restart() {
@@ -77,18 +76,8 @@ public class Avalanche {
 
     public void draw(SpriteBatch batcher) {
         if (rect.y + rect.height >= 0) {
-//           renderer.begin(ShapeRenderer.ShapeType.Filled);
-//            if (color.equals(colorWhite))
-//                color.set(colorBlack);
-//            else color.set(colorWhite);
-//            renderer.setColor(color);
-//            renderer.rect(rect.x, rect.y, rect.width, rect.height);
-//            renderer.end();
-
-            batcher.begin();
             batcher.draw((TextureRegion) gameWorld.assetLoader.lavaAnimation.getKeyFrame(stateTime),
                     rect.x, rect.y - 0.5f, rect.width, rect.height);
-            batcher.end();
             stateTime += Gdx.graphics.getDeltaTime();
             if(gameWorld.assetLoader.lavaAnimation.isAnimationFinished(stateTime)) {
                 stateTime = 0f;
@@ -98,7 +87,6 @@ public class Avalanche {
                     state = Animation.PlayMode.LOOP;
 
                 gameWorld.assetLoader.lavaAnimation.setPlayMode(state);
-              //  gameWorld.assetLoader.lavaAnimation.setPlayMode();
             }
         }
     }

@@ -47,8 +47,6 @@ public class Item {
     }
 
     public void draw(SpriteBatch batcher, float runTime) {
-
-        batcher.begin();
         if(!isBought) {
             batcher.draw(gameWorld.assetLoader.item, position.x, position.y, bound.width, bound.height);
         }
@@ -69,7 +67,6 @@ public class Item {
                 batcher.draw((TextureRegion)animation.getKeyFrame(runTime),position.x + bound.width / 6,
                         position.y + 2, bound.width / 1.5f, bound.height - 4);
         }
-        batcher.end();
         if(!isBought) {
             gameWorld.assetLoader.font.getData().setScale(0.06f, -0.06f);
             float width = TextSize.getWidth(gameWorld.assetLoader.font, cost + "");

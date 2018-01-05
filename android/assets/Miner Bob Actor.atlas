@@ -6,196 +6,196 @@ filter: Nearest,Nearest
 repeat: none
 Restore0
   rotate: false
-  xy: 275, 2
-  size: 271, 397
-  orig: 271, 397
+  xy: 2, 2
+  size: 312, 397
+  orig: 312, 397
   offset: 0, 0
   index: -1
 Restore1
   rotate: false
-  xy: 2, 2
-  size: 271, 397
-  orig: 271, 397
+  xy: 2, 401
+  size: 312, 397
+  orig: 312, 397
   offset: 0, 0
   index: -1
 Restore2
   rotate: false
-  xy: 2, 401
-  size: 271, 397
-  orig: 271, 397
+  xy: 316, 401
+  size: 312, 397
+  orig: 312, 397
   offset: 0, 0
   index: -1
 Restore3
   rotate: false
-  xy: 275, 401
-  size: 271, 397
-  orig: 271, 397
+  xy: 316, 2
+  size: 312, 397
+  orig: 312, 397
   offset: 0, 0
   index: -1
 actor0
   rotate: false
-  xy: 1973, 429
+  xy: 3480, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor1
   rotate: false
-  xy: 1973, 58
+  xy: 3480, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor2
   rotate: false
-  xy: 2258, 429
+  xy: 3765, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor3
   rotate: false
-  xy: 2258, 58
+  xy: 3765, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut0
   rotate: false
-  xy: 1118, 429
+  xy: 2625, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut1
   rotate: false
-  xy: 1118, 58
+  xy: 2625, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut2
   rotate: false
-  xy: 2543, 58
+  xy: 2055, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut3
   rotate: false
-  xy: 2828, 429
+  xy: 630, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol0
   rotate: false
-  xy: 548, 58
+  xy: 915, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol1
   rotate: false
-  xy: 833, 429
+  xy: 2340, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol2
   rotate: false
-  xy: 833, 58
+  xy: 2340, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol3
   rotate: false
-  xy: 2543, 429
+  xy: 630, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate0
   rotate: false
-  xy: 1403, 429
+  xy: 2910, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate1
   rotate: false
-  xy: 1403, 58
+  xy: 2910, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate2
   rotate: false
-  xy: 1688, 429
+  xy: 3195, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate3
   rotate: false
-  xy: 1688, 58
+  xy: 3195, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman0
   rotate: false
-  xy: 3398, 58
+  xy: 1485, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman1
   rotate: false
-  xy: 3683, 429
+  xy: 1770, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman2
   rotate: false
-  xy: 3683, 58
+  xy: 1770, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman3
   rotate: false
-  xy: 548, 429
+  xy: 2055, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa0
   rotate: false
-  xy: 2828, 58
+  xy: 915, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa1
   rotate: false
-  xy: 3113, 429
+  xy: 1200, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa2
   rotate: false
-  xy: 3113, 58
+  xy: 1200, 58
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa3
   rotate: false
-  xy: 3398, 429
+  xy: 1485, 429
   size: 283, 369
   orig: 283, 369
   offset: 0, 0

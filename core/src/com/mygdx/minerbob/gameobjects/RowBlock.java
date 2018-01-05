@@ -24,7 +24,7 @@ public class RowBlock {
 
     private GameWorld gameWorld;
 
-    private float heightBlock, widthBlock;
+    public float heightBlock, widthBlock;
 
     private long lastTimeSpeed;
 
@@ -55,7 +55,7 @@ public class RowBlock {
 
     public RowBlock(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
-        heightBlock = gameWorld.HEIGHT / 15;
+        heightBlock = gameWorld.WIDTH / 5 * 180 / 200 - 2;
         widthBlock = gameWorld.WIDTH / 5;
         lastTimeSpeed = TimeUtils.nanoTime();
         initObjects();
@@ -253,44 +253,13 @@ public class RowBlock {
         }
     }
 
-    public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
-        /*
-        shaper.begin(ShapeRenderer.ShapeType.Filled);
-
-        for (Array<Block> l : rows) {
-            for (Block b : l) {
-                if (!b.getDestroyed()) {
-                    shaper.setColor(b.getColor());
-                    if (!b.getType().getName().equals("Earth"))
-                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-                }
-            }
-        }
-
-        shaper.end();
-
-        shaper.begin(ShapeRenderer.ShapeType.Line);
-        shaper.setColor(0, 0, 0, 1);
-
-        for (Array<Block> l : rows) {
-            for (Block b : l) {
-                if (!b.getDestroyed()) {
-                    if (!b.getType().getName().equals("Earth"))
-                        shaper.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-                }
-            }
-        }
-        shaper.end();
-        */
-
-        batcher.begin();
+    public void draw(SpriteBatch batcher) {
         for (Array<Block> l : rows) {
             for (Block b : l) {
                 batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
                         b.getWidth(), heightBlock + 2);
             }
         }
-        batcher.end();
     }
 
     public void stop() {
@@ -315,7 +284,7 @@ public class RowBlock {
 
     public int identifyRow(float x, float y) {
         float tx, ty;
-        float acs = 10;
+        float acs = heightBlock / 2;
         int buf = -1;
         for(int i = 0; i < 4; i++) {
             tx = rows.get(i).get(0).getX();

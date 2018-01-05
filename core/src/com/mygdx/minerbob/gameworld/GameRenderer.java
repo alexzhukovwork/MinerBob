@@ -1,11 +1,14 @@
 package com.mygdx.minerbob.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.minerbob.helpers.TextSize;
 import com.mygdx.minerbob.ui.MenuForm;
 
 
@@ -22,13 +25,13 @@ public class GameRenderer {
 
     private MenuForm menu;
     private float stateTime = 0f;
-    private float stateLavaTime = 0f;
 
     public GameRenderer(GameWorld gameWorld) {
         menu = gameWorld.getMenu();
         this.gameWorld = gameWorld;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, gameWorld.WIDTH, gameWorld.HEIGHT);
+        camera.rotate(25);
 
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(camera.combined);
@@ -37,17 +40,12 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
-    public void render(float runTime, float delta) { // delete delta for fps recording
-     //   Gdx.gl.glClearColor(1, 1, 1, 1);
-    //    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        gameWorld.getField().draw(batcher);
-        gameWorld.getRowBlock().draw(shapeRenderer, batcher);
-
+    public void render(float runTime) {
         batcher.begin();
         batcher.enableBlending();
-      //  int fps = (int)(1.0f / delta);
-       // gameWorld.assetLoader.font.draw(batcher, fps+ "", 10, 10);
+        gameWorld.getField().draw(batcher);
+        gameWorld.getRowBlock().draw(batcher);
+
         if(gameWorld.isRestoring) {
             batcher.draw((TextureRegion) gameWorld.assetLoader.restoreAnimation.getKeyFrame(stateTime), gameWorld.getActor().getX(),
                     gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
@@ -63,21 +61,22 @@ public class GameRenderer {
                 batcher.draw((TextureRegion) gameWorld.assetLoader.currentAnimation.getKeyFrame(runTime), gameWorld.getActor().getX(),
                         gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
             } else {
-                batcher.draw((TextureRegion) gameWorld.assetLoader.currentTexture, gameWorld.getActor().getX(),
+                batcher.draw(gameWorld.assetLoader.currentTexture, gameWorld.getActor().getX(),
                         gameWorld.getActor().getY(), gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
             }
         }
-
+        gameWorld.avalanche.draw(batcher);
         if (!gameWorld.getActor().getAlive()) {
             gameWorld.setState(GameWorld.GameState.RESTART);
-
-        } else if (gameWorld.isRunning())
+        } else if (gameWorld.isRunning()) {
             gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7);
+        }
 
-        batcher.end();
 
         if (gameWorld.isMenu()) {
+            batcher.end();
             menu.draw(shapeRenderer, batcher);
+            batcher.begin();
         }
 
         if (gameWorld.isShop()) {
@@ -91,7 +90,7 @@ public class GameRenderer {
         if (gameWorld.isPause()) {
             gameWorld.getPauseForm().draw(batcher);
         }
-        gameWorld.avalanche.draw(batcher);
+
         if (gameWorld.isRunning()) {
             gameWorld.getRunningForm().draw(batcher);
         }
@@ -101,5 +100,6 @@ public class GameRenderer {
         }
 
         gameWorld.moneyAnimation.draw(batcher, shapeRenderer);
+        batcher.end();
     }
 }

@@ -24,8 +24,6 @@ public class RunningForm {
     }
 
     public void draw(SpriteBatch batcher) {
-        //gameWorld.assetLoader.font.getData().setScale(0.2f, - 0.2f);
-        batcher.begin();
         if(gameWorld.startCombo != 0) {
             switch (gameWorld.scl) {
                 case 2:
@@ -40,8 +38,6 @@ public class RunningForm {
             }
         }
         batcher.draw(gameWorld.assetLoader.buttonPauseTexture, boundsPause.x, boundsPause.y, boundsPause.width, boundsPause.height);
-        batcher.end();
-        //gameWorld.assetLoader.font.getData().setScale(0.1f, - 0.1f);
     }
 
     public boolean isClickedPause(float x, float y) {

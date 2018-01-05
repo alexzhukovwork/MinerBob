@@ -37,18 +37,11 @@ public class MoneyAnimation {
 
     public void draw(SpriteBatch batcher, ShapeRenderer shaper) {
         if (position.y + count * width > 0) {
-          //  shaper.begin(ShapeRenderer.ShapeType.Filled);
-           // shaper.setColor(255, 255, 0, 1);
-            batcher.begin();
             for (int i = 0; i < count; i++) {
                 if (beginY - position.y > width * i)
                     batcher.draw(gameWorld.assetLoader.moneyTexture,
                             position.x - i * width, position.y + i * width, width, width);
-                   // shaper.circle(position.x - i * width * 2, position.y + i * width * 2, width);
             }
-
-            batcher.end();
-           // shaper.end();
         }
     }
 

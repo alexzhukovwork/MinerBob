@@ -73,25 +73,6 @@ public class ShopForm {
     }
 
     public void draw(SpriteBatch batcher, float runTime) {
-       /* shaper.begin(ShapeRenderer.ShapeType.Filled);
-        shaper.setColor(0, 0, 0, 1f);
-        shaper.rect(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
-        shaper.end();
-        /*
-        shaper.setColor(1, 1, 1, 1);
-
-        if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
-            shaper.rect(boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
-
-        if (currentPage != pages.size - 1)
-            shaper.rect(boundNext.x, boundNext.y, boundNext.width, boundNext.height);
-        if (currentPage != 0)
-            shaper.rect(boundBack.x, boundBack.y, boundBack.width, boundBack.height);
-        shaper.rect(boundClose.x, boundClose.y, boundClose.width, boundClose.height);
-
-        shaper.end();*/
-
-        batcher.begin();
         batcher.draw(gameWorld.assetLoader.shopField, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
         if (gameWorld.assetLoader.isInternet && AssetLoader.prefs.getInteger("countVideo") < 3)
             batcher.draw(gameWorld.assetLoader.buttonVideo, boundVideo.x, boundVideo.y, boundVideo.width, boundVideo.height);
@@ -100,12 +81,11 @@ public class ShopForm {
         if (currentPage != 0)
             batcher.draw(gameWorld.assetLoader.buttonLeft, boundBack.x, boundBack.y, boundBack.width, boundBack.height);
         batcher.draw(gameWorld.assetLoader.buttonBack, boundClose.x, boundClose.y, boundClose.width, boundClose.height);
-        batcher.end();
+
         for(int i = 0; i < pages.size; i++)
             pages.get(i).draw(batcher, runTime);
 
         if (isFormAccept) {
-            batcher.begin();
             batcher.draw(gameWorld.assetLoader.boxTexture, boundForm.x, boundForm.y, boundForm.width, boundForm.height);
             if (hasBought) {
                 batcher.draw(gameWorld.assetLoader.noMenuTexture, boundCancel.x, boundCancel.y, boundCancel.width, boundCancel.height);
@@ -118,7 +98,6 @@ public class ShopForm {
             float width = TextSize.getWidth(gameWorld.assetLoader.font, textMessage);
             gameWorld.assetLoader.font.draw(batcher, textMessage, boundForm.x + boundForm.width / 2 - width / 2,
                     boundForm.y + boundForm.height / 15);
-            batcher.end();
         }
 
         float width = TextSize.getWidth(gameWorld.assetLoader.font, Money.money + "");
