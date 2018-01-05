@@ -216,13 +216,13 @@ public class InputHandler implements InputProcessor {
             if (gameWorld.getMenu().isClickedPlay(x, y)) {
                 GameWorld.currentMoney = 0;
                 AssetLoader.prefs.putInteger("countRestore", 0);
-                /*if(AssetLoader.prefs.getBoolean("isFirstRun")) {
+                if(AssetLoader.prefs.getBoolean("isFirstRun")) {
                     gameWorld.setState(GameWorld.GameState.TRAINING);
                     AssetLoader.prefs.putBoolean("isFirstRun", false);
                 }
                 else
-                    gameWorld.setState(GameWorld.GameState.RUNNING);*/
-                gameWorld.setState(GameWorld.GameState.TRAINING);
+                    gameWorld.setState(GameWorld.GameState.RUNNING);
+               // gameWorld.setState(GameWorld.GameState.TRAINING);
                 AssetLoader.prefs.flush();
             }
             if (gameWorld.getMenu().isClickedShop(x, y)) {
@@ -231,7 +231,7 @@ public class InputHandler implements InputProcessor {
             if (gameWorld.getMenu().isClickedSound(x, y))
                 gameWorld.isSound = !gameWorld.isSound;
             if (gameWorld.getMenu().isClickedStudy(x, y)) {
-                
+                gameWorld.setState(GameWorld.GameState.TRAINING);
             }
 
 

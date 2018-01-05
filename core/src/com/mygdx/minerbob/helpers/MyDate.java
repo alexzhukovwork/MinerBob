@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 /**
@@ -20,10 +21,16 @@ public class MyDate {
     }
 
     private long getTime() {
-        String url = "https://time.is/Unix_time_now";
+
+        String urlText = "https://time.is/Unix_time_now";
         Document doc = null;
-        try {
-            doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
+
+      /*  try {
+            URL url = new URL(urlText);
+         //   URLConnection urlConnection = url.openConnection();
+         //   urlConnection.setConnectTimeout(5000);
+          //  urlConnection.setReadTimeout(10000);
+            doc = Jsoup.parse(url.openStream(), "UTF-8", urlText);
             String[] tags = new String[] {
                     "div[id=time_section]",
                     "div[id=clock0_bg]"
@@ -36,7 +43,7 @@ public class MyDate {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
         return 0;
     }
 
@@ -57,6 +64,4 @@ public class MyDate {
     public boolean isNextDay(long prevDay, long nextDay) {
         return nextDay - prevDay == DAY_SECONDS;
     }
-
-
 }

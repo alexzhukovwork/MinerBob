@@ -51,15 +51,15 @@ public class MenuForm {
                 gameWorld.buttonSize / 2, gameWorld.buttonSize / 2);
         batcher.draw(gameWorld.assetLoader.buttonStudy, boundStudy.x, boundStudy.y, boundStudy.width, boundStudy.height);
         //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
-        batcher.end();
-        batcher.begin();
-        Money.draw(batcher, gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, Money.money);
-        batcher.end();
+
+        Money.draw(batcher, gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.MARGIN - TextSize.getHeight(gameWorld.assetLoader.font, "0") * 2,
+                Money.money);
+
         if(gameWorld.isSound)
             soundTexture = gameWorld.assetLoader.buttonSound;
         else
             soundTexture = gameWorld.assetLoader.buttonNoneSound;
-        batcher.begin();
+
         batcher.draw(soundTexture, boundsSound.x, boundsSound.y, boundsSound.width, boundsSound.height);
         batcher.draw(playTexture, boundsPlay.x, boundsPlay.y, boundsPlay.width, boundsPlay.height);
         batcher.draw(shopTexture, boundsShop.x, boundsShop.y, boundsShop.width, boundsShop.height);
