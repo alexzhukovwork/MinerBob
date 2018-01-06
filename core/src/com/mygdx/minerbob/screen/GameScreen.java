@@ -96,9 +96,9 @@ public class GameScreen implements Screen {
 
 
         if (gameWorld.isPause())
-            gameRenderer.render(0, delta);
+            gameRenderer.render(0);
         else
-            gameRenderer.render(runTime, delta);
+            gameRenderer.render(runTime);
     }
 
     @Override

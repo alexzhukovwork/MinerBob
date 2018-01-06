@@ -15,7 +15,6 @@ public class Field {
     private float height;
     private boolean isFirst;
     private GameWorld gameWorld;
-    private float scale;
     private float width;
     private boolean isGreenFirst, isGreenSecond;
     private TextureRegion firstTexture, secondTexture;
@@ -84,14 +83,11 @@ public class Field {
     }
 
     public void draw(SpriteBatch batcher) {
-        batcher.begin();
-
         if (isFirst)
             batcher.draw(gameWorld.assetLoader.startField, positionFirst.x, positionFirst.y, width, height);
         else
             batcher.draw(firstTexture, positionFirst.x, positionFirst.y, width, height);
 
         batcher.draw(secondTexture, positionSecond.x, positionSecond.y, width, height);
-        batcher.end();
     }
 }

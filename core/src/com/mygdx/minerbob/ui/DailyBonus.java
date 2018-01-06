@@ -29,12 +29,10 @@ public class DailyBonus {
     }
 
     public void draw(SpriteBatch batcher) {
-        batcher.begin();
         batcher.draw(gameWorld.assetLoader.boxTexture, boundRectangle.x, boundRectangle.y, boundRectangle.width, boundRectangle.height);
         batcher.draw(gameWorld.assetLoader.okMenuTexture, boundOkey.x, boundOkey.y, boundOkey.width, boundOkey.height);
         String dayNum = "DAY " + AssetLoader.prefs.getInteger("countBonus");
         gameWorld.assetLoader.font.draw(batcher, dayNum, boundRectangle.x + boundRectangle.width / 12, boundRectangle.y + boundRectangle.height / 15);
-        batcher.end();
         float width = TextSize.getWidth(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
         float height = TextSize.getHeight(gameWorld.assetLoader.font, AssetLoader.prefs.getInteger("countBonus") * 10 + "");
         Money.draw(batcher, boundRectangle.x + boundRectangle.width - boundRectangle.width / 12 - width - height - 1f,

@@ -49,17 +49,7 @@ public class Money {
 
     public static void draw(SpriteBatch batcher, float x, float y, int money) {
         float width = TextSize.getHeight(assetLoader.font, money + "");
-        batcher.begin();
         batcher.draw(assetLoader.moneyTexture, x, y + 1f, width, width);
         assetLoader.font.draw(batcher, "" + money, x + width + 1f, y);
-        batcher.end();
-      //  renderer.begin(ShapeRenderer.ShapeType.Filled);
-       // renderer.setColor(1, 1, 0, 1);
-
-        //renderer.circle(x + TextSize.getWidth(assetLoader.font, money + "") + width + width,
-            //    y + width + 1f,
-            //    width, 100);
-
-        //renderer.end();
     }
 }

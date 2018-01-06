@@ -1,7 +1,5 @@
 package com.mygdx.minerbob.gameworld;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.minerbob.IRewardVideo;
@@ -54,7 +52,6 @@ public class GameWorld {
     public int countCombo = 1;
     public int scl = 1;
     public long startCombo = 0;
-    private long idSound = 0;
 
     public boolean isKickedFirst;
     public boolean isStart;
@@ -102,9 +99,10 @@ public class GameWorld {
         isStart = true;
         isKickedFirst = false;
         isSound = true;
-        actor = new Actor(WIDTH / 5 * 2 + 1, HEIGHT - HEIGHT / 15 - HEIGHT / 7, WIDTH / 5 - 2, HEIGHT / 7,
+        actor = new Actor(0, 0, WIDTH / 5 - 2, HEIGHT / 7,
                 this);
         rowBlock = new RowBlock(this);
+        actor.setPosition(WIDTH / 5 * 2 + 1, HEIGHT - rowBlock.heightBlock - HEIGHT / 7);
         field = new Field(this);
         //Gdx.app.log("AssetLoader", "world created");
     }
@@ -160,7 +158,7 @@ public class GameWorld {
         isRecord = false;
         score = 0;
         avalanche.restart();
-        actor.restart(WIDTH / 5 * 2 + 1, HEIGHT - HEIGHT / 15 - HEIGHT / 7);
+        actor.restart(WIDTH / 5 * 2 + 1, HEIGHT - rowBlock.heightBlock - actor.getHeight());
         rowBlock.restart();
         field.restart();
     }

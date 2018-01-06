@@ -52,22 +52,8 @@ public class PauseForm {
     }
 
     public void draw(SpriteBatch batcher) {
-     /*   shaper.begin(ShapeRenderer.ShapeType.Filled);
-        shaper.setColor(0.75f, 0.75f, 0.75f, 1);
-        shaper.rect(boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
-        shaper.setColor(0, 0, 0, 1);
-        shaper.rect(boundsMenu.x, boundsMenu.y, boundsMenu.width, boundsMenu.height);
-        shaper.rect(boundsRestart.x, boundsRestart.y, boundsRestart.width, boundsRestart.height);
-        if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
-                && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= 150) {
-            shaper.setColor(1, 1, 1, 1);
-            shaper.rect(boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
-        }
-        shaper.end();*/
-        batcher.begin();
         float width = 0;
         float height = 0;
-        String text = "";
 
         if (isRecord()) {
             batcher.draw(gameWorld.assetLoader.bestTexture, boundsBoard.x, boundsBoard.y, boundsBoard.width, boundsBoard.height);
@@ -87,12 +73,6 @@ public class PauseForm {
             batcher.draw(gameWorld.assetLoader.videoMenuTexure, boundsRestore.x, boundsRestore.y, boundsRestore.width, boundsRestore.height);
         }
 
-      //  width = TextSize.getWidth(gameWorld.assetLoader.font, text);
-      //  height = TextSize.getHeight(gameWorld.assetLoader.font, text);
-
-      //  gameWorld.assetLoader.font.draw(batcher, text, boundsBoard.x + boundsBoard.width / 2 - width / 2, boundsBoard.y + height / 2);
-        //height = TextSize.getHeight(gameWorld.assetLoader.font, GameWorld.score + "");
-        batcher.end();
         Record.draw(batcher,boundsBoard.x + boundsBoard.width / padding,
                 boundsBoard.y + boundsBoard.height / 15, GameWorld.score);
         width = TextSize.getWidth(gameWorld.assetLoader.font, GameWorld.currentMoney + "");

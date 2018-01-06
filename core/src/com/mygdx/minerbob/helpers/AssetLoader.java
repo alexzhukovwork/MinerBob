@@ -42,6 +42,7 @@ public class AssetLoader {
     public TextureRegion buttonPause;
     public TextureRegion buttonShop;
     public TextureRegion buttonSound;
+    public TextureRegion buttonStudy;
 
     public TextureRegion buttonNoneSound;
     public TextureRegion buttonLeft;
@@ -149,7 +150,9 @@ public class AssetLoader {
         buttonRight = atlasTexture.findRegion("right");
         buttonVideo = atlasTexture.findRegion("video");
         buttonBack = atlasTexture.findRegion("back");
+        buttonStudy = atlasTexture.findRegion("studyButton");
 
+        buttonStudy.flip(false, true);
         buttonSound.flip(false, true);
         buttonShop.flip(false, true);
         buttonPlay.flip(false, true);
@@ -328,11 +331,11 @@ public class AssetLoader {
         atlasTextureActor = new TextureAtlas("Miner Bob Actor.atlas");
         textures = new Array<ActorTexture>();
         initCurrentActor("actor", 0);
-        initCurrentActor("hohol", 500);
-        initCurrentActor("pirate", 1000);
-        initCurrentActor("rastaman", 2000);
-        initCurrentActor("cosmonaut", 3500);
-        initCurrentActor("santa", 5000);
+        initCurrentActor("hohol", 100);
+        initCurrentActor("pirate", 200);
+        initCurrentActor("rastaman", 500);
+        initCurrentActor("cosmonaut", 750);
+        initCurrentActor("santa", 1000);
     }
 
     private void initCurrentActor(String actor, int cost) {

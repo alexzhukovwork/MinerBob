@@ -48,23 +48,7 @@ public class Block {
         staticPosition = new Vector2(0, 0);
         tempVector = new Vector2(0, 0);
     }
-/*
-    public Block(float x, float y, float width, float height, float speed, ITypeBlock type) {
-        isDestroyed = false;
-        countKick = 0;
 
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, speed);
-        tempVector = new Vector2(0, 0);
-
-        this.width = width;
-        this.height = height;
-        this.type = type;
-        subHeight = height / type.getLevel();
-        rectangleBounds = new Rectangle(x, y, width, height);
-        staticPosition.y = y;
-    }
-*/
     public void update(float delta) {
         tempVector.set(velocity.x, velocity.y);
         position.add(tempVector.scl(delta));
@@ -118,7 +102,7 @@ public class Block {
                 actor.setOnBlock(false);
         }
 
-        return  false;//   actor.getOnBlock();
+        return false;//   actor.getOnBlock();
     }
 
     public void stop() {
@@ -199,7 +183,7 @@ public class Block {
         */
 
         tempKick += subHeight * delta * 60.0f;
-        if (tempKick >= (gameWorld.HEIGHT / 15) / 10f) {
+        if (tempKick >= (gameWorld.getRowBlock().heightBlock) / 10f) {
             tempKick = 0;
 
             if(countAnim != 10) {
@@ -228,6 +212,8 @@ public class Block {
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
             }
+
+            GameWorld.score += type.getScore() * gameWorld.scl;
 
             if (gameWorld.lastDestroyed != null && !gameWorld.lastDestroyed.getName().equals("Earth") &&
                     !type.getName().equals("Gold") &&
@@ -260,11 +246,6 @@ public class Block {
                 gameWorld.scl = 1;
                 gameWorld.startCombo = 0;
             }
-
-            //if (type.getName().equals("Gold"))
-
-
-            GameWorld.score += type.getScore() * gameWorld.scl;
 
             if ( type.getName().equals("Gold") ) {
                 gameWorld.moneyAnimation.setAttributes(position.x + width / 2, position.y, gameWorld.scl);
