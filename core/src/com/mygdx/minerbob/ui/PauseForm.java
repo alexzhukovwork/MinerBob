@@ -45,9 +45,12 @@ public class PauseForm {
         if (GameWorld.score > AssetLoader.prefs.getInteger("highScore")) {
             GameWorld.isRecord = true;
             AssetLoader.prefs.putInteger("highScore", GameWorld.score);
+            AssetLoader.prefs.flush();
             currentState = State.RECORD;
-        } else
+        } else {
             currentState = State.SCORE;
+            GameWorld.isRecord = false;
+        }
     }
 
     public void draw(SpriteBatch batcher) {

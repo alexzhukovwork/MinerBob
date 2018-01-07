@@ -107,6 +107,8 @@ public class GameWorld {
         //Gdx.app.log("AssetLoader", "world created");
     }
 
+    private boolean isRecordFlush;
+
     public void update(float delta) {
         if(isSound && !assetLoader.bgMusic.isPlaying()) {
             assetLoader.bgMusic.setLooping(true);
@@ -114,14 +116,16 @@ public class GameWorld {
             assetLoader.bgMusic.play();
         }
         else
-        if(!isSound && assetLoader.bgMusic.isPlaying())
-            assetLoader.bgMusic.stop();
+            if(!isSound && assetLoader.bgMusic.isPlaying())
+                assetLoader.bgMusic.stop();
 
-         if (isRunning()) {
+        if (isRunning()) {
+            isRecordFlush = false;
             moneyAnimation.update(delta);
             field.update(delta);
             actor.update(delta);
             rowBlock.update(delta);
+
             if (isKickedFirst)
                 avalanche.setVelocity(0, 4);
             avalanche.update(delta);
@@ -133,8 +137,10 @@ public class GameWorld {
 
         if (!actor.getAlive()) {
             stop();
-            pauseForm.setState(PauseForm.State.SCORE);
-            pauseForm.checkRecord();
+            //pauseForm.setState(PauseForm.State.SCORE);
+            if (!isRecordFlush)
+                pauseForm.checkRecord();
+            isRecordFlush = true;
         }
 
         if(isTraining()) {

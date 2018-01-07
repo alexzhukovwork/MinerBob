@@ -10,6 +10,7 @@ import com.mygdx.minerbob.gameobjects.typeblock.EarthBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GoldBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GrassBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
+import com.mygdx.minerbob.gameobjects.typeblock.LavaBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DeadBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
@@ -31,7 +32,7 @@ public class RowBlock {
     //Animation
     private int countEarthAnim = 0;
 
-    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock;
+    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock, lavaBlock;
     private Array<ITypeBlock> typeBlocks;
 
     //private ArrayList<Boolean> bools = new ArrayList<Boolean>();
@@ -73,6 +74,7 @@ public class RowBlock {
         diamondBlock = new DiamondBlock(gameWorld.assetLoader, diamondLevel);
         grassBlock = new GrassBlock(gameWorld.assetLoader, earthLevel);
         titanBlock = new DeadBlock(gameWorld.assetLoader,5000);
+        lavaBlock = new LavaBlock(gameWorld.assetLoader, 5000);
         typeBlocks = new Array<ITypeBlock>();
 
         typeBlocks.add(earthBlock);
@@ -167,7 +169,8 @@ public class RowBlock {
             j = rnd(0, 4);
             if (!bools.get(j)) {
                 bools.set(j, true);
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, titanBlock, j);
+                int r = rnd(0, 1);
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, r == 0 ? titanBlock : lavaBlock, j);
             }
         }
 
@@ -256,8 +259,12 @@ public class RowBlock {
     public void draw(SpriteBatch batcher) {
         for (Array<Block> l : rows) {
             for (Block b : l) {
-                batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
+                if (!b.getType().getName().equals("Lava"))
+                    batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
                         b.getWidth(), heightBlock + 2);
+                else
+                    batcher.draw(gameWorld.assetLoader.lava[0], b.getX(), b.getStaticY(),
+                            b.getWidth(), heightBlock);
             }
         }
     }

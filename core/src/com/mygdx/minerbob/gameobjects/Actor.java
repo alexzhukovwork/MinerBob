@@ -184,4 +184,8 @@ public class Actor {
         acceleration.set(x, y);
     }
 
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
+    }
+
 }

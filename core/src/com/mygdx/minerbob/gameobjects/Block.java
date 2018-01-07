@@ -91,11 +91,15 @@ public class Block {
 
                 if (!actor.getOnBlock() && gameWorld.isSound)
                     gameWorld.assetLoader.fall.play(0.4f);
+                else if (type.getName().equals("Lava"))
+                    actor.setAlive(false);
+
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
 
                 if (position.y <= gameWorld.HEIGHT - height)
                     kick(delta);
+
                 return true;
             }
             else if(isDestroyed && Intersector.overlaps(rectangleBounds, actor.getRectangleBounds()))
