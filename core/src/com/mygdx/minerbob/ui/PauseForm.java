@@ -34,6 +34,7 @@ public class PauseForm {
         float x = gameWorld.WIDTH / 2 - gameWorld.dialogWidth / 2;
         float y = gameWorld.HEIGHT / 2 - gameWorld.dialogHeight / 2;
         boundsBoard = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        y = boundsBoard.y + boundsBoard.height - boundsBoard.height / 5;
         boundsRestart = new Rectangle(boundsBoard.x + boundsBoard.width / padding, y,
                 gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
         boundsRestore = new Rectangle(-100, -100, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
