@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameobjects.typeblock.ClayBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DiamondBlock;
+import com.mygdx.minerbob.gameobjects.typeblock.DisorientationBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.EarthBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GoldBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GrassBlock;
@@ -32,7 +33,7 @@ public class RowBlock {
     //Animation
     private int countEarthAnim = 0;
 
-    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock, lavaBlock;
+    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock, lavaBlock, disorientationBlock;
     private Array<ITypeBlock> typeBlocks;
 
     //private ArrayList<Boolean> bools = new ArrayList<Boolean>();
@@ -49,6 +50,8 @@ public class RowBlock {
     private float clayLevel = 62; //62
     private float stoneLevel = 110; //110
     private float diamondLevel = 130; //130
+    private float disorientationLevel = 30;
+    private float lavaLevel = 30;
 
     private int scoreCount = 0;
     private int maxspeed = 55;
@@ -74,7 +77,8 @@ public class RowBlock {
         diamondBlock = new DiamondBlock(gameWorld.assetLoader, diamondLevel);
         grassBlock = new GrassBlock(gameWorld.assetLoader, earthLevel);
         titanBlock = new DeadBlock(gameWorld.assetLoader,5000);
-        lavaBlock = new LavaBlock(gameWorld.assetLoader, 5000);
+        lavaBlock = new LavaBlock(gameWorld.assetLoader, lavaLevel);
+        disorientationBlock = new DisorientationBlock(gameWorld.assetLoader, disorientationLevel);
         typeBlocks = new Array<ITypeBlock>();
 
         typeBlocks.add(earthBlock);
@@ -169,8 +173,10 @@ public class RowBlock {
             j = rnd(0, 4);
             if (!bools.get(j)) {
                 bools.set(j, true);
-                int r = rnd(0, 1);
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, r == 0 ? titanBlock : lavaBlock, j);
+                int r = rnd(0, 2);
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock,
+                        speed, r == 0 ? titanBlock : r == 1 ? lavaBlock : disorientationBlock,
+                        j);
             }
         }
 
@@ -259,11 +265,14 @@ public class RowBlock {
     public void draw(SpriteBatch batcher) {
         for (Array<Block> l : rows) {
             for (Block b : l) {
-                if (!b.getType().getName().equals("Lava"))
+                if (!b.getType().getName().equals("Lava") && !b.getType().getName().equals("Disorientation"))
                     batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
                         b.getWidth(), heightBlock + 2);
-                else
+                else if (b.getType().getName().equals("Lava"))
                     batcher.draw(gameWorld.assetLoader.lava[0], b.getX(), b.getStaticY(),
+                            b.getWidth(), heightBlock);
+                else
+                    batcher.draw(gameWorld.assetLoader.noMenuTexture, b.getX(), b.getStaticY(),
                             b.getWidth(), heightBlock);
             }
         }

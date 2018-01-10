@@ -9,6 +9,9 @@ import com.mygdx.minerbob.gameobjects.Field;
 import com.mygdx.minerbob.gameobjects.MoneyAnimation;
 import com.mygdx.minerbob.gameobjects.RowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
+import com.mygdx.minerbob.gameobjects.typemode.DisorientationMode;
+import com.mygdx.minerbob.gameobjects.typemode.NormalMode;
+import com.mygdx.minerbob.gameobjects.typemode.TypeMode;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.Record;
@@ -37,6 +40,8 @@ public class GameWorld {
 
     private AdId adState;
     public AssetLoader assetLoader;
+
+    public TypeMode disorientationMode, normalMode;
 
     public float buttonSize;
     public float buttonDialogWidth;
@@ -104,6 +109,9 @@ public class GameWorld {
         rowBlock = new RowBlock(this);
         actor.setPosition(WIDTH / 5 * 2 + 1, HEIGHT - rowBlock.heightBlock - HEIGHT / 7);
         field = new Field(this);
+        disorientationMode = new DisorientationMode(this);
+        normalMode = new NormalMode(this);
+        actor.setMode(normalMode);
         //Gdx.app.log("AssetLoader", "world created");
     }
 
@@ -163,6 +171,7 @@ public class GameWorld {
         lastDestroyed = null;
         isRecord = false;
         score = 0;
+        actor.setMode(normalMode);
         avalanche.restart();
         actor.restart(WIDTH / 5 * 2 + 1, HEIGHT - rowBlock.heightBlock - actor.getHeight());
         rowBlock.restart();

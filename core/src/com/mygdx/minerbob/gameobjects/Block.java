@@ -91,8 +91,6 @@ public class Block {
 
                 if (!actor.getOnBlock() && gameWorld.isSound)
                     gameWorld.assetLoader.fall.play(0.4f);
-                else if (type.getName().equals("Lava"))
-                    actor.setAlive(false);
 
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
@@ -106,7 +104,7 @@ public class Block {
                 actor.setOnBlock(false);
         }
 
-        return false;//   actor.getOnBlock();
+        return false;
     }
 
     public void stop() {
@@ -211,6 +209,10 @@ public class Block {
         actor.setRectangleBounds(actor.getX(),  position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
 
         if (height <= 0) {
+            if (type.getName().equals("Lava"))
+                actor.setAlive(false);
+            if (type.getName().equals("Disorientation"))
+                actor.setMode(gameWorld.disorientationMode);
             if(gameWorld.isSound)
                gameWorld.assetLoader.drill.pause();
             if (!gameWorld.isKickedFirst) {

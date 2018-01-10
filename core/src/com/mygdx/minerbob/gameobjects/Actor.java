@@ -2,6 +2,8 @@ package com.mygdx.minerbob.gameobjects;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.minerbob.gameobjects.typemode.NormalMode;
+import com.mygdx.minerbob.gameobjects.typemode.TypeMode;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.screen.GameScreen;
 
@@ -10,22 +12,24 @@ import com.mygdx.minerbob.screen.GameScreen;
  */
 
 public class Actor {
-    private Vector2 position;
-    private Vector2 velocity;
-    private Vector2 acceleration;
+    public Vector2 position;
+    public Vector2 velocity;
+    public Vector2 acceleration;
     private Vector2 tempVector;
+
+    private TypeMode mode;
 
     private Block blockCurrent = null;
 
     private GameWorld gameWorld;
 
-    private Rectangle rectangleBounds;
+    public Rectangle rectangleBounds;
 
     private float width, height;
 
     private boolean isAlive = true;
     private boolean isOnBlock = false;
-    private boolean hasCurrentBlock = false;
+    public boolean hasCurrentBlock = false;
 
     public Actor(float x, float y, float width, float height, GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -85,26 +89,9 @@ public class Actor {
         rectangleBounds.set(position.x, position.y, width, height);
     }
 
-    public void onTouch(float screenX, float screenY) {
-        if (isOnBlock && isAlive) {
-            position.y -= 1;
-            rectangleBounds.y -= 1;
-            if (screenX > position.x + width) {
-                if (position.x + gameWorld.WIDTH / 5 < gameWorld.WIDTH) {
-                    velocity.x = gameWorld.WIDTH - 10;
-                    hasCurrentBlock = true;
-                }
-            } else if (screenX < position.x) {
-                if (position.x - gameWorld.WIDTH / 5 > 0) {
-                    velocity.x = -gameWorld.WIDTH + 10;
-                    hasCurrentBlock = true;
-                }
-            } else
-                hasCurrentBlock = false;
-            velocity.y = -gameWorld.HEIGHT;
-            acceleration.y = -velocity.y * 10f;
-            isOnBlock = false;
-        }
+    public void onTouch(float x, float y) {
+        mode = mode.getMode();
+        mode.execute(x, y);
     }
 
     public void stop() {
@@ -188,4 +175,12 @@ public class Actor {
         this.isAlive = alive;
     }
 
+    public void setMode(TypeMode typeMode) {
+        mode = typeMode;
+        typeMode.start();
+    }
+
+    public TypeMode getMode() {
+        return mode;
+    }
 }
