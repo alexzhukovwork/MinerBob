@@ -12,6 +12,7 @@ import com.mygdx.minerbob.gameworld.GameWorld;
 public class TypeMode {
     protected GameWorld gameWorld;
     protected long time;
+    protected long diffTime;
 
     public TypeMode(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -64,5 +65,13 @@ public class TypeMode {
 
     public void drawTime(SpriteBatch batcher) {
 
+    }
+
+    public void pause() {
+        diffTime = TimeUtils.timeSinceMillis(time);
+    }
+
+    public void resume() {
+        time = TimeUtils.timeSinceMillis(diffTime);
     }
 }

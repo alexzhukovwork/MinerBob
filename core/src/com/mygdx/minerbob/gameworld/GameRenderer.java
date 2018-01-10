@@ -75,9 +75,8 @@ public class GameRenderer {
             gameWorld.setState(GameWorld.GameState.RESTART);
         } else if (gameWorld.isRunning()) {
             gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7);
+            gameWorld.getActor().getMode().drawTime(batcher);
         }
-
-        gameWorld.getActor().getMode().drawTime(batcher);
 
         if (gameWorld.isMenu()) {
             batcher.end();

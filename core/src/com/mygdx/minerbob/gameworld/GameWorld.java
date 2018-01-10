@@ -63,6 +63,7 @@ public class GameWorld {
     public boolean isCollisedSecond;
     public boolean isRestoring;
     public boolean isSound;
+    public boolean isPauseClicked;
 
     public IRewardVideo rewardVideo;
 

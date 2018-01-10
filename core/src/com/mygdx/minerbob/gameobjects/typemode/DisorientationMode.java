@@ -45,11 +45,11 @@ public class DisorientationMode extends TypeMode {
 
     @Override
     public void drawTime(SpriteBatch batcher) {
-        int sec = (int)(4 - TimeUtils.timeSinceMillis(time) / 1000);
+        int sec = (int)(3 - TimeUtils.timeSinceMillis(time) / 1000);
         sec = sec < 0 ? 0 : sec;
         gameWorld.assetLoader.font.draw(batcher,  sec + "",
-                gameWorld.WIDTH - gameWorld.MARGIN - TextSize.getWidth(gameWorld.assetLoader.font, "36"),
-                gameWorld.HEIGHT - gameWorld.MARGIN - TextSize.getHeight(gameWorld.assetLoader.font, "3"));
+                gameWorld.WIDTH / 2 - TextSize.getWidth(gameWorld.assetLoader.font, sec + "") / 2,
+                gameWorld.buttonSize + gameWorld.MARGIN);
     }
 
     @Override
