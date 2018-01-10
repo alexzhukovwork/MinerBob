@@ -171,6 +171,7 @@ public class InputHandler implements InputProcessor {
 
         if (gameWorld.isRunning()) {
             if (gameWorld.getRunningForm().isClickedPause(x, y)) {
+                gameWorld.pause();
                 gameWorld.getActor().getMode().pause();
                 gameWorld.setState(GameWorld.GameState.PAUSE);
                 gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);
@@ -265,6 +266,7 @@ public class InputHandler implements InputProcessor {
 
         if (gameWorld.isPause()) {
             if (gameWorld.getPauseForm().isClickedResume(x, y)) {
+                gameWorld.resume();
                 gameWorld.getActor().getMode().resume();
                 gameWorld.setState(GameWorld.GameState.RUNNING);
                 gameWorld.getPauseForm().checkRecord();
@@ -313,6 +315,7 @@ public class InputHandler implements InputProcessor {
         if (gameWorld.isShop())
             gameWorld.setState(GameWorld.GameState.MENU);
         else if (gameWorld.isRunning()) {
+            gameWorld.pause();
             gameWorld.getActor().getMode().pause();
             gameWorld.setState(GameWorld.GameState.PAUSE);
             gameWorld.getPauseForm().setState(PauseForm.State.PAUSE);

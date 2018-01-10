@@ -2,6 +2,7 @@ package com.mygdx.minerbob.gameworld;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.gameobjects.Actor;
 import com.mygdx.minerbob.gameobjects.Avalanche;
@@ -57,7 +58,7 @@ public class GameWorld {
     public int countCombo = 1;
     public int scl = 1;
     public long startCombo = 0;
-
+    public long differentComboTime = 0;
     public boolean isKickedFirst;
     public boolean isStart;
     public boolean isCollisedSecond;
@@ -155,6 +156,14 @@ public class GameWorld {
         if(isTraining()) {
              trainingForm.update(delta);
         }
+    }
+
+    public void pause() {
+        differentComboTime = TimeUtils.timeSinceMillis(startCombo);
+    }
+
+    public void resume() {
+        startCombo = TimeUtils.timeSinceMillis(differentComboTime);
     }
 
     public void stop()
