@@ -57,14 +57,17 @@ public class GameWorld {
     public ITypeBlock lastDestroyed = null;
     public int countCombo = 1;
     public int scl = 1;
+
+    // Time
     public long startCombo = 0;
     public long differentComboTime = 0;
+    public long currentTime;
+
     public boolean isKickedFirst;
     public boolean isStart;
     public boolean isCollisedSecond;
     public boolean isRestoring;
     public boolean isSound;
-    public boolean isPauseClicked;
 
     public IRewardVideo rewardVideo;
 
@@ -120,6 +123,8 @@ public class GameWorld {
     private boolean isRecordFlush;
 
     public void update(float delta) {
+        currentTime = TimeUtils.millis();
+
         if(isSound && !assetLoader.bgMusic.isPlaying()) {
             assetLoader.bgMusic.setLooping(true);
             assetLoader.bgMusic.setVolume(0.3f);
@@ -159,11 +164,11 @@ public class GameWorld {
     }
 
     public void pause() {
-        differentComboTime = TimeUtils.timeSinceMillis(startCombo);
+        differentComboTime = currentTime - startCombo;
     }
 
     public void resume() {
-        startCombo = TimeUtils.timeSinceMillis(differentComboTime);
+        startCombo = currentTime - differentComboTime;
     }
 
     public void stop()

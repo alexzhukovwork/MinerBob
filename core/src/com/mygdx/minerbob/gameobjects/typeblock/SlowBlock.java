@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.minerbob.helpers.AssetLoader;
 
 /**
- * Created by Алексей on 07.01.2018.
+ * Created by Алексей on 10.01.2018.
  */
 
-public class LavaBlock implements ITypeBlock {
+public class SlowBlock implements ITypeBlock {
     private float level;
     private Color color;
     private AssetLoader assetLoader;
 
-    public LavaBlock(AssetLoader assetLoader, float level) {
-        color = new Color(255, 0, 0, 1);
+    public SlowBlock(AssetLoader assetLoader, float level) {
         this.level = level;
+        color = new Color(1, 1, 0, 1);
         this.assetLoader = assetLoader;
     }
 
@@ -26,7 +26,7 @@ public class LavaBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int count, int kick) {
-        return assetLoader.lava[0];
+        return assetLoader.yesMenuTexture;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class LavaBlock implements ITypeBlock {
 
     @Override
     public int getScore() {
-        return 0;
+        return 2;
     }
 
     @Override
     public String getName() {
-        return "Lava";
+        return "Slow";
     }
 }

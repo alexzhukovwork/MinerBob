@@ -1,16 +1,13 @@
 package com.mygdx.minerbob.gameobjects;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.Money;
-import com.mygdx.minerbob.screen.GameScreen;
 
 /**
  * Created by Алексей on 11.09.2017.
@@ -209,6 +206,9 @@ public class Block {
         actor.setRectangleBounds(actor.getX(),  position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
 
         if (height <= 0) {
+            if (type.getName().equals("Slow")) {
+                gameWorld.getRowBlock().setSlowSpeed();
+            }
             if (type.getName().equals("Lava"))
                 actor.setAlive(false);
             if (type.getName().equals("Disorientation"))
@@ -229,18 +229,18 @@ public class Block {
                 if (gameWorld.lastDestroyed.getName().equals("Clay") && gameWorld.countCombo >= 4
                         && gameWorld.scl < 2) {
                     gameWorld.scl = 2;
-                    gameWorld.startCombo = TimeUtils.millis();
+                    gameWorld.startCombo = gameWorld.currentTime;
                 }
 
                 if (gameWorld.lastDestroyed.getName().equals("Stone") && gameWorld.countCombo >= 3
                         && gameWorld.scl < 3) {
                     gameWorld.scl = 3;
-                    gameWorld.startCombo = TimeUtils.millis();
+                    gameWorld.startCombo = gameWorld.currentTime;
                 }
 
                 if (gameWorld.lastDestroyed.getName().equals("Diamond") && gameWorld.countCombo >= 2) {
                     gameWorld.scl = 5;
-                    gameWorld.startCombo = TimeUtils.millis();
+                    gameWorld.startCombo = gameWorld.currentTime;
                 }
 
             } else if (!type.getName().equals("Gold")){
@@ -248,7 +248,7 @@ public class Block {
                 gameWorld.lastDestroyed = type;
             }
 
-            if(TimeUtils.timeSinceMillis(gameWorld.startCombo) > 5000) {
+            if(gameWorld.currentTime - gameWorld.startCombo > 5000) {
                 gameWorld.scl = 1;
                 gameWorld.startCombo = 0;
             }

@@ -26,7 +26,7 @@ public class DisorientationBlock implements ITypeBlock{
 
     @Override
     public TextureRegion getTexture(int count, int kick) {
-        return null;
+        return assetLoader.noMenuTexture;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DisorientationBlock implements ITypeBlock{
 
     @Override
     public int getScore() {
-        return 4;
+        return 1;
     }
 
     @Override

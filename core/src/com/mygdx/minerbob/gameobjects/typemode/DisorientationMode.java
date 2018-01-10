@@ -1,7 +1,6 @@
 package com.mygdx.minerbob.gameobjects.typemode;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.TextSize;
 
@@ -33,7 +32,7 @@ public class DisorientationMode extends TypeMode {
 
     @Override
     public TypeMode getMode() {
-        if (TimeUtils.timeSinceMillis(time) > 3000)
+        if (gameWorld.currentTime - time > 3000)
             return gameWorld.normalMode;
         return this;
     }
@@ -45,7 +44,7 @@ public class DisorientationMode extends TypeMode {
 
     @Override
     public void drawTime(SpriteBatch batcher) {
-        int sec = (int)(3 - TimeUtils.timeSinceMillis(time) / 1000);
+        int sec = (int)(3 - (gameWorld.currentTime - time) / 1000);
         sec = sec < 0 ? 0 : sec;
         gameWorld.assetLoader.font.draw(batcher,  sec + "",
                 gameWorld.WIDTH / 2 - TextSize.getWidth(gameWorld.assetLoader.font, sec + "") / 2,

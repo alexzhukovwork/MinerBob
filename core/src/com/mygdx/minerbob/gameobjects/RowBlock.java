@@ -1,9 +1,7 @@
 package com.mygdx.minerbob.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameobjects.typeblock.ClayBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DiamondBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DisorientationBlock;
@@ -12,6 +10,7 @@ import com.mygdx.minerbob.gameobjects.typeblock.GoldBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.GrassBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.LavaBlock;
+import com.mygdx.minerbob.gameobjects.typeblock.SlowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DeadBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
@@ -29,11 +28,17 @@ public class RowBlock {
     public float heightBlock, widthBlock;
 
     private long lastTimeSpeed;
+    private long startSlow;
+
+    private boolean isSlow = false;
 
     //Animation
     private int countEarthAnim = 0;
 
-    private ITypeBlock earthBlock, clayBlock, stoneBlock, diamondBlock, titanBlock, goldBlock, grassBlock, lavaBlock, disorientationBlock;
+    private ITypeBlock earthBlock, clayBlock, stoneBlock,
+            diamondBlock, titanBlock, goldBlock,
+            grassBlock, lavaBlock, disorientationBlock,
+            slowBlock;
     private Array<ITypeBlock> typeBlocks;
 
     //private ArrayList<Boolean> bools = new ArrayList<Boolean>();
@@ -50,8 +55,16 @@ public class RowBlock {
     private float clayLevel = 62; //62
     private float stoneLevel = 110; //110
     private float diamondLevel = 130; //130
-    private float disorientationLevel = 30;
+    private float disorientationLevel = 45;
     private float lavaLevel = 30;
+
+    private float tempEarthLevel = 52; //52
+    private float tempClayLevel = 62; //62
+    private float tempStoneLevel = 110; //110
+    private float tempDiamondLevel = 130; //130
+    private float tempDisorientationLevel = 45;
+    private float tempLavaLevel = 30;
+    private float tempVelocity;
 
     private int scoreCount = 0;
     private int maxspeed = 55;
@@ -61,7 +74,7 @@ public class RowBlock {
         this.gameWorld = gameWorld;
         heightBlock = gameWorld.WIDTH / 5 * 180 / 200 - 2;
         widthBlock = gameWorld.WIDTH / 5;
-        lastTimeSpeed = TimeUtils.nanoTime();
+        lastTimeSpeed = gameWorld.currentTime;
         initObjects();
     }
 
@@ -79,6 +92,7 @@ public class RowBlock {
         titanBlock = new DeadBlock(gameWorld.assetLoader,5000);
         lavaBlock = new LavaBlock(gameWorld.assetLoader, lavaLevel);
         disorientationBlock = new DisorientationBlock(gameWorld.assetLoader, disorientationLevel);
+        slowBlock = new SlowBlock(gameWorld.assetLoader, clayLevel);
         typeBlocks = new Array<ITypeBlock>();
 
         typeBlocks.add(earthBlock);
@@ -173,21 +187,22 @@ public class RowBlock {
             j = rnd(0, 4);
             if (!bools.get(j)) {
                 bools.set(j, true);
-                int r = rnd(0, 2);
+                int r = rnd(0, 3);
                 rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock,
-                        speed, r == 0 ? titanBlock : r == 1 ? lavaBlock : disorientationBlock,
+                        speed, r == 0 ? titanBlock : r == 1 ? lavaBlock :
+                                r == 2 ? disorientationBlock : slowBlock,
                         j);
             }
         }
 
         ITypeBlock typeBlock;
+
         for(int i = 0; i < 5; i++){
             if (!bools.get(i)) {
                 typeBlock = getRandomType();
                 rows.get(index).get(i).restart(x * i, y, widthBlock, heightBlock, speed, typeBlock, i);
             }
         }
-
     }
 
     private ITypeBlock getRandomType() {
@@ -207,46 +222,58 @@ public class RowBlock {
         float velocity = rows.get(0).get(0).getVelocity().y;
         velocity += velocity / 24.0f;
 
-        long timeNow = TimeUtils.nanoTime();
+        long timeNow = gameWorld.currentTime;
 
-        for (Array<Block> l : rows) {
+        for (int j = 0; j < rows.size; j++) {
             countTitan = 0;
 
-            //b.getVelocity().y + (b.getVelocity().y / 24.0f
-            for (Block b : l) {
-                if (timeNow - lastTimeSpeed > 3000000000L) {
-                    if (b.getVelocity().y > - maxspeed) {
-                        b.setVelocity(0, velocity);
+            for (int k = 0; k < rows.get(j).size; k++) {
+                if (!isSlow) {
+                    if (timeNow - lastTimeSpeed > 3000L) {
+                        if (rows.get(j).get(k).getVelocity().y > -maxspeed) {
+                            rows.get(j).get(k).setVelocity(0, velocity);
+                        }
                     }
                 }
-                b.update(delta);
+                rows.get(j).get(k).update(delta);
 
                 if (!isCollised) {
-                    if (b.isCollised(delta)) {
+                    if (rows.get(j).get(k).isCollised(delta)) {
                         isCollised = true;
                     }
                 }
             }
-            if (l.get(0).getStaticY() + heightBlock < 0) {
+
+            if (rows.get(j).get(0).getStaticY() + heightBlock < 0) {
                 if (i == 0)
-                    generateRow(i, l.get(1).getX(), rows.get(3).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);
+                    generateRow(i, rows.get(j).get(1).getX(), rows.get(3).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock,
+                            rows.get(j).get(0).getVelocity().y);
                 else
-                    generateRow(i, l.get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock, l.get(0).getVelocity().y);            }
+                    generateRow(i, rows.get(j).get(1).getX(), rows.get(i - 1).get(0).getStaticY() + gameWorld.HEIGHT / 5 + heightBlock,
+                            rows.get(j).get(0).getVelocity().y);            }
             i++;
         }
 
-         if (timeNow - lastTimeSpeed > 3000000000L) {
-             lastTimeSpeed = TimeUtils.nanoTime();
-             if (rows.get(0).get(0).getVelocity().y > - maxspeed) {
-                 for (ITypeBlock type : typeBlocks)
-                    type.setLevel(type.getLevel() - type.getLevel() / 24.0f);
-             }
-             maxTitan++;
+        if (!isSlow) {
+            if (timeNow - lastTimeSpeed > 3000L) {
+                lastTimeSpeed = gameWorld.currentTime;
+                if (rows.get(0).get(0).getVelocity().y > -maxspeed) {
+                    for (ITypeBlock type : typeBlocks)
+                        type.setLevel(type.getLevel() - type.getLevel() / 24.0f);
+                }
+                maxTitan++;
 
-             if(maxTitan >= 2)
-                maxTitan = 2;
+                if (maxTitan >= 2)
+                    maxTitan = 2;
+            }
         }
-        setStandartSpeed();
+
+        if (isSlow) {
+            if (gameWorld.currentTime - startSlow > 5000)
+                setNormalSpeed();
+        } else {
+            setStandartSpeed();
+        }
     }
 
     private void setStandartSpeed() {
@@ -265,14 +292,12 @@ public class RowBlock {
     public void draw(SpriteBatch batcher) {
         for (Array<Block> l : rows) {
             for (Block b : l) {
-                if (!b.getType().getName().equals("Lava") && !b.getType().getName().equals("Disorientation"))
+                if (!b.getType().getName().equals("Lava") && !b.getType().getName().equals("Disorientation") && !b.getType().equals("Slow"))
                     batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
                         b.getWidth(), heightBlock + 2);
-                else if (b.getType().getName().equals("Lava"))
-                    batcher.draw(gameWorld.assetLoader.lava[0], b.getX(), b.getStaticY(),
-                            b.getWidth(), heightBlock);
                 else
-                    batcher.draw(gameWorld.assetLoader.noMenuTexture, b.getX(), b.getStaticY(),
+                    batcher.draw(b.getTexture(), b.getX(), b.getStaticY()
+                            ,
                             b.getWidth(), heightBlock);
             }
         }
@@ -290,9 +315,10 @@ public class RowBlock {
     }
 
     public void restart() {
+        isSlow = false;
         speedRow = -20;
         maxTitan = 0;
-        lastTimeSpeed = TimeUtils.nanoTime();
+        lastTimeSpeed = gameWorld.currentTime;
         restartType();
         restartRow();
         scoreCount = 0;
@@ -334,8 +360,51 @@ public class RowBlock {
         }
 
         maxTitan = 0;
-        lastTimeSpeed = TimeUtils.nanoTime();
+        lastTimeSpeed = gameWorld.currentTime;
         setVelocity(currentSpeed);
         scoreCount = 0;
     }
+
+    public void setSlowSpeed() {
+        if (!isSlow) {
+            isSlow = true;
+            startSlow = gameWorld.currentTime;
+
+            tempVelocity = rows.get(0).get(0).getVelocity().y;
+            setVelocity(tempVelocity - tempVelocity / 6);
+
+            tempClayLevel = clayBlock.getLevel();
+            tempDiamondLevel = diamondBlock.getLevel();
+            tempDisorientationLevel = disorientationBlock.getLevel();
+            tempEarthLevel = earthBlock.getLevel();
+            tempStoneLevel = stoneBlock.getLevel();
+            tempLavaLevel = lavaBlock.getLevel();
+
+            clayBlock.setLevel(clayBlock.getLevel() - clayBlock.getLevel() / 6);
+            diamondBlock.setLevel(diamondBlock.getLevel() - diamondBlock.getLevel() / 6);
+            disorientationBlock.setLevel(disorientationBlock.getLevel() - disorientationBlock.getLevel() / 6);
+            earthBlock.setLevel(earthBlock.getLevel() - earthBlock.getLevel() / 6);
+            stoneBlock.setLevel(stoneBlock.getLevel() - stoneBlock.getLevel() / 6);
+            lavaBlock.setLevel(lavaBlock.getLevel() - lavaBlock.getLevel() / 6);
+            goldBlock.setLevel(earthBlock.getLevel() - earthBlock.getLevel() / 6);
+            slowBlock.setLevel(clayBlock.getLevel() - clayBlock.getLevel() / 6);
+        }
+    }
+
+    public void setNormalSpeed() {
+        isSlow = false;
+
+        setVelocity(tempVelocity);
+
+        clayBlock.setLevel(tempClayLevel);
+        diamondBlock.setLevel(tempDiamondLevel);
+        disorientationBlock.setLevel(tempDisorientationLevel);
+        earthBlock.setLevel(tempEarthLevel);
+        stoneBlock.setLevel(tempStoneLevel);
+        lavaBlock.setLevel(tempLavaLevel);
+        goldBlock.setLevel(tempEarthLevel);
+        slowBlock.setLevel(tempClayLevel);
+    }
+
+
 }

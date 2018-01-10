@@ -27,9 +27,7 @@ public class MyDate {
 
         try {
             URL url = new URL(urlText);
-         //   URLConnection urlConnection = url.openConnection();
-         //   urlConnection.setConnectTimeout(5000);
-          //  urlConnection.setReadTimeout(10000);
+
             doc = Jsoup.parse(url.openStream(), "UTF-8", urlText);
             String[] tags = new String[] {
                     "div[id=time_section]",

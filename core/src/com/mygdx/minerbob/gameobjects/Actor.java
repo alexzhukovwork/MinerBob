@@ -2,10 +2,8 @@ package com.mygdx.minerbob.gameobjects;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.minerbob.gameobjects.typemode.NormalMode;
 import com.mygdx.minerbob.gameobjects.typemode.TypeMode;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.screen.GameScreen;
 
 /**
  * Created by Алексей on 10.09.2017.

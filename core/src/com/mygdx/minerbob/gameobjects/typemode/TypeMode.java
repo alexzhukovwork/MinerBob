@@ -1,8 +1,6 @@
 package com.mygdx.minerbob.gameobjects.typemode;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameworld.GameWorld;
 
 /**
@@ -60,7 +58,7 @@ public class TypeMode {
     }
 
     public void start() {
-        time = TimeUtils.millis();
+        time = gameWorld.currentTime;
     }
 
     public void drawTime(SpriteBatch batcher) {
@@ -68,10 +66,10 @@ public class TypeMode {
     }
 
     public void pause() {
-        diffTime = TimeUtils.timeSinceMillis(time);
+        diffTime = gameWorld.currentTime - time;
     }
 
     public void resume() {
-        time = TimeUtils.timeSinceMillis(diffTime);
+        time = gameWorld.currentTime - diffTime;
     }
 }

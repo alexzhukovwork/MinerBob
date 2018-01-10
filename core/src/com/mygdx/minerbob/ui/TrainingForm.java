@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.TextSize;
 
@@ -23,7 +22,7 @@ public class TrainingForm {
     private float width, height;
     private int currFrame;
     private final int maxFrames = 2;
-    private float timeNow, lastTime = 0f;
+    private long timeNow, lastTime = 0;
     private float rad_1 = 6f, rad_2 = 6f;
     private int flag = 0, pos = 0;
     private Vector2 position, velocity, tempVector;
@@ -175,7 +174,7 @@ public class TrainingForm {
 
     public void update(float delta) {
         if(currFrame == 1) {
-            if ((timeNow = TimeUtils.nanoTime()) - lastTime > 100000) {
+            if ((timeNow = gameWorld.currentTime) - lastTime > 10) {
                 switch (flag) {
                     case 0:
                         if(velocity.x > 0) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * Created by Алексей on 22.09.2017.
  */
 
+// For shop
 public class ActorTexture {
     public TextureRegion textureFall;
     public Animation animation;
