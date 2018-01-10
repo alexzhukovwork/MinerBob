@@ -21,7 +21,7 @@ public class LavaBlock implements ITypeBlock {
 
     @Override
     public float getLevel() {
-        return level;
+        return 10000;
     }
 
     @Override

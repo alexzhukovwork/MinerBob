@@ -56,7 +56,7 @@ public class RowBlock {
     private float stoneLevel = 110; //110
     private float diamondLevel = 130; //130
     private float disorientationLevel = 45;
-    private float lavaLevel = 30;
+
 
     private float tempEarthLevel = 52; //52
     private float tempClayLevel = 62; //62
@@ -69,6 +69,8 @@ public class RowBlock {
     private int scoreCount = 0;
     private int maxspeed = 55;
 
+
+    public long timeLava;
 
     public RowBlock(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -90,7 +92,7 @@ public class RowBlock {
         diamondBlock = new DiamondBlock(gameWorld.assetLoader, diamondLevel);
         grassBlock = new GrassBlock(gameWorld.assetLoader, earthLevel);
         titanBlock = new DeadBlock(gameWorld.assetLoader,5000);
-        lavaBlock = new LavaBlock(gameWorld.assetLoader, lavaLevel);
+        lavaBlock = new LavaBlock(gameWorld.assetLoader, 5000);
         disorientationBlock = new DisorientationBlock(gameWorld.assetLoader, disorientationLevel);
         slowBlock = new SlowBlock(gameWorld.assetLoader, clayLevel);
         typeBlocks = new Array<ITypeBlock>();
@@ -124,6 +126,8 @@ public class RowBlock {
         diamondBlock.setLevel(diamondLevel);
         grassBlock.setLevel(earthLevel);
         titanBlock.setLevel(5000);
+        lavaBlock.setLevel(5000);
+        disorientationBlock.setLevel(diamondLevel);
     }
 
     private void restartRow() {
@@ -240,6 +244,8 @@ public class RowBlock {
                 if (!isCollised) {
                     if (rows.get(j).get(k).isCollised(delta)) {
                         isCollised = true;
+                        if (!rows.get(j).get(k).getType().getName().equals("Lava"))
+                            timeLava = gameWorld.currentTime;
                     }
                 }
             }

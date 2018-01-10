@@ -1,12 +1,13 @@
 package com.mygdx.minerbob.gameobjects;
 
+import com.mygdx.minerbob.gameworld.GameWorld;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.minerbob.gameobjects.typeblock.ITypeBlock;
-import com.mygdx.minerbob.gameworld.GameWorld;
+
 import com.mygdx.minerbob.helpers.Money;
 
 /**
@@ -27,6 +28,7 @@ public class Block {
 
     private float subHeight;
 
+    private boolean isCollisedLava = false;
     private boolean isDestroyed;
 
     private int countKick;
@@ -92,6 +94,16 @@ public class Block {
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
 
+                if(type.getName().equals("Lava")) {
+                    if(!isCollisedLava) {
+                        gameWorld.getRowBlock().timeLava = gameWorld.currentTime;
+                        isCollisedLava = true;
+                    }
+                    if (gameWorld.currentTime - gameWorld.getRowBlock().timeLava > 300) {
+                        actor.setAlive(false);
+                    }
+                }
+
                 if (position.y <= gameWorld.HEIGHT - height)
                     kick(delta);
 
@@ -99,6 +111,8 @@ public class Block {
             }
             else if(isDestroyed && Intersector.overlaps(rectangleBounds, actor.getRectangleBounds()))
                 actor.setOnBlock(false);
+            else
+                isCollisedLava = false;
         }
 
         return false;
@@ -205,12 +219,21 @@ public class Block {
         actor.setPosition(actor.getX(), position.y - actor.getHeight() + 1);
         actor.setRectangleBounds(actor.getX(),  position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
 
+//        if(type.getName().equals("Lava"))
+//            if(TimeUtils.millis() - timeCollised > 100)
+//            {
+//                actor.setAlive(false);
+//                Gdx.app.log("timeCol_kick", timeCollised + "");
+//            }
+
         if (height <= 0) {
+
             if (type.getName().equals("Slow")) {
                 gameWorld.getRowBlock().setSlowSpeed();
             }
             if (type.getName().equals("Lava"))
                 actor.setAlive(false);
+
             if (type.getName().equals("Disorientation"))
                 actor.setMode(gameWorld.disorientationMode);
             if(gameWorld.isSound)
