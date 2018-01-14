@@ -47,6 +47,9 @@ public class RowBlock {
     private int minTitan = 0;
     private int maxTitan = 1;
     private int countTitan = 0;
+    private int lastSlow = 0;
+    private int lastDisorientation = 0;
+    private int lastLava = 0;
 
     private float speedRow = -20;
     private float currentSpeed = 0;
@@ -127,7 +130,7 @@ public class RowBlock {
         grassBlock.setLevel(earthLevel);
         titanBlock.setLevel(5000);
         lavaBlock.setLevel(5000);
-        disorientationBlock.setLevel(diamondLevel);
+        disorientationBlock.setLevel(earthLevel);
     }
 
     private void restartRow() {
@@ -182,7 +185,20 @@ public class RowBlock {
         } else {
             j = rnd(0, 4);
             if (!bools.get(j)) {
-                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed, clayBlock, j);
+                lastDisorientation ++;
+                lastSlow ++;
+                int r = 0;
+                if (GameWorld.score > 250 && lastSlow > 15) {
+                    r = 1;
+                    lastSlow = 0;
+                } else if (GameWorld.score > 150 && lastDisorientation > 10) {
+                    r = 2;
+                    lastDisorientation = 0;
+                }
+
+                rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock, speed,
+                        r == 0 ? clayBlock : r == 1 ? slowBlock : disorientationBlock,
+                        j);
                 bools.set(j, true);
             }
         }
@@ -191,11 +207,18 @@ public class RowBlock {
             j = rnd(0, 4);
             if (!bools.get(j)) {
                 bools.set(j, true);
-                int r = rnd(0, 3);
+
+                int r = 0;
+
+                if (GameWorld.score > 300 && lastLava > 5) {
+                    r = rnd(0, 1);
+                    lastLava = 0;
+                } else if (GameWorld.score > 300) {
+                    lastLava ++;
+                }
+
                 rows.get(index).get(j).restart(x * j, y, widthBlock, heightBlock,
-                        speed, r == 0 ? titanBlock : r == 1 ? lavaBlock :
-                                r == 2 ? disorientationBlock : slowBlock,
-                        j);
+                        speed, r == 0 ? titanBlock : lavaBlock, j);
             }
         }
 
@@ -322,7 +345,10 @@ public class RowBlock {
 
     public void restart() {
         isSlow = false;
+        gameWorld.scl = 1;
         speedRow = -20;
+        lastDisorientation = 0;
+        lastSlow = 0;
         maxTitan = 0;
         lastTimeSpeed = gameWorld.currentTime;
         restartType();
@@ -411,6 +437,4 @@ public class RowBlock {
         goldBlock.setLevel(tempEarthLevel);
         slowBlock.setLevel(tempClayLevel);
     }
-
-
 }
