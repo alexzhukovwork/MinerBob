@@ -150,16 +150,16 @@ public class GameWorld {
             shop.update(delta);
         }
 
+        if(isTraining()) {
+            trainingForm.update(delta);
+        }
+
         if (!actor.getAlive()) {
             stop();
             //pauseForm.setState(PauseForm.State.SCORE);
             if (!isRecordFlush)
                 pauseForm.checkRecord();
             isRecordFlush = true;
-        }
-
-        if(isTraining()) {
-             trainingForm.update(delta);
         }
     }
 

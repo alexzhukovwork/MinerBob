@@ -1,5 +1,6 @@
 package com.mygdx.minerbob.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -22,7 +23,7 @@ public class PauseForm {
     private Rectangle boundsRestore;
     private State currentState;
     private GameWorld gameWorld;
-    private final int restoreScore = 150;
+    private final int restoreScore = 10;
     private final int padding = 13;
 
     public enum State {
@@ -47,9 +48,9 @@ public class PauseForm {
             GameWorld.isRecord = true;
             AssetLoader.prefs.putInteger("highScore", GameWorld.score);
             AssetLoader.prefs.flush();
-            currentState = State.RECORD;
+            setState(State.RECORD);
         } else {
-            currentState = State.SCORE;
+            setState(State.SCORE);
             GameWorld.isRecord = false;
         }
     }
@@ -117,19 +118,11 @@ public class PauseForm {
         float y = boundsBoard.y + boundsBoard.height - boundsBoard.height / 5;
         if((currentState == State.SCORE || currentState == State.RECORD) && gameWorld.assetLoader.isInternet
                 && AssetLoader.prefs.getInteger("countRestore") < 2 && GameWorld.score >= restoreScore) {
-            boundsRestart.set(boundsBoard.x + boundsBoard.width / padding, y,
-                    gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
             boundsRestore.set(boundsBoard.x + boundsBoard.width / 2 - gameWorld.buttonDialogWidth / 2, y,
                     gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
-            boundsMenu.set(boundsBoard.x + boundsBoard.width - gameWorld.buttonDialogWidth - boundsBoard.width / padding,
-                    y, gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
         }
         else {
             boundsRestore.set(-100, -100, gameWorld.buttonDialogWidth, gameWorld.buttonSize);
-            boundsRestart.set(boundsBoard.x + boundsBoard.width / padding, y,
-                    gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
-            boundsMenu.set(boundsBoard.x + boundsBoard.width - gameWorld.buttonDialogWidth - boundsBoard.width / padding,
-                    y, gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
         }
     }
 }
