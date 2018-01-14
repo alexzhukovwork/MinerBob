@@ -130,7 +130,7 @@ public class RowBlock {
         grassBlock.setLevel(earthLevel);
         titanBlock.setLevel(5000);
         lavaBlock.setLevel(5000);
-        disorientationBlock.setLevel(diamondLevel);
+        disorientationBlock.setLevel(earthLevel);
     }
 
     private void restartRow() {
@@ -437,6 +437,4 @@ public class RowBlock {
         goldBlock.setLevel(tempEarthLevel);
         slowBlock.setLevel(tempClayLevel);
     }
-
-
 }
