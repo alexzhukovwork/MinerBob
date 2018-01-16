@@ -107,7 +107,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1}]
-inputFiles=[{path:Miner-Bob3.png,type:Input,regionName:null},{path:Miner-Bob4.png,type:Input,regionName:null},{path:Miner-Bob5.png,type:Input,regionName:null},{path:Miner-Bob2.png,type:Input,regionName:null},{path:Miner-Bob1.png,type:Input,regionName:null},{path:Miner-Bob6.png,type:Input,regionName:null},{path:bestMenu.png,type:Input,regionName:null},{path:scoreMenu.png,type:Input,regionName:null},{path:pauseMenu.png,type:Input,regionName:null},{path:boxMenu.png,type:Input,regionName:null},{path:playMenu.png,type:Input,regionName:null},{path:menuMenu.png,type:Input,regionName:null},{path:okMenu.png,type:Input,regionName:null},{path:videoMenu.png,type:Input,regionName:null}]
+inputFiles=[{path:Miner-Bob3.png,type:Input,regionName:null},{path:Miner-Bob4.png,type:Input,regionName:null},{path:Miner-Bob5.png,type:Input,regionName:null},{path:Miner-Bob2.png,type:Input,regionName:null},{path:Miner-Bob1.png,type:Input,regionName:null},{path:Miner-Bob6.png,type:Input,regionName:null},{path:bestMenu.png,type:Input,regionName:null},{path:scoreMenu.png,type:Input,regionName:null},{path:pauseMenu.png,type:Input,regionName:null},{path:boxMenu.png,type:Input,regionName:null},{path:playMenu.png,type:Input,regionName:null},{path:menuMenu.png,type:Input,regionName:null},{path:okMenu.png,type:Input,regionName:null},{path:videoMenu.png,type:Input,regionName:null},{path:red.png,type:Input,regionName:null}]
 
 
 -PROJ-

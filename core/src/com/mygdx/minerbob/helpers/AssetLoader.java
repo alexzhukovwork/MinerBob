@@ -36,6 +36,7 @@ public class AssetLoader {
     public TextureRegion currentTexture;
     public TextureRegion splashScreen;
     public TextureRegion starTexture;
+    public TextureRegion red;
 
     //buttons
     public TextureRegion buttonPlay;
@@ -70,6 +71,7 @@ public class AssetLoader {
     public Sound moneycombox5;
     public Sound fall;
     public Sound drill;
+    public Sound explode;
 
     public Music bgMusic;
 
@@ -257,7 +259,7 @@ public class AssetLoader {
         }
     }
 
-    public void load() {
+    private void initSounds() {
         //load sounds
         money = Gdx.audio.newSound(Gdx.files.internal("audio/money.wav"));
         moneycombox2 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox2.wav"));
@@ -265,15 +267,20 @@ public class AssetLoader {
         moneycombox5 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox5.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("audio/fall.wav"));
         drill = Gdx.audio.newSound(Gdx.files.internal("audio/drill.wav"));
+        explode = Gdx.audio.newSound(Gdx.files.internal("audio/explode.wav"));
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/bgSound.mp3"));
+    }
 
+    public void load() {
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
+        initSounds();
         initActors();
         initBlocks();
         initLava();
         initFormMenu();
         initCombo();
+        red = atlasTextureField.findRegion("red");
         moneyTexture = atlasTexture.findRegion("money");
         moneyTexture.flip(false, true);
         recordTexture = atlasTexture.findRegion("starRecord");

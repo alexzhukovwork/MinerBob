@@ -48,7 +48,7 @@ Miner-Bob6
   index: -1
 bestMenu
   rotate: false
-  xy: 3008, 3206
+  xy: 3008, 1604
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
@@ -62,42 +62,49 @@ boxMenu
   index: -1
 menuMenu
   rotate: false
-  xy: 1606, 673
+  xy: 3008, 1342
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
 okMenu
   rotate: false
-  xy: 3810, 3877
+  xy: 2408, 673
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
 pauseMenu
   rotate: false
-  xy: 3008, 2404
+  xy: 2, 2
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
   index: -1
 playMenu
   rotate: false
-  xy: 3810, 3746
+  xy: 3253, 1473
   size: 243, 129
   orig: 243, 129
   offset: 0, 0
   index: -1
+red
+  rotate: false
+  xy: 3008, 2406
+  size: 1000, 1600
+  orig: 1000, 1600
+  offset: 0, 0
+  index: -1
 scoreMenu
   rotate: false
-  xy: 2, 2
+  xy: 1606, 2
   size: 800, 800
   orig: 800, 800
   offset: 0, 0
   index: -1
 videoMenu
   rotate: false
-  xy: 3008, 2273
+  xy: 3008, 1473
   size: 243, 129
   orig: 243, 129
   offset: 0, 0

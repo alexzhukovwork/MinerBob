@@ -81,6 +81,8 @@ public class Block {
 
                 if (!gameWorld.isCollisedSecond && gameWorld.isKickedFirst) {
                     gameWorld.isCollisedSecond = true;
+                    if(gameWorld.isSound)
+                        gameWorld.assetLoader.explode.play(1.0f);
                 }
 
                 actor.setCurrentBlock(this);
