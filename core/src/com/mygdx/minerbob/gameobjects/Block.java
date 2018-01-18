@@ -195,6 +195,7 @@ public class Block {
         }
         */
 
+
         tempKick += subHeight * delta * 60.0f;
         if (tempKick >= (gameWorld.getRowBlock().heightBlock) / 10f) {
             tempKick = 0;
@@ -240,6 +241,8 @@ public class Block {
                gameWorld.assetLoader.drill.pause();
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
+                if(gameWorld.isSound)
+                    gameWorld.assetLoader.explode.play(1.0f);
             }
 
             GameWorld.score += type.getScore() * gameWorld.scl;

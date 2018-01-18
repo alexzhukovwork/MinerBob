@@ -66,9 +66,7 @@ public class GameRenderer {
             }
 
             if (gameWorld.getActor().getMode().getName().equals("Disorientation"))
-                batcher.draw(gameWorld.assetLoader.starTexture, gameWorld.getActor().getX() + gameWorld.getActor().getWidth() / 4,
-                        gameWorld.getActor().getY() - 7,
-                    gameWorld.getActor().getWidth() / 2, 6);
+                batcher.draw(gameWorld.assetLoader.red, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
         }
         gameWorld.avalanche.draw(batcher);
         if (!gameWorld.getActor().getAlive()) {
