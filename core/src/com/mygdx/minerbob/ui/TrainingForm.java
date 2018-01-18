@@ -2,6 +2,7 @@ package com.mygdx.minerbob.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,35 +18,37 @@ import com.mygdx.minerbob.helpers.TextSize;
 public class TrainingForm {
 
     private GameWorld gameWorld;
-    private Rectangle board;
-    private TextureRegion easy, low, medium, hard, dead, money, actor;
+    private Rectangle board, boundsCancel;
+    private TextureRegion easy, low, medium, hard, dead, money;
     private float width, height;
-    private int currFrame;
+    private int currFrame, flag = 0, direction = 0;
     private final int maxFrames = 2;
     private long timeNow, lastTime = 0;
-    private float rad_1 = 6f, rad_2 = 6f;
-    private int flag = 0, pos = 0;
-    private Vector2 position, velocity, tempVector;
+    private float rad = 6f, pos;
+    private Vector2 position, velocity, acceleration, tempVector;
+    private boolean isOnBlock = true;
 
     public TrainingForm(GameWorld gameWorld){
         this.gameWorld = gameWorld;
-        position = new Vector2(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 10, gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14);
-        velocity = new Vector2(0, 0);
-        tempVector = new Vector2(0, 0);
         width = gameWorld.WIDTH / 5;
-        height = gameWorld.HEIGHT / 15;
+        height = gameWorld.WIDTH / 5 * 180 / 200 - 2;
+        position = new Vector2(gameWorld.WIDTH / 2 - gameWorld.WIDTH / 10, gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7 + 3f);
+        velocity = new Vector2(0, 0);
+        acceleration = new Vector2(0, 0);
+        tempVector = new Vector2(0, 0);
         board = new Rectangle(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
+        boundsCancel = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN,
+                gameWorld.buttonSize, gameWorld.buttonSize);
         easy = gameWorld.assetLoader.earthTextures.get(0).get(0);
         low = gameWorld.assetLoader.clayTextures.get(0).get(0);
         medium = gameWorld.assetLoader.stoneTextures.get(0).get(0);
         hard = gameWorld.assetLoader.diamondTextures.get(0).get(0);
         dead = gameWorld.assetLoader.deadTextures.get(0);
         money = gameWorld.assetLoader.goldTextures.get(0).get(0);
-        actor = gameWorld.assetLoader.actorKick1;
         currFrame = 0;
     }
 
-    public void draw(ShapeRenderer renderer, SpriteBatch batcher) {
+    public void draw(ShapeRenderer renderer, SpriteBatch batcher, float runTime) {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -53,14 +56,14 @@ public class TrainingForm {
         renderer.rect(board.x, board.y, board.width, board.height);
         renderer.end();
 
-        float x = gameWorld.WIDTH / 22, y = 5f;
-        float textWidth;
+        float x = gameWorld.WIDTH / 22f, y = 5f;
+        float textWidth, textHeight;
         switch(currFrame) {
             case 0:
                 batcher.begin();
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Welcome to Miner Bob");
                 gameWorld.assetLoader.font.draw(batcher, "Welcome to Miner Bob", gameWorld.WIDTH / 2 - textWidth / 2, y);
-                y += 15f;
+                y += 10f;
 
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Block Types");
                 gameWorld.assetLoader.font.draw(batcher, "Block Types", gameWorld.WIDTH / 2 - textWidth / 2, y);
@@ -85,25 +88,57 @@ public class TrainingForm {
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "hard");
                 batcher.draw(hard, x, y, width, height);
                 gameWorld.assetLoader.font.draw(batcher, "hard", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
-                y += height + gameWorld.MARGIN + 10f;
-                x = gameWorld.WIDTH / 22 + width + 3f;
+                y += height + gameWorld.MARGIN + 5f;
 
-                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "dead");
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "impossible");
+                x = gameWorld.WIDTH / 22f + width * 2 + 3f - width / 2 - width;
                 batcher.draw(dead, x, y, width, height);
+                gameWorld.assetLoader.font.draw(batcher, "impossible", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
+
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "money");
+                x = gameWorld.WIDTH / 22f + width * 3 + 6f - width / 2;
+                batcher.draw(money, x, y, width, height);
+                gameWorld.assetLoader.font.draw(batcher, "money", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
+                y += height + gameWorld.MARGIN + 10f;
+
+                gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Special Types");
+                gameWorld.assetLoader.font.draw(batcher, "Special Types", gameWorld.WIDTH / 2 - textWidth / 2, y);
+                gameWorld.assetLoader.font.getData().setScale(0.08f, -0.08f);
+
+                x = gameWorld.WIDTH / 2f - width - 1.5f;
+                y += 10f;
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "dead");
+                batcher.draw(money, x, y, width, height);
                 gameWorld.assetLoader.font.draw(batcher, "dead", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
                 x += width + 3f;
 
-                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "money");
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "slow");
                 batcher.draw(money, x, y, width, height);
-                gameWorld.assetLoader.font.draw(batcher, "money", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
-                y += height + gameWorld.MARGIN + 15f;
+                gameWorld.assetLoader.font.draw(batcher, "slow", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
+                y += height + gameWorld.MARGIN + 5f;
 
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "disorientation");
+                batcher.draw(money, gameWorld.WIDTH / 2 - width / 2, y, width, height);
+                gameWorld.assetLoader.font.draw(batcher, "disorientation", gameWorld.WIDTH / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
+
+                textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "Touch to continue");
+                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Touch to continue");
+                y = gameWorld.HEIGHT - gameWorld.MARGIN * 1.5f - textHeight;
+                gameWorld.assetLoader.font.draw(batcher, "Touch to continue...", gameWorld.WIDTH / 2 - textWidth / 2, y);
+
+                batcher.end();
+                gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
+                break;
+            case 1:
+                batcher.begin();
                 x = gameWorld.WIDTH / 22;
+                y = 5f;
                 gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Combs");
-                gameWorld.assetLoader.font.draw(batcher, "Combs", gameWorld.WIDTH / 2 - textWidth / 2, y - 5f);
+                gameWorld.assetLoader.font.draw(batcher, "Combs", gameWorld.WIDTH / 2 - textWidth / 2, y);
 
-                y += 8f;
+                y += 13f;
                 gameWorld.assetLoader.font.getData().setScale(0.08f, -0.08f);
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "2X");
                 gameWorld.assetLoader.font.draw(batcher, "2X", gameWorld.WIDTH / 2 - textWidth / 2, y - 5f);
@@ -115,7 +150,7 @@ public class TrainingForm {
                 }
                 y += height + gameWorld.MARGIN + 3f;
 
-                float textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "2X");
+                textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "2X");
                 x = gameWorld.WIDTH / 22;
                 for (int i = 0; i < 3; i++) {
                     batcher.draw(medium, x, y, width, height);
@@ -130,26 +165,26 @@ public class TrainingForm {
                     x += width + 3f;
                 }
                 gameWorld.assetLoader.font.draw(batcher, "5X", x, y + height / 2 - textHeight / 2);
-                y += height + gameWorld.MARGIN + 3f;
 
+                textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "Touch to continue");
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Touch to continue");
+                y = gameWorld.HEIGHT - gameWorld.MARGIN * 1.5f - textHeight;
                 gameWorld.assetLoader.font.draw(batcher, "Touch to continue...", gameWorld.WIDTH / 2 - textWidth / 2, y);
-
                 batcher.end();
                 gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
                 break;
-            case 1:
+            case 2:
                 x = gameWorld.WIDTH / 8;
                 y = 5f;
                 renderer.setAutoShapeType(true);
                 renderer.begin(ShapeRenderer.ShapeType.Filled);
                 renderer.setColor(1f, 1f, 1f, 1f);
-                renderer.circle(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad_2, 100);
-                renderer.circle(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad_1, 100);
+                renderer.circle(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad, 100);
+                renderer.circle(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad, 100);
                 Gdx.gl.glLineWidth(3f);
                 renderer.set(ShapeRenderer.ShapeType.Line);
-                renderer.circle(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad_2 + 2f, 1000);
-                renderer.circle(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad_1 + 2f, 1000);
+                renderer.circle(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad + 2f, 1000);
+                renderer.circle(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad + 2f, 1000);
                 renderer.end();
                 Gdx.gl.glLineWidth(1f);
 
@@ -160,12 +195,18 @@ public class TrainingForm {
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "TAP");
                 gameWorld.assetLoader.font.draw(batcher, "TAP", gameWorld.WIDTH - gameWorld.WIDTH / 22 - textWidth,
                         gameWorld.HEIGHT - gameWorld.HEIGHT / 3.7f);
-                gameWorld.assetLoader.font.getData().setScale(0.08f, -0.08f);
-                textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "Touch to continue");
-                textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "Touch to continue");
-                gameWorld.assetLoader.font.draw(batcher, "Touch to continue...", gameWorld.WIDTH / 2 - textWidth / 2, gameWorld.HEIGHT - textHeight - 3f);
-                gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
-                batcher.draw(actor, position.x, position.y, gameWorld.WIDTH / 5, gameWorld.HEIGHT / 7);
+                batcher.draw(gameWorld.assetLoader.buttonBack, boundsCancel.x, boundsCancel.y, boundsCancel.width, boundsCancel.height);
+                if(isOnBlock)
+                    batcher.draw((TextureRegion) gameWorld.assetLoader.currentAnimation.getKeyFrame(runTime), position.x, position.y,
+                            gameWorld.WIDTH / 5, gameWorld.HEIGHT / 7);
+                else
+                    batcher.draw(gameWorld.assetLoader.currentTexture, position.x, position.y, gameWorld.WIDTH / 5, gameWorld.HEIGHT / 7);
+                y = gameWorld.HEIGHT / 2;
+                x = 0;
+                for(int i = 0; i < 5; i++) {
+                    batcher.draw(gameWorld.assetLoader.clayTextures.get(i).get(0), x, y, width, height);
+                    x += width;
+                }
                 batcher.end();
                 break;
         }
@@ -173,96 +214,88 @@ public class TrainingForm {
     }
 
     public void update(float delta) {
-        if(currFrame == 1) {
+        if(currFrame == 2) {
             if ((timeNow = gameWorld.currentTime) - lastTime > 10) {
                 switch (flag) {
                     case 0:
-                        if(velocity.x > 0) {
-                            rad_1 -= 0.1f;
-                            if (rad_1 <= 3f)
-                                flag = 1;
-                        } else {
-                            rad_2 -= 0.1f;
-                            if (rad_2 <= 3f)
-                                flag = 1;
-                        }
+                        rad -= 0.1f;
+                        if(rad <= 3f)
+                            flag = 1;
                         break;
                     case 1:
-                        if(velocity.x > 0) {
-                            rad_1 += 0.1f;
-                            if (rad_1 >= 6f)
-                                flag = 0;
-                        } else {
-                            rad_2 += 0.1f;
-                            if (rad_2 >= 6f)
-                                flag = 0;
-                        }
-                }
-
-                tempVector.set(velocity.x, velocity.y);
-                position.add(velocity.scl(delta));
-                if(pos >= 8)
-                    pos = 0;
-                switch (pos)
-                {
-                    case 0:
-                        velocity.x = 20f;
-                        velocity.y = -20f;
-                        if(position.y < gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7)
-                            pos++;
-                        break;
-                    case 1:
-                        velocity.x = 20f;
-                        velocity.y = 20f;
-                        if(position.y > gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14)
-                            pos++;
-                        break;
-                    case 2:
-                        velocity.x = -20f;
-                        velocity.y = -20f;
-                        if(position.y < gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7)
-                            pos++;
-                        break;
-                    case 3:
-                        velocity.x = -20f;
-                        velocity.y = 20f;
-                        if(position.y > gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14)
-                            pos++;
-                        break;
-                    case 4:
-                        velocity.x = -20f;
-                        velocity.y = -20f;
-                        if(position.y < gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7)
-                            pos++;
-                        break;
-                    case 5:
-                        velocity.x = -20f;
-                        velocity.y = 20f;
-                        if(position.y > gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14)
-                            pos++;
-                        break;
-                    case 6:
-                        velocity.x = 20f;
-                        velocity.y = -20f;
-                        if(position.y < gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7)
-                            pos++;
-                        break;
-                    case 7:
-                        velocity.x = 20f;
-                        velocity.y = 20f;
-                        if(position.y > gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14)
-                            pos++;
+                        rad += 0.1f;
+                        if(rad >= 6f)
+                            flag = 0;
                         break;
                 }
-
                 lastTime = timeNow;
             }
+
+            if (position.y > gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7 + 3f) {
+                velocity.y = 0;
+                velocity.x = 0;
+                acceleration.y = 0;
+                if(direction == 1)
+                    pos += width;
+                if(direction == 2)
+                    pos -= width;
+                position.x = pos;
+                position.y = gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 7 + 3f;
+                isOnBlock = true;
+            }
+
+            tempVector.set(acceleration.x, acceleration.y);
+            velocity.add(tempVector.scl(delta));
+
+            tempVector.set(velocity.x, velocity.y);
+            position.add(tempVector.scl(delta));
         }
     }
 
+    private boolean isTouchRight(float x) {
+        return x > gameWorld.WIDTH / 2;
+    }
+
+    private boolean isTouchLeft(float x) {
+        return x < gameWorld.WIDTH / 2;
+    }
+
     public boolean isClicked(float x, float y) {
-        currFrame++;
-        if(board.contains(x, y) && currFrame == maxFrames) {
+        if(currFrame < 2) {
+            currFrame++;
+            if(currFrame == 1)
+            {
+                pos = position.x = gameWorld.WIDTH / 2 - gameWorld.WIDTH / 10;
+                position.y = gameWorld.HEIGHT / 2 - gameWorld.HEIGHT / 14 + 2f;
+                direction = 0;
+            }
+        }
+        else {
+            if(isOnBlock) {
+                if (isTouchRight(x)) {
+                    if (position.x + gameWorld.WIDTH / 5 < gameWorld.WIDTH) {
+                        velocity.x = gameWorld.WIDTH - 10;
+                        direction = 1;
+                    } else
+                        direction = 0;
+                }
+                if (isTouchLeft(x)) {
+                    if (position.x > 0) {
+                        velocity.x = -gameWorld.WIDTH + 10;
+                        direction = 2;
+                    } else
+                        direction = 0;
+                }
+                velocity.y = -gameWorld.HEIGHT;
+                acceleration.y = -velocity.y * 10f;
+                isOnBlock = false;
+            }
+        }
+        return board.contains(x, y);
+    }
+
+    public boolean isClickedCancel(float x, float y) {
+        if(boundsCancel.contains(x, y) && currFrame == maxFrames) {
             currFrame = 0;
             return  true;
         }

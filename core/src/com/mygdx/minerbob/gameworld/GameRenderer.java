@@ -74,7 +74,7 @@ public class GameRenderer {
         if (!gameWorld.getActor().getAlive()) {
             gameWorld.setState(GameWorld.GameState.RESTART);
         } else if (gameWorld.isRunning()) {
-            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7);
+            gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7 - gameWorld.MARGIN);
             gameWorld.getActor().getMode().drawTime(batcher);
         }
 
@@ -108,7 +108,7 @@ public class GameRenderer {
         batcher.end();
 
         if (gameWorld.isTraining()) {
-            gameWorld.getTrainingForm().draw(shapeRenderer, batcher);
+            gameWorld.getTrainingForm().draw(shapeRenderer, batcher, runTime);
         }
 
     }

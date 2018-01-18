@@ -162,9 +162,13 @@ public class InputHandler implements InputProcessor {
 
         if(gameWorld.isTraining()) {
 
-            if(gameWorld.getTrainingForm().isClicked(x, y))
+            if(gameWorld.getTrainingForm().isClicked(x, y)) {
+
+            }
+
+            if(gameWorld.getTrainingForm().isClickedCancel(x, y))
             {
-                gameWorld.setState(GameWorld.GameState.RUNNING);
+                gameWorld.setState(GameWorld.GameState.MENU);
             }
             return true;
         }

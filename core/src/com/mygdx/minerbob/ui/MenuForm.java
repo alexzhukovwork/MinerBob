@@ -33,7 +33,7 @@ public class MenuForm {
                 gameWorld.WIDTH / 3, gameWorld.WIDTH / 3);
         boundsSound = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize * 2 - gameWorld.MARGIN * 2f, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
         boundsShop = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN, gameWorld.buttonSize, gameWorld.buttonSize);
-        boundStudy = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.MARGIN - gameWorld.buttonSize,
+        boundStudy = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN * 2 + gameWorld.buttonSize,
                 gameWorld.buttonSize, gameWorld.buttonSize);
     }
 
@@ -52,8 +52,7 @@ public class MenuForm {
         batcher.draw(gameWorld.assetLoader.buttonStudy, boundStudy.x, boundStudy.y, boundStudy.width, boundStudy.height);
         //gameWorld.assetLoader.font.draw(batcher, "RECORD " + AssetLoader.prefs.getInteger("highScore") + "", gameWorld.WIDTH / 10, 0);
 
-        Money.draw(batcher, gameWorld.MARGIN, gameWorld.HEIGHT - gameWorld.MARGIN - TextSize.getHeight(gameWorld.assetLoader.font, "0") * 2,
-                Money.money);
+        Money.draw(batcher, gameWorld.WIDTH / 10 - 3f, gameWorld.HEIGHT - gameWorld.HEIGHT / 7 - gameWorld.MARGIN, Money.money);
 
         if(gameWorld.isSound)
             soundTexture = gameWorld.assetLoader.buttonSound;
