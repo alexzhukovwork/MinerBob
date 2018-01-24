@@ -326,5 +326,7 @@ public class InputHandler implements InputProcessor {
         }
         else if (gameWorld.isMenu())
             Gdx.app.exit();
+        if(gameWorld.isTraining())
+            gameWorld.getTrainingForm().onBackClick();
     }
 }

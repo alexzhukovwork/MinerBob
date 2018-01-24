@@ -109,17 +109,17 @@ public class TrainingForm {
                 x = gameWorld.WIDTH / 2f - width - 1.5f;
                 y += 10f;
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "dead");
-                batcher.draw(money, x, y, width, height);
+                batcher.draw(gameWorld.assetLoader.lavaTextures.get(0), x, y, width, height);
                 gameWorld.assetLoader.font.draw(batcher, "dead", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
                 x += width + 3f;
 
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "slow");
-                batcher.draw(money, x, y, width, height);
+                batcher.draw(gameWorld.assetLoader.timeTextures.get(0).get(0), x, y, width, height);
                 gameWorld.assetLoader.font.draw(batcher, "slow", x + width / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
                 y += height + gameWorld.MARGIN + 5f;
 
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "disorientation");
-                batcher.draw(money, gameWorld.WIDTH / 2 - width / 2, y, width, height);
+                batcher.draw(gameWorld.assetLoader.disorientationTextures.get(0).get(0), gameWorld.WIDTH / 2 - width / 2, y, width, height);
                 gameWorld.assetLoader.font.draw(batcher, "disorientation", gameWorld.WIDTH / 2 - textWidth / 2, y + height + gameWorld.MARGIN);
 
                 textHeight = TextSize.getHeight(gameWorld.assetLoader.font, "Touch to continue");
@@ -292,6 +292,13 @@ public class TrainingForm {
             }
         }
         return board.contains(x, y);
+    }
+
+    public void onBackClick() {
+        if(currFrame == 0)
+            gameWorld.setState(GameWorld.GameState.MENU);
+        else
+            currFrame--;
     }
 
     public boolean isClickedCancel(float x, float y) {
