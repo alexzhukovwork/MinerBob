@@ -244,8 +244,8 @@ public class Block {
                gameWorld.assetLoader.drill.pause();
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
-                if(gameWorld.isSound)
-                    gameWorld.assetLoader.explode.play(1.0f);
+                //if(gameWorld.isSound)
+                    //gameWorld.assetLoader.explode.play(1.0f);
             }
 
             GameWorld.score += type.getScore() * gameWorld.scl;

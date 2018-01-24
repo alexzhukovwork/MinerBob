@@ -72,7 +72,7 @@ public class AssetLoader {
     public Sound moneycombox5;
     public Sound fall;
     public Sound drill;
-    public Sound explode;
+    //public Sound explode;
 
     public Music bgMusic;
 
@@ -304,7 +304,7 @@ public class AssetLoader {
         moneycombox5 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox5.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("audio/fall.wav"));
         drill = Gdx.audio.newSound(Gdx.files.internal("audio/drill.wav"));
-        explode = Gdx.audio.newSound(Gdx.files.internal("audio/explode.wav"));
+        //explode = Gdx.audio.newSound(Gdx.files.internal("audio/explode.wav"));
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/bgSound.mp3"));
     }
 
