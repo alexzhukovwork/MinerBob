@@ -14,6 +14,7 @@ import com.mygdx.minerbob.gameobjects.typeblock.SlowBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.StoneBlock;
 import com.mygdx.minerbob.gameobjects.typeblock.DeadBlock;
 import com.mygdx.minerbob.gameworld.GameWorld;
+import com.mygdx.minerbob.helpers.TextSize;
 
 
 /**
@@ -28,9 +29,9 @@ public class RowBlock {
     public float heightBlock, widthBlock;
 
     private long lastTimeSpeed;
-    private long startSlow;
+    public long startSlow;
 
-    private boolean isSlow = false;
+    public boolean isSlow = false;
 
     //Animation
     private int countEarthAnim = 0;
@@ -321,13 +322,8 @@ public class RowBlock {
     public void draw(SpriteBatch batcher) {
         for (Array<Block> l : rows) {
             for (Block b : l) {
-                if (!b.getType().getName().equals("Lava") && !b.getType().getName().equals("Disorientation") && !b.getType().equals("Slow"))
-                    batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
+                batcher.draw(b.getTexture(), b.getX(), b.getStaticY() - 2,
                         b.getWidth(), heightBlock + 2);
-                else
-                    batcher.draw(b.getTexture(), b.getX(), b.getStaticY()
-                            ,
-                            b.getWidth(), heightBlock);
             }
         }
     }

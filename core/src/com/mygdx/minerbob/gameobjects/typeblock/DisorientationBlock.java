@@ -26,7 +26,7 @@ public class DisorientationBlock implements ITypeBlock{
 
     @Override
     public TextureRegion getTexture(int count, int kick) {
-        return assetLoader.noMenuTexture;
+        return assetLoader.disorientationTextures.get(count).get(kick);
     }
 
     @Override

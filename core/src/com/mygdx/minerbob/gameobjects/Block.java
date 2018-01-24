@@ -95,6 +95,7 @@ public class Block {
                 actor.setVelocity(0, 0);
 
                 if(type.getName().equals("Lava")) {
+                    actor.isOnLava = true;
                     if(!isCollisedLava) {
                         gameWorld.getRowBlock().timeLava = gameWorld.currentTime;
                         isCollisedLava = true;
@@ -102,6 +103,8 @@ public class Block {
                     if (gameWorld.currentTime - gameWorld.getRowBlock().timeLava > 300) {
                         actor.setAlive(false);
                     }
+                } else {
+                    actor.isOnLava = false;
                 }
 
                 if (position.y <= gameWorld.HEIGHT - height)

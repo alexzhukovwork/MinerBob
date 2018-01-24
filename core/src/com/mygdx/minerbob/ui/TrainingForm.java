@@ -280,7 +280,7 @@ public class TrainingForm {
                         direction = 0;
                 }
                 if (isTouchLeft(x)) {
-                    if (position.x > 0) {
+                    if (position.x > width - 1f) {
                         velocity.x = -gameWorld.WIDTH + 10;
                         direction = 2;
                     } else

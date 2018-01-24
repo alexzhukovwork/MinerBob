@@ -1,202 +1,293 @@
 
 Miner Bob Actor.png
-size: 4096,1024
+size: 4096,2048
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Restore0
   rotate: false
-  xy: 2, 2
+  xy: 404, 19
   size: 312, 397
   orig: 312, 397
   offset: 0, 0
   index: -1
 Restore1
   rotate: false
-  xy: 2, 401
+  xy: 2320, 865
   size: 312, 397
   orig: 312, 397
   offset: 0, 0
   index: -1
 Restore2
   rotate: false
-  xy: 316, 401
+  xy: 2006, 865
   size: 312, 397
   orig: 312, 397
   offset: 0, 0
   index: -1
 Restore3
   rotate: false
-  xy: 316, 2
+  xy: 806, 421
   size: 312, 397
   orig: 312, 397
   offset: 0, 0
   index: -1
 actor0
   rotate: false
-  xy: 3480, 429
+  xy: 3685, 373
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor1
   rotate: false
-  xy: 3480, 58
+  xy: 2830, 151
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor2
   rotate: false
-  xy: 3765, 429
+  xy: 3115, 2
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 actor3
   rotate: false
-  xy: 3765, 58
+  xy: 3400, 2
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
+boughtItem
+  rotate: false
+  xy: 404, 418
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
 cosmonaut0
   rotate: false
-  xy: 2625, 429
+  xy: 2830, 522
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut1
   rotate: false
-  xy: 2625, 58
+  xy: 3115, 744
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut2
   rotate: false
-  xy: 2055, 58
+  xy: 1690, 671
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 cosmonaut3
   rotate: false
-  xy: 630, 58
+  xy: 3685, 2
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol0
   rotate: false
-  xy: 915, 429
+  xy: 1975, 494
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol1
   rotate: false
-  xy: 2340, 429
+  xy: 2260, 494
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol2
   rotate: false
-  xy: 2340, 58
+  xy: 2545, 494
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 hohol3
   rotate: false
-  xy: 630, 429
+  xy: 1288, 300
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
+item
+  rotate: false
+  xy: 2, 16
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lava0
+  rotate: false
+  xy: 1004, 1042
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava1
+  rotate: false
+  xy: 2, 820
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava2
+  rotate: false
+  xy: 2006, 1264
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava3
+  rotate: false
+  xy: 3008, 1486
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava4
+  rotate: false
+  xy: 2, 1486
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava5
+  rotate: false
+  xy: 2, 1264
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava6
+  rotate: false
+  xy: 1004, 1486
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava7
+  rotate: false
+  xy: 2, 1042
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava8
+  rotate: false
+  xy: 1004, 1264
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
+lava9
+  rotate: false
+  xy: 2006, 1486
+  size: 1000, 220
+  orig: 1000, 220
+  offset: 0, 0
+  index: -1
 pirate0
   rotate: false
-  xy: 2910, 429
+  xy: 3400, 744
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate1
   rotate: false
-  xy: 2910, 58
+  xy: 3685, 744
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate2
   rotate: false
-  xy: 3195, 429
+  xy: 3115, 373
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 pirate3
   rotate: false
-  xy: 3195, 58
+  xy: 3400, 373
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman0
   rotate: false
-  xy: 1485, 58
+  xy: 718, 47
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman1
   rotate: false
-  xy: 1770, 429
+  xy: 1003, 50
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman2
   rotate: false
-  xy: 1770, 58
+  xy: 1120, 671
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 rastaman3
   rotate: false
-  xy: 2055, 429
+  xy: 1405, 671
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa0
   rotate: false
-  xy: 915, 58
+  xy: 2634, 893
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa1
   rotate: false
-  xy: 1200, 429
+  xy: 3008, 1115
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa2
   rotate: false
-  xy: 1200, 58
+  xy: 3293, 1115
   size: 283, 369
   orig: 283, 369
   offset: 0, 0
   index: -1
 santa3
   rotate: false
-  xy: 1485, 429
+  xy: 3578, 1115
   size: 283, 369
   orig: 283, 369
+  offset: 0, 0
+  index: -1
+selectedItem
+  rotate: false
+  xy: 2, 418
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1

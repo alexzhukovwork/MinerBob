@@ -132,7 +132,7 @@ public class GameWorld {
         }
         else
             if(!isSound && assetLoader.bgMusic.isPlaying())
-                assetLoader.bgMusic.stop();
+                assetLoader.bgMusic.pause();
 
         if (isRunning()) {
             isRecordFlush = false;

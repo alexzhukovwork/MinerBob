@@ -66,7 +66,7 @@ public class GameRenderer {
             }
 
             if (gameWorld.getActor().getMode().getName().equals("Disorientation"))
-                batcher.draw(gameWorld.assetLoader.red, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
+                batcher.draw(gameWorld.assetLoader.green, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
         }
         gameWorld.avalanche.draw(batcher);
         if (!gameWorld.getActor().getAlive()) {
@@ -74,6 +74,23 @@ public class GameRenderer {
         } else if (gameWorld.isRunning()) {
             gameWorld.assetLoader.font.draw(batcher, GameWorld.score + "", gameWorld.WIDTH / 10, gameWorld.HEIGHT - gameWorld.HEIGHT / 7 - gameWorld.MARGIN);
             gameWorld.getActor().getMode().drawTime(batcher);
+        }
+
+        gameWorld.moneyAnimation.draw(batcher, shapeRenderer);
+
+        if (gameWorld.getRowBlock().isSlow) {
+            int sec = (int)(5 - (gameWorld.currentTime - gameWorld.getRowBlock().startSlow) / 1000);
+            sec = sec < 0 ? 0 : sec;
+            gameWorld.assetLoader.font.draw(batcher,  sec + "",
+                    gameWorld.WIDTH / 2 - TextSize.getWidth(gameWorld.assetLoader.font, sec + "") / 2,
+                    gameWorld.buttonSize + gameWorld.MARGIN);
+            batcher.draw(gameWorld.assetLoader.blue, 0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
+        }
+
+        if (gameWorld.getActor().isOnLava) {
+            batcher.draw((TextureRegion) gameWorld.assetLoader.fireAnimation.getKeyFrame(runTime),
+                    gameWorld.getActor().getX(), gameWorld.getActor().getY(),
+                    gameWorld.getActor().getWidth(), gameWorld.getActor().getHeight());
         }
 
         if (gameWorld.isMenu()) {
@@ -102,12 +119,10 @@ public class GameRenderer {
             gameWorld.getDailyBonus().draw(batcher);
         }
 
-        gameWorld.moneyAnimation.draw(batcher, shapeRenderer);
         batcher.end();
 
         if (gameWorld.isTraining()) {
             gameWorld.getTrainingForm().draw(shapeRenderer, batcher, runTime);
         }
-
     }
 }

@@ -26,7 +26,7 @@ public class LavaBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int count, int kick) {
-        return assetLoader.lava[0];
+        return assetLoader.lavaTextures.get(count);
     }
 
     @Override

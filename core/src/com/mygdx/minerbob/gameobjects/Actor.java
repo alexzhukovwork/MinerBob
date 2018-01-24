@@ -28,6 +28,7 @@ public class Actor {
     private boolean isAlive = true;
     private boolean isOnBlock = false;
     public boolean hasCurrentBlock = false;
+    public boolean isOnLava = false;
 
     public Actor(float x, float y, float width, float height, GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -47,6 +48,7 @@ public class Actor {
         acceleration = new Vector2(0, 100);
         isAlive = true;
         isOnBlock = false;
+        isOnLava = false;
     }
 
     public void restore(float x, float y) {

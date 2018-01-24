@@ -26,7 +26,7 @@ public class SlowBlock implements ITypeBlock {
 
     @Override
     public TextureRegion getTexture(int count, int kick) {
-        return assetLoader.yesMenuTexture;
+        return assetLoader.timeTextures.get(count).get(kick);
     }
 
     @Override
