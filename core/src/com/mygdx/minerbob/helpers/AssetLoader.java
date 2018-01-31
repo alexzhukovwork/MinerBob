@@ -309,10 +309,10 @@ public class AssetLoader {
     }
 
     public void load() {
+        initSounds();
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         atlasTextureActor = new TextureAtlas("Miner Bob Actor.atlas");
-        initSounds();
         initActors();
         initBlocks();
         initLava();

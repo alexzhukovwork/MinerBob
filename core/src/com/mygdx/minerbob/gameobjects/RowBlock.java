@@ -192,7 +192,7 @@ public class RowBlock {
                 if (GameWorld.score > 250 && lastSlow > 15) {
                     r = 1;
                     lastSlow = 0;
-                } else if (GameWorld.score > 150 && lastDisorientation > 7) {
+                } else if (GameWorld.score > 150 && lastDisorientation > 8) {
                     r = 2;
                     lastDisorientation = 0;
                 }
