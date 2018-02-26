@@ -169,6 +169,10 @@ public class InputHandler implements InputProcessor {
             {
                 gameWorld.setState(GameWorld.GameState.MENU);
             }
+
+            if(gameWorld.getTrainingForm().isClickedTextCancel(x, y)) {
+
+            }
             return true;
         }
 
