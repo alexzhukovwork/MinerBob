@@ -16,12 +16,15 @@ import com.mygdx.minerbob.gameobjects.typemode.TypeMode;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.Record;
+import com.mygdx.minerbob.helpers.User;
 import com.mygdx.minerbob.ui.DailyBonus;
+import com.mygdx.minerbob.ui.LeaderBoardForm;
 import com.mygdx.minerbob.ui.MenuForm;
 import com.mygdx.minerbob.ui.PauseForm;
 import com.mygdx.minerbob.ui.RunningForm;
 import com.mygdx.minerbob.ui.ShopForm;
 import com.mygdx.minerbob.ui.TrainingForm;
+
 
 /**
  * Created by Алексей on 10.09.2017.
@@ -38,6 +41,7 @@ public class GameWorld {
     private RunningForm runningForm;
     private DailyBonus dailyBonus;
     private TrainingForm trainingForm;
+    private LeaderBoardForm leaderBoardForm;
 
     private AdId adState;
     public AssetLoader assetLoader;
@@ -70,12 +74,14 @@ public class GameWorld {
     public boolean isSound;
 
     public IRewardVideo rewardVideo;
-
+    public User user;
     public MoneyAnimation moneyAnimation;
     public Avalanche avalanche;
 
+    public String containsLogin;
+
     public enum GameState {
-       MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS, TRAINING
+       MENU , RUNNING, PAUSE, RESTART, SHOP, DAILYBONUS, TRAINING, LEADERBOARD
     }
 
     public static boolean isRecord;
@@ -103,6 +109,7 @@ public class GameWorld {
         avalanche = new Avalanche(this);
         dailyBonus = new DailyBonus(this);
         trainingForm = new TrainingForm(this);
+        leaderBoardForm = new LeaderBoardForm(this);
         currentState = GameState.DAILYBONUS;
         isRecord = false;
         isEnd = false;
@@ -117,7 +124,6 @@ public class GameWorld {
         disorientationMode = new DisorientationMode(this);
         normalMode = new NormalMode(this);
         actor.setMode(normalMode);
-        //Gdx.app.log("AssetLoader", "world created");
     }
 
     private boolean isRecordFlush;
@@ -156,7 +162,6 @@ public class GameWorld {
 
         if (!actor.getAlive()) {
             stop();
-            //pauseForm.setState(PauseForm.State.SCORE);
             if (!isRecordFlush)
                 pauseForm.checkRecord();
             isRecordFlush = true;
@@ -263,6 +268,10 @@ public class GameWorld {
         return currentState == GameState.MENU;
     }
 
+    public boolean isLeaderBoard() {
+        return currentState == GameState.LEADERBOARD;
+    }
+
     public boolean isRunning() {
         return currentState == GameState.RUNNING;
     }
@@ -284,7 +293,7 @@ public class GameWorld {
     }
 
     public boolean isTraining() {
-        return  currentState == GameState.TRAINING;
+        return currentState == GameState.TRAINING;
     }
 
     public MenuForm getMenu() {
@@ -313,5 +322,9 @@ public class GameWorld {
 
     public TrainingForm getTrainingForm() {
         return trainingForm;
+    }
+
+    public LeaderBoardForm getLeaderBoardForm() {
+        return leaderBoardForm;
     }
 }

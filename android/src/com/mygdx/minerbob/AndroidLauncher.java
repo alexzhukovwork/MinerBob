@@ -1,24 +1,17 @@
 package com.mygdx.minerbob;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Rectangle;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -29,9 +22,12 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.Money;
-import com.mygdx.minerbob.helpers.MyDate;
 
-import java.util.Date;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 
 import static android.provider.UserDictionary.Words.APP_ID;
 
@@ -41,7 +37,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 	private final int SHOW_ADS = 1;
 	private final int HIDE_ADS = 0;
 	private RewardedVideoAd mAd;
-
 	protected AdView adView;
 	protected View gameView;
     private GameWorld gameWorld;
@@ -139,10 +134,14 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 					//Log.i("InfoTag", "EEE boy. Shop AD");
 					AssetLoader.prefs.putInteger("countVideo", AssetLoader.prefs.getInteger("countVideo") + 1);
 					AssetLoader.prefs.flush();
+					int money = 0;
 					if (AssetLoader.prefs.getInteger("countVideo") == 1)
-						Money.add(20);
+						money = 20;
 					else
-						Money.add(10);
+						money = 10;
+					Money.add(money);
+					gameWorld.getShop().setRewarded(true);
+					gameWorld.getShop().setRewardString(money + "");
 				}
 				else
 					if(gameWorld.isAdRestore()) {

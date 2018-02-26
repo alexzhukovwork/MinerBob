@@ -87,10 +87,10 @@ public class Block {
                 actor.setHasCurrentBlock(false);
                 actor.setPosition(position.x + 1, position.y - actor.getHeight() + 1);
                 actor.setRectangleBounds(position.x + 1, position.y - actor.getHeight() + 1, actor.getWidth(), actor.getHeight());
-
+/*
                 if (!actor.getOnBlock() && gameWorld.isSound)
                     gameWorld.assetLoader.fall.play(0.4f);
-
+*/
                 actor.setOnBlock(true);
                 actor.setVelocity(0, 0);
 
@@ -241,7 +241,7 @@ public class Block {
             if (type.getName().equals("Disorientation"))
                 actor.setMode(gameWorld.disorientationMode);
             if(gameWorld.isSound)
-               gameWorld.assetLoader.drill.pause();
+               gameWorld.assetLoader.drill.stop();
             if (!gameWorld.isKickedFirst) {
                 gameWorld.isKickedFirst = true;
                 //if(gameWorld.isSound)

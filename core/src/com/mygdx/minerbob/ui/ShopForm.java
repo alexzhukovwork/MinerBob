@@ -19,6 +19,13 @@ import com.mygdx.minerbob.ui.ShopHelpers.Page;
 public class ShopForm {
     private Rectangle boundClose, boundNext, boundBack, boundVideo;
     private Rectangle boundForm, boundAccept, boundCancel;
+
+    //Reward Form
+    private Rectangle boundRectangle;
+    private Rectangle boundOkey;
+    private boolean isRewarded;
+    private String rewardString;
+
     private int currentPage;
     private Array<Page> pages;
     private boolean isFormAccept;
@@ -50,6 +57,12 @@ public class ShopForm {
         boundCancel = new Rectangle(boundForm.x + boundForm.width - gameWorld.buttonDialogWidth - boundForm.width / 13,
                 boundForm.y + boundForm.height - boundForm.height / 5,
                 gameWorld.buttonDialogWidth, gameWorld.buttonDialogHeight);
+
+        isRewarded = false;
+        boundRectangle = new Rectangle(x, y, gameWorld.dialogWidth, gameWorld.dialogHeight);
+        boundOkey = new Rectangle(boundRectangle.x + boundRectangle.width / 2 - this.gameWorld.buttonDialogWidth / 2,
+                boundRectangle.y + boundRectangle.height - boundRectangle.height / 5,
+                this.gameWorld.buttonDialogWidth, this.gameWorld.buttonDialogHeight);
     }
 
     public void update(float delta) {
@@ -103,6 +116,22 @@ public class ShopForm {
         float width = TextSize.getWidth(gameWorld.assetLoader.font, Money.money + "");
         Money.draw(batcher, gameWorld.WIDTH / 2 - width, gameWorld.MARGIN + gameWorld.buttonSize / 2 - gameWorld.buttonSize / 6,
                 Money.money);
+
+        if (isRewarded)
+            drawReward(batcher);
+    }
+
+    public void drawReward(SpriteBatch batcher) {
+        batcher.draw(gameWorld.assetLoader.boxTexture, boundRectangle.x, boundRectangle.y, boundRectangle.width, boundRectangle.height);
+        batcher.draw(gameWorld.assetLoader.okMenuTexture, boundOkey.x, boundOkey.y, boundOkey.width, boundOkey.height);
+        float width = TextSize.getWidth(gameWorld.assetLoader.font, rewardString);
+        float height = TextSize.getHeight(gameWorld.assetLoader.font, rewardString);
+        Money.draw(batcher, boundRectangle.x + boundRectangle.width / 2 - width / 2,
+                boundRectangle.y + boundRectangle.height / 15, Integer.parseInt(rewardString));
+    }
+
+    public boolean isClickedRewarded(float x, float y) {
+        return isRewarded && boundOkey.contains(x, y);
     }
 
     public boolean isClickedClose(float x, float y) {
@@ -211,5 +240,21 @@ public class ShopForm {
 
     public Item getItem() {
         return item;
+    }
+
+    public String getRewardString() {
+        return rewardString;
+    }
+
+    public void setRewardString(String rewardString) {
+        this.rewardString = rewardString;
+    }
+
+    public boolean isRewarded() {
+        return isRewarded;
+    }
+
+    public void setRewarded(boolean rewarded) {
+        isRewarded = rewarded;
     }
 }

@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.minerbob.gameworld.GameWorld;
+import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.TextSize;
 
 /**
@@ -27,8 +29,15 @@ public class TrainingForm {
     private float rad = 6f, pos;
     private Vector2 position, velocity, acceleration, tempVector;
     private boolean isOnBlock = true;
+    private int countClick = 0;
+    private float alpha = 1f;
+    private boolean isUp = false;
+
+    private Circle circleLeft, circleRight;
 
     public TrainingForm(GameWorld gameWorld){
+        circleLeft = new Circle();
+        circleRight = new Circle();
         this.gameWorld = gameWorld;
         width = gameWorld.WIDTH / 5;
         height = gameWorld.WIDTH / 5 * 180 / 200 - 2;
@@ -179,6 +188,8 @@ public class TrainingForm {
                 renderer.setAutoShapeType(true);
                 renderer.begin(ShapeRenderer.ShapeType.Filled);
                 renderer.setColor(1f, 1f, 1f, 1f);
+                circleLeft.set(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad);
+                circleRight.set(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad);
                 renderer.circle(x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad, 100);
                 renderer.circle(gameWorld.WIDTH - x, gameWorld.HEIGHT - gameWorld.HEIGHT / 7, rad, 100);
                 Gdx.gl.glLineWidth(3f);
@@ -207,6 +218,22 @@ public class TrainingForm {
                     batcher.draw(gameWorld.assetLoader.clayTextures.get(i).get(0), x, y, width, height);
                     x += width;
                 }
+
+                if (countClick > 4) {
+                    String text = "TAP TO CONTINUE";
+                    float width = TextSize.getWidth(gameWorld.assetLoader.font, text);
+                    if (isUp) {
+                        alpha += 0.01;
+                        isUp = alpha < 1f;
+                    } else {
+                        alpha -= 0.01;
+                        isUp = alpha < 0.4;
+                    }
+                    gameWorld.assetLoader.font.setColor(1, 1, 1, alpha);
+                    gameWorld.assetLoader.font.draw(batcher, text, gameWorld.WIDTH / 2 - width / 2, gameWorld.buttonSize * 2);
+                    gameWorld.assetLoader.font.setColor(1, 1, 1, 1f);
+                }
+
                 batcher.end();
                 break;
         }
@@ -252,12 +279,12 @@ public class TrainingForm {
         }
     }
 
-    private boolean isTouchRight(float x) {
-        return x > gameWorld.WIDTH / 2;
+    private boolean isTouchRight(float x, float y) {
+        return circleRight.contains(x, y);
     }
 
-    private boolean isTouchLeft(float x) {
-        return x < gameWorld.WIDTH / 2;
+    private boolean isTouchLeft(float x, float y) {
+        return circleLeft.contains(x, y);
     }
 
     public boolean isClicked(float x, float y) {
@@ -272,23 +299,34 @@ public class TrainingForm {
         }
         else {
             if(isOnBlock) {
-                if (isTouchRight(x)) {
+                if (isTouchRight(x, y)) {
                     if (position.x + gameWorld.WIDTH / 5 < gameWorld.WIDTH) {
+                        countClick++;
                         velocity.x = gameWorld.WIDTH - 10;
                         direction = 1;
+                        velocity.y = -gameWorld.HEIGHT;
+                        acceleration.y = -velocity.y * 10f;
+                        isOnBlock = false;
                     } else
                         direction = 0;
                 }
-                if (isTouchLeft(x)) {
+                else if (isTouchLeft(x, y)) {
                     if (position.x > width - 1f) {
+                        countClick++;
                         velocity.x = -gameWorld.WIDTH + 10;
                         direction = 2;
+                        velocity.y = -gameWorld.HEIGHT;
+                        acceleration.y = -velocity.y * 10f;
+                        isOnBlock = false;
                     } else
                         direction = 0;
+                } else if (countClick > 4) {
+                    gameWorld.setState(GameWorld.GameState.RUNNING);
+                    countClick = 0;
+                    currFrame = 0;
+                    AssetLoader.prefs.putBoolean("isFirstRun", false);
+                    AssetLoader.prefs.flush();
                 }
-                velocity.y = -gameWorld.HEIGHT;
-                acceleration.y = -velocity.y * 10f;
-                isOnBlock = false;
             }
         }
         return board.contains(x, y);

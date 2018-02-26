@@ -119,6 +119,9 @@ public class GameRenderer {
             gameWorld.getDailyBonus().draw(batcher);
         }
 
+        if (gameWorld.isLeaderBoard())
+            gameWorld.getLeaderBoardForm().draw(shapeRenderer, batcher);
+
         batcher.end();
 
         if (gameWorld.isTraining()) {

@@ -2,13 +2,14 @@ package com.mygdx.minerbob.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.IActivityRequestHandler;
 import com.mygdx.minerbob.IRewardVideo;
 import com.mygdx.minerbob.gameworld.GameRenderer;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
 import com.mygdx.minerbob.helpers.InputHandler;
+import com.mygdx.minerbob.helpers.Internet.PostRequest;
+import com.mygdx.minerbob.ui.listener.MyTextInputListener;
 import com.mygdx.minerbob.ui.PauseForm;
 
 /**
@@ -24,10 +25,6 @@ public class GameScreen implements Screen {
     private float WIDTH;
     private InputHandler inputHandler;
     private IActivityRequestHandler handler;
-    float DELTA = 1.0f / 30.0f;
-
-    final float TIME_STEP= 1 / 60f; // 60 times a second
-    final int MAX_FRAMESKIPS = 20; // Make 5 updates mostly without a render
 
     float accumulator;
     int skippedFrames;
@@ -39,18 +36,6 @@ public class GameScreen implements Screen {
         this.assetLoader = assetLoader;
         this.assetLoader.load();
         gameWorld = new GameWorld((IRewardVideo)handler, this.assetLoader, WIDTH, HEIGHT);
-
-       /* new Thread(new Runnable() {
-            @Override
-            public void run() {
-                float lastUpdate = TimeUtils.millis();
-                while (true) {
-                    float delta = TimeUtils.millis() - lastUpdate;
-                    gameWorld.update(delta);
-                    lastUpdate = TimeUtils.millis();
-                }
-            }
-        }).start();*/
     }
 
     public float getWIDTH() {
@@ -60,6 +45,7 @@ public class GameScreen implements Screen {
     public float getHEIGHT() {
         return HEIGHT;
     }
+
 
     @Override
     public void show() {
@@ -72,7 +58,18 @@ public class GameScreen implements Screen {
         if (!AssetLoader.prefs.getBoolean("isNextDay"))
            gameWorld.setState(GameWorld.GameState.MENU);
         else
-           gameWorld.setState(GameWorld.GameState.DAILYBONUS);
+            gameWorld.setState(GameWorld.GameState.DAILYBONUS);
+
+        if (!gameWorld.assetLoader.containsId()) {
+            setTextListener(MyTextInputListener.LOGIN_PLEASE_ENTER);
+        } else {
+            PostRequest.executeUpdate(gameWorld.assetLoader.getId(), gameWorld.assetLoader.getScore() + "", gameWorld);
+        }
+    }
+
+    private void setTextListener(String str) {
+        MyTextInputListener listener = new MyTextInputListener(gameWorld);
+        Gdx.input.getTextInput(listener, str, "", "Login");
     }
 
     @Override
@@ -86,13 +83,7 @@ public class GameScreen implements Screen {
         runTime += delta;
         accumulator += Gdx.graphics.getDeltaTime();
         skippedFrames = 0;
-       // while (accumulator >= TIME_STEP && skippedFrames <= MAX_FRAMESKIPS) {
-      //      accumulator -= TIME_STEP;
-            gameWorld.update(delta);
-
-    //        skippedFrames++;
-    //    }
-
+        gameWorld.update(delta);
 
 
         if (gameWorld.isPause())

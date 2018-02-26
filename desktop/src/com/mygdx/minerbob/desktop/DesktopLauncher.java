@@ -11,8 +11,9 @@ public class DesktopLauncher implements IActivityRequestHandler, IRewardVideo{
 
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 400;
-		config.width = 250;
+		config.height = 500;
+		config.width = 300;
+		config.useGL30 = true;
 		new LwjglApplication(new MainGame(new DesktopLauncher() {
 			@Override
 			public void showAds(boolean show) {

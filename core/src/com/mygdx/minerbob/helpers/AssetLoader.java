@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.minerbob.helpers.Internet.PostRequest;
 
 import java.util.Date;
 
@@ -298,6 +299,11 @@ public class AssetLoader {
 
     private void initSounds() {
         //load sounds
+
+    }
+
+    public void load() {
+       // initSounds();
         money = Gdx.audio.newSound(Gdx.files.internal("audio/money.wav"));
         moneycombox2 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox2.wav"));
         moneycombox3 = Gdx.audio.newSound(Gdx.files.internal("audio/moneycombox3.wav"));
@@ -306,10 +312,7 @@ public class AssetLoader {
         drill = Gdx.audio.newSound(Gdx.files.internal("audio/drill.wav"));
         //explode = Gdx.audio.newSound(Gdx.files.internal("audio/explode.wav"));
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/bgSound.mp3"));
-    }
 
-    public void load() {
-        initSounds();
         atlasTexture = new TextureAtlas("Miner Bob.atlas");
         atlasTextureField = new TextureAtlas("Miner Bob Field.atlas");
         atlasTextureActor = new TextureAtlas("Miner Bob Actor.atlas");
@@ -365,12 +368,11 @@ public class AssetLoader {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(0.1f, -0.1f);
 
-    //    font.getData().setScale(0.05f, -0.05f);
-
         currentAnimation = textures.get(0).animation;
         currentTexture = textures.get(0).textureFall;
 
         initPrefs();
+    //    PostRequest.executeStatus(this);
         checkInternet();
     }
 
@@ -448,19 +450,20 @@ public class AssetLoader {
         prefs.flush();
     }
 
-    private void checkInternet() {
+    public void checkInternet() {
         MyDate myDate = new MyDate();
         Date date = myDate.getDate();
         Date lastDate = new Date(prefs.getLong("dateVideo"));
         int countBonus = prefs.getInteger("countBonus");
 
-        isInternet = date != null;
+      //  isInternet = date != null;
 
-        if (isInternet) {
+     //   if (isInternet) {
             if (!date.after(lastDate) && prefs.getInteger("countVideo") >= 3)
                 isInternet = false;
-            else if (date.after(lastDate)) {
+            else PostRequest.executeStatus(this);
 
+            if (myDate.after(lastDate, date)) {
                 if (myDate.isNextDay(lastDate.getTime(), date.getTime()) && countBonus < 5) {
                     prefs.putInteger("countBonus", countBonus + 1);
                 } else {
@@ -473,7 +476,7 @@ public class AssetLoader {
                 prefs.putLong("dateVideo", date.getTime());
             } else
                 prefs.putBoolean("isNextDay", false);
-        }
+       // }
 
         prefs.flush();
     }
@@ -512,6 +515,23 @@ public class AssetLoader {
                     prefs.putBoolean("selected" + i, false);
             }
         }
+    }
+
+    public boolean containsId() {
+        return prefs.contains("id");
+    }
+
+    public String getId() {
+        return prefs.getString("id");
+    }
+
+    public int getScore() {
+        return prefs.getInteger("highScore");
+    }
+
+    public void addId(String id) {
+        System.out.println(id);
+        prefs.putString("id", id);
     }
 
     public void dispose() {

@@ -2,10 +2,9 @@ package com.mygdx.minerbob.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.minerbob.gameworld.GameWorld;
-import com.mygdx.minerbob.screen.GameScreen;
+import com.mygdx.minerbob.helpers.Internet.PostRequest;
 import com.mygdx.minerbob.ui.PauseForm;
 import com.mygdx.minerbob.ui.ShopHelpers.Item;
 
@@ -186,6 +185,9 @@ public class InputHandler implements InputProcessor {
         }
 
         if (gameWorld.isShop()) {
+            if (gameWorld.getShop().isClickedRewarded(x, y))
+                gameWorld.getShop().setRewarded(false);
+
             if (item != null) {
                 item.isAnimation = false;
                 item = null;
@@ -218,7 +220,16 @@ public class InputHandler implements InputProcessor {
             return true;
         }
 
+        if (gameWorld.isLeaderBoard()) {
+            gameWorld.setState(GameWorld.GameState.MENU);
+            return true;
+        }
+
         if (gameWorld.isMenu()) {
+            if (gameWorld.getMenu().isClickedScore(x, y)) {
+                PostRequest.executeSelect(gameWorld.assetLoader.getId(), gameWorld);
+                gameWorld.setState(GameWorld.GameState.LEADERBOARD);
+            }
             if (gameWorld.getMenu().isClickedPlay(x, y)) {
                 GameWorld.currentMoney = 0;
                 AssetLoader.prefs.putInteger("countRestore", 0);
@@ -316,7 +327,7 @@ public class InputHandler implements InputProcessor {
     }
 
     private void onBackClicked() {
-        if (gameWorld.isShop())
+        if (gameWorld.isShop() || gameWorld.isLeaderBoard())
             gameWorld.setState(GameWorld.GameState.MENU);
         else if (gameWorld.isRunning()) {
             gameWorld.pause();

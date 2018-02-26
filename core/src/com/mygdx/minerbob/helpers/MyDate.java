@@ -46,7 +46,7 @@ public class MyDate {
     }
 
     public Date getDate() {
-        long time = getTime();
+        long time = System.currentTimeMillis();// getTime();
 
         if (time != 0) {
             date.setTime(time);
@@ -61,5 +61,9 @@ public class MyDate {
 
     public boolean isNextDay(long prevDay, long nextDay) {
         return nextDay - prevDay == DAY_SECONDS;
+    }
+
+    public boolean after(Date prev, Date next) {
+        return next.getTime() - prev.getTime() >= DAY_SECONDS;
     }
 }

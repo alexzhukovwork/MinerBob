@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.minerbob.gameworld.GameWorld;
 import com.mygdx.minerbob.helpers.AssetLoader;
+import com.mygdx.minerbob.helpers.Internet.PostRequest;
 import com.mygdx.minerbob.helpers.Money;
 import com.mygdx.minerbob.helpers.Record;
 import com.mygdx.minerbob.helpers.TextSize;
@@ -49,6 +50,7 @@ public class PauseForm {
             AssetLoader.prefs.putInteger("highScore", GameWorld.score);
             AssetLoader.prefs.flush();
             setState(State.RECORD);
+            PostRequest.executeUpdate(gameWorld.assetLoader.getId(), gameWorld.assetLoader.getScore() + "", gameWorld);
         } else {
             setState(State.SCORE);
             GameWorld.isRecord = false;
