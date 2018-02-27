@@ -47,8 +47,8 @@ public class SplashScreen implements Screen {
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        gameScreen = new GameScreen(mainGame.getHandler(), assetLoader, WIDTH, HEIGHT);
                         TextSize.load();
+                        gameScreen = new GameScreen(mainGame.getHandler(), assetLoader, WIDTH, HEIGHT);
                       //  assetLoader.font = mainGame.getHandler().generateFont();
                         mainGame.setScreen(gameScreen);
                     }

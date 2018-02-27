@@ -169,6 +169,10 @@ public class InputHandler implements InputProcessor {
             {
                 gameWorld.setState(GameWorld.GameState.MENU);
             }
+
+            if(gameWorld.getTrainingForm().isClickedTextCancel(x, y)) {
+
+            }
             return true;
         }
 
@@ -251,7 +255,9 @@ public class InputHandler implements InputProcessor {
                 gameWorld.setState(GameWorld.GameState.TRAINING);
             }
 
-
+            if (gameWorld.getMenu().isClickedMoney(x, y)) {
+                gameWorld.setState(GameWorld.GameState.SHOP);
+            }
             return true;
         }
 

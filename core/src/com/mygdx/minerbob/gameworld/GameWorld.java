@@ -133,7 +133,7 @@ public class GameWorld {
 
         if(isSound && !assetLoader.bgMusic.isPlaying()) {
             assetLoader.bgMusic.setLooping(true);
-            assetLoader.bgMusic.setVolume(0.3f);
+            assetLoader.bgMusic.setVolume(0.1f);
             assetLoader.bgMusic.play();
         }
         else

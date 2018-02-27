@@ -20,7 +20,7 @@ import com.mygdx.minerbob.helpers.TextSize;
 public class TrainingForm {
 
     private GameWorld gameWorld;
-    private Rectangle board, boundsCancel;
+    private Rectangle board, boundsCancel, boundsTextCancel;
     private TextureRegion easy, low, medium, hard, dead, money;
     private float width, height;
     private int currFrame, flag = 0, direction = 0;
@@ -48,6 +48,7 @@ public class TrainingForm {
         board = new Rectangle(0, 0, gameWorld.WIDTH, gameWorld.HEIGHT);
         boundsCancel = new Rectangle(gameWorld.WIDTH - gameWorld.buttonSize - gameWorld.MARGIN, gameWorld.MARGIN,
                 gameWorld.buttonSize, gameWorld.buttonSize);
+        boundsTextCancel = new Rectangle();
         easy = gameWorld.assetLoader.earthTextures.get(0).get(0);
         low = gameWorld.assetLoader.clayTextures.get(0).get(0);
         medium = gameWorld.assetLoader.stoneTextures.get(0).get(0);
@@ -231,6 +232,8 @@ public class TrainingForm {
                     }
                     gameWorld.assetLoader.font.setColor(1, 1, 1, alpha);
                     gameWorld.assetLoader.font.draw(batcher, text, gameWorld.WIDTH / 2 - width / 2, gameWorld.buttonSize * 2);
+                    boundsTextCancel.set(gameWorld.WIDTH / 2 - width / 2, gameWorld.buttonSize * 2, width,
+                            TextSize.getHeight(gameWorld.assetLoader.font, text));
                     gameWorld.assetLoader.font.setColor(1, 1, 1, 1f);
                 }
 
@@ -279,12 +282,12 @@ public class TrainingForm {
         }
     }
 
-    private boolean isTouchRight(float x, float y) {
-        return circleRight.contains(x, y);
+    private boolean isTouchRight(float x) {
+        return x > gameWorld.WIDTH / 2;
     }
 
-    private boolean isTouchLeft(float x, float y) {
-        return circleLeft.contains(x, y);
+    private boolean isTouchLeft(float x) {
+        return x < gameWorld.WIDTH / 2;
     }
 
     public boolean isClicked(float x, float y) {
@@ -299,7 +302,7 @@ public class TrainingForm {
         }
         else {
             if(isOnBlock) {
-                if (isTouchRight(x, y)) {
+                if (isTouchRight(x)) {
                     if (position.x + gameWorld.WIDTH / 5 < gameWorld.WIDTH) {
                         countClick++;
                         velocity.x = gameWorld.WIDTH - 10;
@@ -310,7 +313,7 @@ public class TrainingForm {
                     } else
                         direction = 0;
                 }
-                else if (isTouchLeft(x, y)) {
+                else if (isTouchLeft(x)) {
                     if (position.x > width - 1f) {
                         countClick++;
                         velocity.x = -gameWorld.WIDTH + 10;
@@ -320,12 +323,6 @@ public class TrainingForm {
                         isOnBlock = false;
                     } else
                         direction = 0;
-                } else if (countClick > 4) {
-                    gameWorld.setState(GameWorld.GameState.RUNNING);
-                    countClick = 0;
-                    currFrame = 0;
-                    AssetLoader.prefs.putBoolean("isFirstRun", false);
-                    AssetLoader.prefs.flush();
                 }
             }
         }
@@ -345,6 +342,18 @@ public class TrainingForm {
             return  true;
         }
         else
+            return  false;
+    }
+
+    public boolean isClickedTextCancel(float x, float y) {
+        if(boundsTextCancel.contains(x, y) && currFrame == maxFrames) {
+            gameWorld.setState(GameWorld.GameState.RUNNING);
+            countClick = 0;
+            currFrame = 0;
+            AssetLoader.prefs.putBoolean("isFirstRun", false);
+            AssetLoader.prefs.flush();
+            return  true;
+        } else
             return  false;
     }
 }

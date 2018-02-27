@@ -22,6 +22,7 @@ public class MenuForm {
     Rectangle boundsSound;
     Rectangle boundStudy;
     Rectangle boundScore;
+    Rectangle boundMoney;
 
     private float scale;
     private boolean up;
@@ -45,7 +46,13 @@ public class MenuForm {
 
 
         // исправить тута
+        // (вроде все норм) (с) Вовчик
         boundScore = new Rectangle(gameWorld.buttonSize / 2 + gameWorld.MARGIN * 2f, gameWorld.MARGIN, gameWorld.buttonSize * 2, gameWorld.buttonSize);
+
+        //тута исправлять не над
+        boundMoney = new Rectangle(gameWorld.WIDTH / 10 - 3f, gameWorld.HEIGHT - gameWorld.HEIGHT / 7 - gameWorld.MARGIN,
+                TextSize.getWidth(this.gameWorld.assetLoader.font, Money.money + "") + gameWorld.MARGIN + 1,
+                TextSize.getHeight(this.gameWorld.assetLoader.font, Money.money + ""));
     }
 
     public void draw(ShapeRenderer shaper, SpriteBatch batcher) {
@@ -55,23 +62,24 @@ public class MenuForm {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shaper.begin(ShapeRenderer.ShapeType.Filled);
         if (up) {
-            scale += 0.002;
-            if (scale > 0.2)
+            scale += 0.05;
+            if (scale > 1)
                 up = false;
         } else {
-            scale -= 0.002;
-            if (scale < 0.003)
+            scale -= 0.05;
+            if (scale < 0.1)
                 up = true;
         }
 
 
-        gameWorld.roundedRectangle(shaper, gameWorld.buttonSize / 2 + gameWorld.MARGIN * 2f, gameWorld.MARGIN,
-                textWidth + 4 + textWidth * scale, gameWorld.buttonSize + textHeight * scale,
-                gameWorld.buttonSize * 0.21f, new Color(0.153f - scale, 0.486f - scale, 0.533f - scale, 1)); //radius = 2.5f
+        gameWorld.roundedRectangle(shaper, gameWorld.buttonSize / 2 + gameWorld.MARGIN * 2f - scale / 2,
+                gameWorld.MARGIN - scale / 2,
+                textWidth + 4 + scale, gameWorld.buttonSize + scale,
+                gameWorld.buttonSize * 0.21f, new Color(0.153f - scale / 10, 0.486f - scale / 10, 0.533f - scale / 10, 1)); //radius = 2.5f
 
         shaper.end();
         batcher.begin();
-        gameWorld.assetLoader.font.getData().setScale(0.1f + 0.1f * scale, -0.1f - 0.1f * scale);
+        gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
         gameWorld.assetLoader.font.draw(batcher, AssetLoader.prefs.getInteger("highScore") + "",gameWorld.buttonSize / 2 + gameWorld.MARGIN *3f,
                 gameWorld.buttonSize / 2 - textHeight / 2 + gameWorld.MARGIN - 1f);
         gameWorld.assetLoader.font.getData().setScale(0.1f, -0.1f);
@@ -111,5 +119,9 @@ public class MenuForm {
 
     public boolean isClickedStudy(float x, float y) {
         return boundStudy.contains(x, y);
+    }
+
+    public boolean isClickedMoney(float x, float y) {
+        return boundMoney.contains(x, y);
     }
 }
