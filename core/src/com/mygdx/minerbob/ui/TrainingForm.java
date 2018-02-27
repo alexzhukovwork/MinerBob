@@ -206,7 +206,7 @@ public class TrainingForm {
                 textWidth = TextSize.getWidth(gameWorld.assetLoader.font, "TAP");
                 gameWorld.assetLoader.font.draw(batcher, "TAP", gameWorld.WIDTH - gameWorld.WIDTH / 22 - textWidth,
                         gameWorld.HEIGHT - gameWorld.HEIGHT / 3.7f);
-                batcher.draw(gameWorld.assetLoader.buttonBack, boundsCancel.x, boundsCancel.y, boundsCancel.width, boundsCancel.height);
+                batcher.draw(gameWorld.assetLoader.buttonBackWhite, boundsCancel.x, boundsCancel.y, boundsCancel.width, boundsCancel.height);
                 if(isOnBlock)
                     batcher.draw((TextureRegion) gameWorld.assetLoader.currentAnimation.getKeyFrame(runTime), position.x, position.y,
                             gameWorld.WIDTH / 5, gameWorld.HEIGHT / 7);

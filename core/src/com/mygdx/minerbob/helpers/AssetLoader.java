@@ -65,7 +65,7 @@ public class AssetLoader {
     public TextureRegion yesMenuTexture;
     public TextureRegion noMenuTexture;
     public TextureRegion buttonPauseTexture;
-
+    public TextureRegion buttonBackWhite;
     //Sounds
     public Sound money;
     public Sound moneycombox2;
@@ -156,6 +156,8 @@ public class AssetLoader {
         noMenuTexture.flip(false, true);
         buttonPauseTexture = atlasTexture.findRegion("pause");
         buttonPauseTexture.flip(false, true);
+        buttonBackWhite = atlasTexture.findRegion("white_back");
+        buttonBackWhite.flip(false, true);
     }
 
     private void initButtons() {
