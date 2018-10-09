@@ -26,6 +26,7 @@ public class LeaderBoardForm {
         this.gameWorld = gameWorld;
         bound = new Rectangle(0, 0,
                 gameWorld.WIDTH, gameWorld.HEIGHT);
+        generateString("NOT INTERNET\nCONNECTION");
     }
 
     public void draw(ShapeRenderer renderer, SpriteBatch batcher) {
@@ -42,7 +43,7 @@ public class LeaderBoardForm {
                 gameWorld.MARGIN);
        // batcher.draw(gameWorld.assetLoader.shopField, bound.x, bound.y, bound.width, bound.height);
 
-        if (users != null) {
+        if (!users[0].equals("NOT INTERNET")) {
             String score;
             String login;
             float margin = 0;
@@ -65,23 +66,35 @@ public class LeaderBoardForm {
                             gameWorld.buttonSize / 2 + bound.y + gameWorld.MARGIN + margin);
                 }
             }
+        } else {
+            gameWorld.assetLoader.font.draw(batcher, users[0],
+                    gameWorld.WIDTH / 2 - TextSize.getWidth(gameWorld.assetLoader.font, users[0]) / 2,
+                    gameWorld.buttonSize / 2 + bound.y + gameWorld.MARGIN + gameWorld.buttonSize);
+            gameWorld.assetLoader.font.draw(batcher, "\n\n" + users[1],
+                    gameWorld.WIDTH / 2 - TextSize.getWidth(gameWorld.assetLoader.font, users[1]) / 2
+                            - TextSize.getWidth(gameWorld.assetLoader.font, "T") / 5,
+                    gameWorld.buttonSize / 2 + bound.y + gameWorld.MARGIN + gameWorld.buttonSize);
         }
     }
 
     public void generateString(String str) {
-        users = str.split("\n");
-        if (users.length > 0) {
-            String[] arr;
-            String[] arrLast = users[users.length - 1].split(" ");
-            users[users.length - 1] = "\n" + arrLast[1] + "(You) \n" + arrLast[2];
-            for (int i = 0; i < users.length - 1; i++) {
-                arr = users[i].split(" ");
-                if (arr[0].equals(arrLast[0])) {
-                    users[i] = arr[1] + "(You) " + arr[2];
-                    users[users.length - 1] = "";
-                } else
-                    users[i] = arr[1] + " " + arr[2];
+        if (!str.equals("NOT INTERNET\nCONNECTION")) {
+            users = str.split("\n");
+            if (users.length > 0) {
+                String[] arr;
+                String[] arrLast = users[users.length - 1].split(" ");
+                users[users.length - 1] = "\n" + arrLast[1] + "(You) \n" + arrLast[2];
+                for (int i = 0; i < users.length - 1; i++) {
+                    arr = users[i].split(" ");
+                    if (arr[0].equals(arrLast[0])) {
+                        users[i] = arr[1] + "(You) " + arr[2];
+                        users[users.length - 1] = "";
+                    } else
+                        users[i] = arr[1] + " " + arr[2];
+                }
             }
+        } else {
+            users = str.split("\n");
         }
     }
 

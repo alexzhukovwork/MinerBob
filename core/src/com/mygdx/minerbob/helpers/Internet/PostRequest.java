@@ -62,12 +62,12 @@ public class PostRequest {
 
             @Override
             public void failed(Throwable t) {
-
+                gameWorld.getLeaderBoardForm().generateString("NOT INTERNET\nCONNECTION");
             }
 
             @Override
             public void cancelled() {
-
+         //       gameWorld.getLeaderBoardForm().generateString("NOT INTERNET\nCONNECTION");
             }
         });
     }
