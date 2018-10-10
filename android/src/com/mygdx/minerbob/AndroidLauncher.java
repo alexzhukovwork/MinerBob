@@ -46,10 +46,10 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		public void handleMessage(Message msg) {
 			switch(msg.what) {
 				case SHOW_ADS:
-					adView.setVisibility(View.VISIBLE);
+			//		adView.setVisibility(View.VISIBLE);
 					break;
 				case HIDE_ADS:
-					adView.setVisibility(View.GONE);
+			//		adView.setVisibility(View.GONE);
 					break;
 			}
 		}
@@ -73,7 +73,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
 		layout.addView(gameView);
 
-		adView = new AdView(this);
+	/*	adView = new AdView(this);
 
 		// В файле strings.xml создайте строку с вашим publisher_id
 
@@ -100,9 +100,9 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
 		layout.addView(adView, adParams);
-
+*/
 		setContentView(layout);
-
+/*
 		MobileAds.initialize(this, APP_ID);
 
 		mAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -165,6 +165,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 			}
 		});
 		loadRewardedVideoAd();
+		*/
 	}
 
 	private void loadRewardedVideoAd() {
@@ -176,7 +177,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 	}
 
 	public void showVideoAd(){
-		runOnUiThread(new Runnable() {
+	/*	runOnUiThread(new Runnable() {
 			public void run() {
 
 				if (mAd.isLoaded()) {
@@ -186,6 +187,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 				}
 			}
 		});
+		*/
 	}
 
     @Override
